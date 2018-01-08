@@ -1,8 +1,12 @@
 <template lang="pug">
+
+.ctn1200
   .logo
     img(src="")
 
-  .
+  .main
+    ul
+
 </template>
 
 <script>
