@@ -4,7 +4,11 @@ div
 </template>
 
 <script>
+
 import Head from './components/header'
+
+import List from '../js/listClass'
+
 export default {
   name: 'index',
   data(){
