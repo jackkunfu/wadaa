@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-    Head
+    Head(showNavBottom="true")
 </template>
 
 <script>

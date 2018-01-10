@@ -8,13 +8,12 @@ div
 
     .main
       ul
-        li(v-for="item in tabs")
+        li(v-for="item in tabs" @click="item.url")
           .box {{item.name}}
           ul
-            li(v-for="nav in item.list") {{nav.name}}
+            li(v-for="nav in item.list" @click="item.url") {{nav.name}}
 
-  header-bottom
-
+  header-bottom(v-if="showNavBottom")
 
 </template>
 
@@ -22,6 +21,7 @@ div
 import headerBottom from './headerBottom.vue'
 export default {
   name: 'header',
+  props: ['showNavBottom'],
   data () {
     return {
       tabs: [
@@ -40,6 +40,11 @@ export default {
   },
   components: {
     headerBottom
+  },
+  methods: {
+    goUrl(urlStr){
+      if(urlStr) this.$router.push(urlStr);
+    }
   }
 }
 </script>

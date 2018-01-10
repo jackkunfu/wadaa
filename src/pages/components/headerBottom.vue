@@ -18,5 +18,6 @@ export default {
 
 .ctn
   background-image: url('../../imgs/slider-bg-dark.jpg');
+  height: 160px;
 
 </style>
