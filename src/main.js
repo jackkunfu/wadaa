@@ -5,8 +5,11 @@ import App from './App'
 import router from './router'
 
 import './sass/reset.sass'
+import vueProto from './js/vueProto'
 
 Vue.config.productionTip = false
+
+vueProto(Vue)
 
 /* eslint-disable no-new */
 new Vue({

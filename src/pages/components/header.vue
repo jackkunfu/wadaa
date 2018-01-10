@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     goUrl(urlStr){
-      if(urlStr) this.$router.push(urlStr);
+      // if(urlStr) this.$router.push(urlStr);
     }
   }
 }

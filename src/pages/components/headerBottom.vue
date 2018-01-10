@@ -31,7 +31,7 @@ export default {
     search(){
       var trimStr = str.trim();
       if(!trimStr) return
-      this.$router.push({path: '/s', query: {str: trimStr}})
+      // this.$router.push({path: '/s', query: {str: trimStr}})
     }
   }
 }

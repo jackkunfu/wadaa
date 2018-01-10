@@ -8,12 +8,15 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
-
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: ['babel-polyfill', './src/main.js']
+  },
+  externals: {
+    'vue': 'window.Vue',
+    'vue-router': 'window.VueRouter',
+    'vuex': 'window.Vuex'
   },
   output: {
     path: config.build.assetsRoot,
