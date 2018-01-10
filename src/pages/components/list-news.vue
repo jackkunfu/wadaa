@@ -1,10 +1,11 @@
 <template lang="pug">
 
-div
+.ctn1200
   .box(v-for="item in dataArr")
     .fl
       .day 17
       span 2017-02
+      
     .fr
 
 </template>
@@ -15,7 +16,7 @@ div
     props: ['listInfo'],
     data(){
       return {
-        dataArr: [1,2]
+        dataArr: [1]
       }
     },
     mounted(){

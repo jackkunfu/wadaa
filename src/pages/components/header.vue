@@ -71,11 +71,10 @@ export default {
   float: right;
   >ul
     >li
-      padding: 0 1rem;
       display: inline-block;
-      
       text-align: center;
       position: relative;
+      font-size: 1.5rem;
       &:hover
         cursor: pointer;
         .box
@@ -86,6 +85,7 @@ export default {
 
       .box
         line-height: 10rem;
+        padding: 0 1rem;
         
       ul
         display: none;
@@ -95,6 +95,7 @@ export default {
         left: 0;
         background: #fff;
         li
+          text-align: left;
           line-height: 3rem;
           font-size: 1.4rem;
           line-height: 4rem;
