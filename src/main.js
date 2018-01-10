@@ -9,7 +9,7 @@ import vueProto from './js/vueProto'
 
 Vue.config.productionTip = false
 
-vueProto(Vue)
+Vue.use(vueProto)
 
 /* eslint-disable no-new */
 new Vue({

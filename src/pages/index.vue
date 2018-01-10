@@ -2,19 +2,19 @@
 div
     head-nav(showNavBottom="true")
 
-    list(:listInfo="listInfo")
+    list-news(:listInfo="listInfo")
 </template>
 
 <script>
 
-import HeadNav from './components/header'
-import List from './components/List'
+import headNav from './components/header'
+import listNews from './components/list-news'
 
 export default {
   name: 'index',
   data(){
       return {
-        listInfo: {   // 需要展示的列表信息
+        listInfo: {   // listNews组件需要信息
           url: '',
           opts: {
 
@@ -23,11 +23,10 @@ export default {
       }
   },
   components: {
-    HeadNav,
-    List
+    headNav,
+    listNews
   },
   mounted(){
-    alert(2)
   }
 }
 </script>
