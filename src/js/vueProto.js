@@ -30,22 +30,17 @@ export default function vueProto(){
       type: 'post'   //  get 时可不写
     }
    ctx -> 当前调用组件的vue对象，用来操作具体组件中的某个数据更新，具体使用时一般传this，
-   cb -> // 如果接收数据不能直接使用，第四个参数传入回调函数自行处理~  一般不用传
+   isSelfHandle -> // 如果接收数据不能直接使用，第四个参数传入true~具体调用时，继续.then接收数据来处理
    */
-  Vue.prototype.keyRequest = function(keyStr, keyConfig, ctx, cb){
+  Vue.prototype.keyRequest = function(keyStr, keyConfig, ctx, isSelfHandle){
     this.ajax( keyConfig.url, keyConfig.opts, keyConfig.type || 'get')
-      .then(
-        (d)=>{
-          if(cb && typeof cb == 'function'){  
-            cb(d);
-          }else{
-            if(d.success){
-              ctx[keyStr] = d.data;
-            }else{
-              alert(d.msg);
-            }
-          }
+      .then((d)=>{
+        if(isSelfHandle) return d;
+        if(d.success){
+          ctx[keyStr] = d.data;
+        }else{
+          alert(d.msg);
         }
-      )
+      })
   }
 }
