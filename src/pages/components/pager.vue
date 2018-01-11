@@ -40,8 +40,9 @@
   border: 1px solid #e5e5e5;
   padding: 0 0.1rem;
   min-width: 0.3rem;
-  font-size: 0.1rem;
+  font-size: 0.14rem;
   line-height: 0.3rem;
+  cursor: pointer;
   &.cur
     background-color: #444;
     color: #fff;

@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  //- head-nav(showNavBottom="true")
+  head-nav(showNavBottom="true")
 
   .ctn1200
     .fl
