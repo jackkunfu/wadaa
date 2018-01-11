@@ -1,3 +1,4 @@
+// 列表的一些方法暂时挂载到Vue.prototype上 ，这个暂时不用
 export default {
   data(){
     return {
