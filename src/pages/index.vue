@@ -13,7 +13,6 @@ div
 
 import headNav from './components/header'
 import listNews from './components/list-news'
-import pager from './components/pager'
 
 export default {
   name: 'index',
@@ -31,8 +30,7 @@ export default {
   },
   components: {
     headNav,
-    listNews,
-    pager
+    listNews
   },
   mounted(){
   },
