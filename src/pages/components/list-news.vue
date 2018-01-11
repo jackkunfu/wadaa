@@ -16,12 +16,12 @@
     props: ['listInfo'],
     data(){
       return {
-        dataArr: [1]
+        dataArr: [1],     // 列表数据
       }
     },
     mounted(){
       // 请求列表数据
-      this.listRequest(this.listInfo, 'dataArr', this);
+      this.keyRequest(this.listInfo, 'dataArr', this);
     },
     methods: {
     }

@@ -21,17 +21,27 @@ export default function vueProto(){
   }
 
   /*
-   列表组件中请求列表数据的方法
-   infoConfig -> 请求列表的url,参数等参数信息对象
-   thisDataKey -> 组件中当前列表的字段字符串
-   ctx -> 当前调用组件的vue对象，用来操作具体组件中的某个数据更新
+   请求组件中某个字段的异步请求数据方法
+   keyConfig -> 请求字段数据的的url,参数等参数信息对象
+    {
+      url: '/xx/xx',   // 接口地址
+      opts: {},    // 传参
+      type: 'post'   //  get 时可不写
+    }
+   keyStr -> 组件中当前请求数据的对应字段字符串
+   ctx -> 当前调用组件的vue对象，用来操作具体组件中的某个数据更新，具体使用时一般传this，
+   cb -> // 如果接收数据不能直接使用，第四个参数传入回调函数自行处理~  一般不用传
    */
-  Vue.prototype.listRequest = function(infoConfig, thisDataKey, ctx){
-    this.ajax( infoConfig.url, infoConfig.opts)
+  Vue.prototype.keyRequest = function(keyConfig, keyStr, ctx, cb){
+    this.ajax( infoConfig.url, infoConfig.opts, infoConfig.type || 'get')
       .then(
         (d)=>{
-          if(d.success){
-            ctx[thisDataKey] = d.data;
+          if(cb){  
+            cb(d);
+          }else{
+            if(d.success){
+              ctx[thisDataKey] = d.data;
+            }
           }
         }
       )
