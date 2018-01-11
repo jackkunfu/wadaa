@@ -1,10 +1,10 @@
 <template lang="pug">
 div
-  head-nav(showNavBottom="true")
+  //- head-nav(showNavBottom="true")
 
   .ctn1200
     .fl
-      list-news(:listInfo="listInfo" @pageChange="pageChange")
+      list-news(:listInfo="listInfo")
 
     .fr
 </template>
@@ -34,11 +34,7 @@ export default {
   },
   mounted(){
   },
-  methods: {
-    pageChange(v){    //  应该用不到
-      this.curPage = v;
-    }
-  }
+  methods: {}
 }
 </script>
 

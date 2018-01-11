@@ -8,7 +8,7 @@ div
       
     .fr
 
-  pager(:pageData="pageData")
+  pager(:pageData="pageData" @pageChange="pageChange")
 
 </template>
 
@@ -21,8 +21,11 @@ div
     data(){
       return {
         dataArr: [1],     // 列表数据
-        pageData: {},
-        curPage: 1
+        pageData: {
+          cur: 1,
+          total: 10
+        },
+        curPage: this.listInfo.cur
       }
     },
     components: {
@@ -30,19 +33,27 @@ div
     },
     mounted(){
       // 请求列表数据
-      // this.keyRequest('dataArr', this.listInfo, this, true)
-      //   .then((res)=>{
-      //     this.dataArr = res.data || [];
-      //     var cp = res.curPage
-      //     this.curPage = cp
-      //     this.pageData = {
-      //       total: res.total,
-      //       cur: cp
-      //     }
-      //     // this.$emit('pageChange', res.curPage);    // 好像暂时不用往上层传递当前选中的第几页
-      //   });
+      this.list();
     },
     methods: {
+      pageChange(v){  // 页码变化事件
+        this.curPage = v;
+        this.list();
+      },
+      list(){
+        var opts = this.listInfo
+        opts.page = this.curPage
+        this.keyRequest('dataArr', opts, this, true)
+          .then((res)=>{
+            this.dataArr = res.data || [1];
+            var cp = res.curPage
+            this.curPage = cp
+            this.pageData = {
+              total: res.total || 10,
+              cur: cp || 1
+            }
+          });
+      }
     }
   }
 </script>

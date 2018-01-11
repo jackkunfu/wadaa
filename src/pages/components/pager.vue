@@ -1,10 +1,16 @@
 <template lang="pug">
 
-div
-  .fl(v-if="pageData.cur > 1") 第一页
-  .fl(v-if="pageData.cur > 1") 上一页
+.page-ctn
+  .fl(v-if="cur > 3" @click="cur=1;") «第一页
+  .fl(v-if="cur > 2" @click="cur--;") ‹上一页
 
-  .fl(v-if="pageData.total > pageData.cur") 下一页
+  span(v-for="(item, i) in [2,1,0,-1,-2]")
+    .fl(v-if="cur-item > 0 && cur-item <= pageData.total"
+      @click="cur=cur-item"
+      :class="cur == cur-item ? 'cur' : ''") {{cur-item}}
+
+  .fl(v-if="pageData.total > cur" @click="cur++;") 下一页›
+  .fl(v-if="pageData.total > cur" @click="cur=pageData.total;") 最后一页»
 
 </template>
 
@@ -13,15 +19,17 @@ div
     name: 'pager',
     props: ['pageData'],
     data(){
-      return {}
+      return {
+        cur: this.pageData.cur
+      }
     },
     mounted(){
     },
     methods: {
     },
     watch: {
-      pageData(v){
-        return v
+      cur(v){
+        this.$emit('pageChange', v);
       }
     }
   }
@@ -30,9 +38,15 @@ div
 <style lang="sass" scoped>
 .fl
   border: 1px solid #e5e5e5;
+  padding: 0 0.1rem;
+  min-width: 0.3rem;
+  font-size: 0.1rem;
+  line-height: 0.3rem;
   &.cur
     background-color: #444;
+    color: #fff;
   &:hover
     background-color: #099;
+    color: #fff;
 </style>
 
