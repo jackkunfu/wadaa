@@ -21,7 +21,7 @@
     },
     mounted(){
       // 请求列表数据
-      this.listRequest(this.listInfo, 'dataArr');
+      this.listRequest(this.listInfo, 'dataArr', this);
     },
     methods: {
     }
