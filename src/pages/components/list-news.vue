@@ -21,7 +21,7 @@
     },
     mounted(){
       // 请求列表数据
-      this.keyRequest(this.listInfo, 'dataArr', this);
+      this.keyRequest('dataArr', this.listInfo, this);
     },
     methods: {
     }
