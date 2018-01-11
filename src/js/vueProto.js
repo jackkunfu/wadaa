@@ -33,7 +33,7 @@ export default function vueProto(){
    cb -> // 如果接收数据不能直接使用，第四个参数传入回调函数自行处理~  一般不用传
    */
   Vue.prototype.keyRequest = function(keyStr, keyConfig, ctx, cb){
-    this.ajax( infoConfig.url, infoConfig.opts, infoConfig.type || 'get')
+    this.ajax( keyConfig.url, keyConfig.opts, keyConfig.type || 'get')
       .then(
         (d)=>{
           if(cb && typeof cb == 'function'){  
