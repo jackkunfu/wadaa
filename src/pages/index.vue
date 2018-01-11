@@ -1,14 +1,19 @@
 <template lang="pug">
 div
-    head-nav(showNavBottom="true")
+  head-nav(showNavBottom="true")
 
-    list-news(:listInfo="listInfo")
+  .ctn1200
+    .fl
+      list-news(:listInfo="listInfo" @pageChange="pageChange")
+
+    .fr
 </template>
 
 <script>
 
 import headNav from './components/header'
 import listNews from './components/list-news'
+import pager from './components/pager'
 
 export default {
   name: 'index',
@@ -17,16 +22,24 @@ export default {
         listInfo: {   // listNews组件需要信息
           url: '',
           opts: {
-
+            page: this.curPage,  // page 在父组件这里传递貌似意义不大
+            rows: 10
           }
-        }
+        },
+        curPage: 1
       }
   },
   components: {
     headNav,
-    listNews
+    listNews,
+    pager
   },
   mounted(){
+  },
+  methods: {
+    pageChange(v){    //  应该用不到
+      this.curPage = v;
+    }
   }
 }
 </script>

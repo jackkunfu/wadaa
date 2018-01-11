@@ -6,9 +6,9 @@ div
       div 周末享跑
       span Running Weekends
 
-    .main
+    .main.fr
       ul
-        li(v-for="item in tabs" @click="item.url")
+        li.fl(v-for="item in tabs" @click="item.url")
           .box {{item.name}}
           ul
             li(v-for="nav in item.list" @click="item.url") {{nav.name}}
@@ -51,30 +51,31 @@ export default {
 
 <style scoped lang="sass">
 .ctn1200
-  height: 10rem;
+  height: 1rem;
 .logo
   float: left;
-  margin-top: 3rem;
+  margin-top: 0.3rem;
   color: #333;
-  font-size: 2.4rem;
+  font-size: 0.24rem;
   line-height: 1;
-  width: 17rem;
+  width: 1.7rem;
   img
-    max-height: 4rem;
+    max-height: 0.4rem;
     float: left;
-    margin-right: 1rem;
+    margin-right: 0.1rem;
   span
     color: #999;
-    font-size: 1.4rem;
+    font-size: 0.14rem;
+    position: relative;
+    top: -0.05rem;
 
 .main
-  float: right;
   >ul
     >li
       display: inline-block;
       text-align: center;
       position: relative;
-      font-size: 1.5rem;
+      font-size: 0.15rem;
       &:hover
         cursor: pointer;
         .box
@@ -84,22 +85,22 @@ export default {
           display: block;
 
       .box
-        line-height: 10rem;
-        padding: 0 1rem;
+        line-height: 1rem;
+        padding: 0 0.1rem;
         
       ul
         display: none;
-        width: 20rem;
+        width: 2rem;
         position: absolute;
-        top: 10rem;
+        top: 1rem;
         left: 0;
         background: #fff;
         li
           text-align: left;
-          line-height: 3rem;
-          font-size: 1.4rem;
-          line-height: 4rem;
-          padding-left: 2rem;
+          line-height: 0.3rem;
+          font-size: 0.14rem;
+          line-height: 0.4rem;
+          padding-left: 0.2rem;
           border-bottom: 1px solid #e5e5e5;
           &:hover
             color: #099;

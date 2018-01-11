@@ -2,18 +2,18 @@
 
 .ctn
   .ctn1200
-  .fl(v-if="str")
-    span 关键词：{{str}}
-  .fr
-    input()
-    .crumbs
-      span Home
-      span(v-if="crumb")
-        | >
-        span {{crumb}}
-      span(v-if="crumb1")
-        | >
-        span {{crumb1}}
+    .fl(v-if="str")
+      span 关键词：{{str}}
+    .fr
+      input()
+      .crumbs
+        span Home
+        span(v-if="crumb")
+          | >
+          span {{crumb}}
+        span(v-if="crumb1")
+          | >
+          span {{crumb1}}
 
 </template>
 
@@ -41,6 +41,7 @@ export default {
 
 .ctn
   background-image: url('../../imgs/slider-bg-dark.jpg');
-  height: 16rem;
+  height: 1.6rem;
+  font-size: 0.1rem;
 
 </style>

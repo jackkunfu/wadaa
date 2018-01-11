@@ -4,8 +4,13 @@
   box-sizing: border-box;
 
 .ctn1200
-  width: 120rem;
+  width: 12rem;
   margin: 0 auto;
+  &:after
+    display: block;
+    content: '';
+    height: 0;
+    clear: both;
 
 .fl
   float: left;
