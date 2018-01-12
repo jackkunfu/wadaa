@@ -19,6 +19,11 @@
 
       .text
         | 由于在3月5日的比赛中有获奖者为替跑选手，所以名单公示不得不推迟;经过组委会和相关人员的沟通，对获奖选手进行了调整，于3月17日开始公示，近期组委会将联系获奖选手告知奖金放发事宜；同时对于替跑选手的处罚公告也一并开始公示。             &nb…
+      
+      .read-all 阅读全文
+
+      .key
+        span 无缝隙古镇
 
   pager(:pageData="pageData" @pageChange="pageChange")
 
@@ -166,6 +171,29 @@
     max-height: 0.6rem;
     overflow: hidden;
     text-indent: 0.28rem;
+
+  .read-all
+    display: inline-block;
+    padding: 0 0.1rem;
+    font-size: 0.12rem;
+    height: 0.3rem;
+    line-height: 0.28rem;
+    color: #333;
+    border: 1px solid #333;
+    border-radius: 3px;
+    cursor: pointer;
+    &:hover
+      background: #c00;
+      border: 1px solid #c00;
+      color: #fff;
+
+  .key
+    font-size: 0.12rem;
+    color: #333;
+    line-height: 0.12rem;
+    span
+      margin-right: .1rem;
+
 
       
     
