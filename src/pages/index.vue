@@ -7,12 +7,16 @@ div
       list-news(:listInfo="listInfo")
 
     .fr
+      right-part
+  footer-part
 </template>
 
 <script>
 
 import headNav from './components/header'
 import listNews from './components/list-news'
+import footerPart from './components/footer'
+import rightPart from './components/right'
 
 export default {
   name: 'index',
@@ -30,7 +34,9 @@ export default {
   },
   components: {
     headNav,
-    listNews
+    listNews,
+    footerPart,
+    rightPart,
   },
   mounted(){
   },

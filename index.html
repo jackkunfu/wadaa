@@ -9,6 +9,9 @@
     <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
   </head>
   <body>
+    <a href="#" class="top">
+      <img src="src/imgs/search.png" alt="">
+    </a>
     <script>
       var userAgent = navigator.userAgent
       if(userAgent.indexOf("Android")>0 || userAgent.indexOf("iPhone")>0 || userAgent.indexOf("iPad")>0){ //移动端
@@ -16,6 +19,13 @@
       }else{ //pc端  
         document.documentElement.style.fontSize = '100px';
       }
+      $(window).scroll(function(){
+        if($(window).scrollTop()>10){
+          $('.top').fadeIn(500);
+        }else{
+          $('.top').fadeOut(500);
+        }
+      })
     </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
