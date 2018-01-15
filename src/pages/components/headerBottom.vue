@@ -19,7 +19,7 @@
       .search-msg
         input(placeholder="输入关键词后回车...") 
         .search-icon
-          img(src="../../imgs/search.png")
+          i.iconfont  &#xe63d;
       .crumbs
         span Home
         span(v-if="crumb") >>

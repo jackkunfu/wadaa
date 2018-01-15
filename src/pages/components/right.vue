@@ -4,6 +4,12 @@
             h3 沐野青城
             .msg-box
                 .nav
+                    span
+                        i.icon.iconfont &#xe617;
+                    span
+                        i.icon.iconfont &#xe608;
+                    span
+                        i.icon.iconfont &#xe62b;
                 
                     
 
@@ -41,6 +47,17 @@ export default {
             margin-bottom: 15px;
         .run-msg,.public-code
             margin-bottom: 30px;
+        .msg-box
+            width: 100%;
+            border: 1px solid red;
+            .nav
+                width: 100%;
+                height: 30px;
+                line-height: 30px;
+                background: #e5e5e5;
+                span
+                    display: inline-block;
+                    padding: 10px;
         .mail-msg
             height: 70px;
             position: relative;
