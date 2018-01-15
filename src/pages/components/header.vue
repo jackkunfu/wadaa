@@ -54,7 +54,7 @@ export default {
   methods: {
     goUrl(item){
       if(item.url){
-        // isLocation 增加个字段  防止 同一个页面更改hash值页面无变化
+        // isLocation 增加个字段  防止 同一个页面更改hash值页面无变化时走location.href跳转
         if(item.isLocation){
           var search = ''
           if(item.query){
