@@ -1,6 +1,7 @@
 <template lang="pug">
+
 div
-  head-nav(showNavBottom="true")
+  //- head-nav(showNavBottom="true")
 
   .ctn1200
     .fl
@@ -8,14 +9,16 @@ div
 
     .fr
       right-part
-  footer-part
+
+  //- footer-part
+
 </template>
 
 <script>
 
-import headNav from './components/header'
+// import headNav from './components/header'
+// import footerPart from './components/footer'
 import listNews from './components/list-news'
-import footerPart from './components/footer'
 import rightPart from './components/right'
 
 export default {
@@ -33,10 +36,10 @@ export default {
     }
   },
   components: {
-    headNav,
+    // headNav,
+    // footerPart,
     listNews,
-    footerPart,
-    rightPart,
+    rightPart
   },
   mounted(){
   },

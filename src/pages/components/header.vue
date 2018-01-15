@@ -8,10 +8,10 @@ div
 
     .main.fr
       ul
-        li.fl(v-for="item in tabs" @click="item.url")
+        li.fl(v-for="(item, i) in tabs" @click="goUrl(item)")
           .box {{item.name}}
-          ul
-            li(v-for="nav in item.list" @click="item.url") {{nav.name}}
+          ul(:class=" i == tabs.length -1 ? 'last' : '' ")
+            li(v-for="nav in item.list" @click="goUrl(nav)") {{nav.name}}
 
   header-bottom(v-if="showNavBottom")
 
@@ -32,7 +32,17 @@ export default {
             { name: '2017赛事新闻', url: '' },
             { name: '2017赛事规程', url: '' },
             { name: '2017赛事报名', url: '' },
-            { name: '2017赛事新闻', url: '' },
+            { name: '2017赛事新闻', url: '' }
+          ]
+        },
+        {
+          name: '关于我们',
+          url: '',
+          list: [
+            { name: '团队领军人', url: '/aboutUs', query: {type: 1}, isLocation: true },
+            { name: '团队特点及优势', url: '/aboutUs', query: {type: 2}, isLocation: true },
+            { name: '合作伙伴和机构', url: '/aboutUs', query: {type: 3}, isLocation: true },
+            { name: '赛事和系列活动', url: '' }
           ]
         }
       ]
@@ -42,8 +52,26 @@ export default {
     headerBottom
   },
   methods: {
-    goUrl(urlStr){
-      // if(urlStr) this.$router.push(urlStr);
+    goUrl(item){
+      if(item.url){
+        // isLocation 增加个字段  防止 同一个页面更改hash值页面无变化时走location.href跳转
+        if(item.isLocation){
+          var search = ''
+          if(item.query){
+            if(JSON.stringify(item.query) != '{}'){
+              search += '?'+JSON.stringify(item.query).replace(/({|}|")/g, '').replace(/,/g, '&').replace(/:/g, '=');
+            }
+          }
+          location.href = 'http://' + location.host + '/#' + item.url + search;
+        }else{
+          this.$router.push({path: item.url, query: item.query});
+        }
+      }
+    }
+  },
+  watch: {
+    type(v){
+      return v;
     }
   }
 }
@@ -96,6 +124,9 @@ export default {
         top: 100px;
         left: 0;
         background: #fff;
+        &.last
+          left: auto;
+          right: 0;
         li
           text-align: left;
           line-height: 30px;
