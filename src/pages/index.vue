@@ -1,4 +1,5 @@
 <template lang="pug">
+
 div
   head-nav(showNavBottom="true")
 
@@ -8,7 +9,9 @@ div
 
     .fr
       right-part
+
   footer-part
+
 </template>
 
 <script>

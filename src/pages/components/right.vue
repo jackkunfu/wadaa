@@ -1,30 +1,29 @@
 <template lang="pug">
-    .right
-        .run-msg
-            h3 沐野青城
-            .msg-box
-                .nav
-                    span
-                        i.icon.iconfont &#xe617;
-                    span
-                        i.icon.iconfont &#xe608;
-                    span
-                        i.icon.iconfont &#xe62b;
-                
-                    
 
-        .public-code
-            h3 关注周末享跑公众号
-            img(src="../../imgs/2016122008485864.jpg")
-        .mail-login
-            h3 邮箱登陆
-            .mail-msg
-                label 账号：
-                input(type="text")
-                p @runningweekends.net
-            .mail-msg
-                label 密码：
-                input(type="password")
+.right
+    .run-msg
+        h3 沐野青城
+        .msg-box
+            .nav
+                span
+                    i.icon.iconfont &#xe617;
+                span
+                    i.icon.iconfont &#xe608;
+                span
+                    i.icon.iconfont &#xe62b;
+            
+    .public-code
+        h3 关注周末享跑公众号
+        img(src="../../imgs/2016122008485864.jpg")
+    .mail-login
+        h3 邮箱登陆
+        .mail-msg
+            label 账号：
+            input(type="text")
+            p @runningweekends.net
+        .mail-msg
+            label 密码：
+            input(type="password")
 
 </template>
 <script>

@@ -1,13 +1,15 @@
 <template lang="pug">
-    .footer
-        .line
-        div
-            .fl
-                strong ©Copyright 2015 by Running Weekends。 All Rights Reserved. 
-            .fr
-                img(src="../../imgs/RWKS_footer.jpg")
+
+.footer
+    .line
+    div
+        .fl
+            strong ©Copyright 2015 by Running Weekends。 All Rights Reserved. 
+        .fr
+            img(src="../../imgs/RWKS_footer.jpg")
 
 </template>
+
 <script>
 export default {
     name: "footer",
@@ -18,6 +20,7 @@ export default {
     }
 }
 </script>
+
 <style lang="sass" scoped>
     .footer
         position: relative;
