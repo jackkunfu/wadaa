@@ -6,7 +6,7 @@
 
   router-view
 
-  footerPart
+  footer-part
 
 </template>
 
