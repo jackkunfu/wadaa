@@ -54,14 +54,11 @@ export default {
   methods: {
     goUrl(item){
       if(item.url){
+        // isLocation 增加个字段  防止 同一个页面更改hash值页面无变化
         if(item.isLocation){
           var search = ''
           if(item.query){
             if(JSON.stringify(item.query) != '{}'){
-              // search += '?'
-              // Object.keys(item.query).forEach(function(v){
-              //   search += v + '=' + item.query[v]
-              // })
               search += '?'+JSON.stringify(item.query).replace(/({|}|")/g, '').replace(/,/g, '&').replace(/:/g, '=');
             }
           }
