@@ -54,9 +54,9 @@ export default {
 
 .ctn
   background-image: url('../../imgs/slider-bg-dark.jpg');
-  height: 1.6rem;
-  line-height: 1.6rem;
-  font-size: 0.1rem;
+  height: 160px;
+  line-height: 160px;
+  font-size: 10px;
   margin-bottom: 50px;
   .ctn1200
     position: relative;

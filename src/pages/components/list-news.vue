@@ -78,34 +78,34 @@
 <style lang="sass" scoped>
 
 .list-ctn
-  width: 8.5rem;
+  width: 850px;
   .box
     position: relative;
     border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 0.1rem;
+    padding-bottom: 10px;
 
 .time
   position: absolute;
   top: 0;
   left: 0;
-  width: 0.6rem;
+  width: 60px;
   text-align: center;
-  font-size: 0.1rem;
+  font-size: 10px;
   color: #4e4e4e;
-  line-height: 0.3rem;
+  line-height: 30px;
   .day
-    font-size: 0.18rem;
+    font-size: 18px;
     color: #333;
     font-weight: bold;
-    line-height: 0.3rem;
+    line-height: 30px;
     border-bottom: 1px solid #099;
 
 .main
-  padding-left: 0.75rem;
+  padding-left: 75px;
   .img
     display: block;
     width: 100%;
-    height: 2rem;
+    height: 200px;
     overflow: hidden;
     position: relative;
     background-color: #eee;
@@ -114,7 +114,7 @@
         display: block;
       .btn
         top: 50%;
-        margin-top: -0.3rem;
+        margin-top: -30px;
 
     img
       width: 100%;
@@ -129,35 +129,35 @@
       z-index: 1;
     .btn
       position: absolute;
-      top: -0.6rem;
+      top: -60px;
       left: 50%;
-      width: 0.6rem;
-      height: 0.6rem;
-      margin-left: -0.3rem;
+      width: 60px;
+      height: 60px;
+      margin-left: -30px;
       background-color: #444;
       color: #fff;
       z-index: 2;
       border-radius: 50%;
       transition: all 0.5s;
       transition-duration: .2s;
-      font-size: 0.24rem;
+      font-size: 24px;
       text-align: center;
-      line-height: 0.6rem;
+      line-height: 60px;
       font-weight: bolder;
   .name
-    font-size: 0.24rem;
+    font-size: 24px;
     color: #333;
-    margin-top: 0.2rem;
+    margin-top: 20px;
     cursor: pointer;
     &:hover
       color: #099;
   .tip
-    font-size: 0.1rem;
+    font-size: 10px;
     color: #333;
-    line-height: 0.25rem;
-    margin-bottom: 0.1rem;
+    line-height: 25px;
+    margin-bottom: 10px;
     span
-      margin: 0 0.05rem;
+      margin: 0 5px;
     
     &:hover
       color: #099;
@@ -166,18 +166,18 @@
 
   .text
     color: #333;
-    font-size: 0.14rem;
-    line-height: 0.2rem;
-    max-height: 0.6rem;
+    font-size: 14px;
+    line-height: 20px;
+    max-height: 60px;
     overflow: hidden;
-    text-indent: 0.28rem;
+    text-indent: 28px;
 
   .read-all
     display: inline-block;
-    padding: 0 0.1rem;
-    font-size: 0.12rem;
-    height: 0.3rem;
-    line-height: 0.28rem;
+    padding: 0 10px;
+    font-size: 12px;
+    height: 30px;
+    line-height: 28px;
     color: #333;
     border: 1px solid #333;
     border-radius: 3px;
@@ -188,11 +188,11 @@
       color: #fff;
 
   .key
-    font-size: 0.12rem;
+    font-size: 12px;
     color: #333;
-    line-height: 0.12rem;
+    line-height: 12px;
     span
-      margin-right: .1rem;
+      margin-right: 10px;
 
 
       

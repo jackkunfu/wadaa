@@ -38,10 +38,10 @@
 <style lang="sass" scoped>
 .fl
   border: 1px solid #e5e5e5;
-  padding: 0 0.1rem;
-  min-width: 0.3rem;
-  font-size: 0.14rem;
-  line-height: 0.3rem;
+  padding: 0 10px;
+  min-width: 30px;
+  font-size: 14px;
+  line-height: 30px;
   cursor: pointer;
   &.cur
     background-color: #444;

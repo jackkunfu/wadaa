@@ -11,15 +11,14 @@
   <body>
     <a href="#" class="top">
       <i class="icon iconfont">&#xe65b;</i>
-      
     </a>
     <script>
-      var userAgent = navigator.userAgent
-      if(userAgent.indexOf("Android")>0 || userAgent.indexOf("iPhone")>0 || userAgent.indexOf("iPad")>0){ //移动端
-        document.documentElement.style.fontSize = document.documentElement.clientWidth / 75 + 'px';
-      }else{ //pc端  
-        document.documentElement.style.fontSize = '100px';
-      }
+      // var userAgent = navigator.userAgent
+      // if(userAgent.indexOf("Android")>0 || userAgent.indexOf("iPhone")>0 || userAgent.indexOf("iPad")>0){ //移动端
+      //   document.documentElement.style.fontSize = document.documentElement.clientWidth / 75 + 'px';
+      // }else{ //pc端  
+      //   document.documentElement.style.fontSize = '100px';
+      // }
       $(window).scroll(function(){
         if($(window).scrollTop()>10){
           $('.top').fadeIn(500);

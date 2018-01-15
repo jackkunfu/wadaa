@@ -51,23 +51,23 @@ export default {
 
 <style scoped lang="sass">
 .ctn1200
-  height: 1rem;
+  height: 100px;
 .logo
   float: left;
-  margin-top: 0.3rem;
+  margin-top: 30px;
   color: #333;
-  font-size: 0.24rem;
+  font-size: 24px;
   line-height: 1;
-  width: 1.7rem;
+  width: 170px;
   img
-    max-height: 0.4rem;
+    max-height: 40px;
     float: left;
-    margin-right: 0.1rem;
+    margin-right: 10px;
   span
     color: #999;
-    font-size: 0.14rem;
+    font-size: 14px;
     position: relative;
-    top: -0.05rem;
+    top: -5px;
 
 .main
   >ul
@@ -75,7 +75,7 @@ export default {
       display: inline-block;
       text-align: center;
       position: relative;
-      font-size: 0.15rem;
+      font-size: 15px;
       &:hover
         cursor: pointer;
         .box
@@ -85,22 +85,23 @@ export default {
           display: block;
 
       .box
-        line-height: 1rem;
-        padding: 0 0.1rem;
+        line-height: 100px;
+        padding: 0 10px;
         
       ul
         display: none;
-        width: 2rem;
+        width: 200px;
         position: absolute;
-        top: 1rem;
+        z-index: 10;
+        top: 100px;
         left: 0;
         background: #fff;
         li
           text-align: left;
-          line-height: 0.3rem;
-          font-size: 0.14rem;
-          line-height: 0.4rem;
-          padding-left: 0.2rem;
+          line-height: 30px;
+          font-size: 14px;
+          line-height: 40px;
+          padding-left: 20px;
           border-bottom: 1px solid #e5e5e5;
           &:hover
             color: #099;

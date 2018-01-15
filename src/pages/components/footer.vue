@@ -36,6 +36,6 @@ export default {
             line-height: 50px;
             strong
                 color: #e7e7e7;
-                font-size: 0.14rem;
+                font-size: 14px;
 </style>
 

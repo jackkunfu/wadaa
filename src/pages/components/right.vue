@@ -40,9 +40,9 @@ export default {
 </script>
 <style lang="sass" scoped>
     .right
-        width: 2.8rem;
+        width: 280px;
         h3
-            font-size: 0.24rem;
+            font-size: 24px;
             font-weight: 500;
             margin-bottom: 15px;
         .run-msg,.public-code
@@ -60,19 +60,14 @@ export default {
                     padding: 10px;
         .mail-msg
             height: 70px;
-            position: relative;
-            top: -75px;
             padding-left: 10px;
             label,p
-                font-size: 0.13rem;
+                font-size: 13px;
             input
                 line-height: 25px;
                 border-radius: 5px;
                 border: 1px solid #ccc;
                 padding: 0 5px;
-            p
-                position: relative;
-                top: -12px;
                 
 </style>
 

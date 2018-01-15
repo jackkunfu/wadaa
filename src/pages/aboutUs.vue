@@ -45,7 +45,7 @@ export default {
 </script>
 <style lang="sass" scoped>
   .fl
-    width: 8.5rem;
+    width: 850px;
     img
       width: 100%;
       margin-top: 30px;
