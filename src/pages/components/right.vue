@@ -45,6 +45,11 @@
             .mail-btn
                 button 登录
                 a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
+        .friendly-link
+            h3 友情链接
+            .link-box
+                a(v-for="item in linkList") {{item.name}}
+            
 
 </template>
 <script>
@@ -56,7 +61,13 @@ export default {
             emailLogin: {
                 email: '',
                 password: ''
-            }
+            },
+            linkList: [
+                {name:'成都文旅', url:'http://www.cdctg.com/'},
+                {name:'再上路，在路上', url:'http://blog.sina.com.cn/alloeat'},
+                {name:'未央-杨小华', url:'http://www.yangxiaohua.net/'},
+                {name:'爱燃烧', url:'http://iranshao.com/'},
+            ]
         }
     },
     mounted () {
@@ -78,7 +89,14 @@ export default {
             font-size: 24px;
             font-weight: 500;
             margin-bottom: 15px;
-        .run-msg,.public-code
+        a
+            font-size: 13px;
+            margin-left: 30px;
+            cursor: pointer;
+            &:hover
+                color: #009999;
+                text-decoration: underline;
+        .run-msg,.public-code,.mail-login
             margin-bottom: 50px;
         .msg-box
             width: 100%;
@@ -158,13 +176,11 @@ export default {
             top: -10px;
             button
                 padding: 8px 15px;
+        .link-box
             a
-                font-size: 13px;
-                margin-left: 30px;
-                cursor: pointer;
-                &:hover
-                    color: #009999;
-                    text-decoration: underline;
+                display: block;
+                margin-bottom: 8px;
+        
                 
 </style>
 
