@@ -36,7 +36,7 @@ export default {
             background: #009999;
         div
             overflow: hidden;
-            line-height: 50px;
+            line-height: 100px;
             strong
                 color: #e7e7e7;
                 font-size: 14px;

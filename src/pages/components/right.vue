@@ -1,29 +1,55 @@
 <template lang="pug">
+    .right
+        .run-msg
+            h3 沐野青城
+            .msg-box
+                .nav
+                    span(@click="show(0)").active
+                        i.icon.iconfont &#xe617;
+                        div.arrow  
+                    span(@click="show(1)")
+                        i.icon.iconfont &#xe608;
+                        div.arrow
+                    span(@click="show(2)")
+                        i.icon.iconfont &#xe62b;
+                        div.arrow
+                .msg-show
+                    .personal-part(v-if="type==0")
+                        .msg-list
+                            .fl
+                                img(src="../../imgs/logo.png")
+                            .fr
+                                a 2017青城山国际越野挑战赛竞赛规程
+                                i 2017年1月26日 
+                        .msg-list
+                            .fl
+                                img(src="../../imgs/logo.png")
+                            .fr
+                                a 2017青城山国际越野挑战赛竞赛规程
+                                i 2017年1月26日 
+                
+                    
 
-.right
-    .run-msg
-        h3 沐野青城
-        .msg-box
-            .nav
-                span
-                    i.icon.iconfont &#xe617;
-                span
-                    i.icon.iconfont &#xe608;
-                span
-                    i.icon.iconfont &#xe62b;
+        .public-code
+            h3 关注周末享跑公众号
+            img(src="../../imgs/2016122008485864.jpg")
+        .mail-login
+            h3 邮箱登陆
+            .mail-msg
+                label 账号：
+                input(type="text" v-model="emailLogin.email")
+                p @runningweekends.net
+            .mail-msg
+                label 密码：
+                input(type="password" v-model="emailLogin.password")
+            .mail-btn
+                button 登录
+                a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
+        .friendly-link
+            h3 友情链接
+            .link-box
+                a(v-for="item in linkList") {{item.name}}
             
-    .public-code
-        h3 关注周末享跑公众号
-        img(src="../../imgs/2016122008485864.jpg")
-    .mail-login
-        h3 邮箱登陆
-        .mail-msg
-            label 账号：
-            input(type="text")
-            p @runningweekends.net
-        .mail-msg
-            label 密码：
-            input(type="password")
 
 </template>
 <script>
@@ -31,8 +57,27 @@ export default {
     name: "right",
     data () {
         return {
-            
+            type: 0,
+            emailLogin: {
+                email: '',
+                password: ''
+            },
+            linkList: [
+                {name:'成都文旅', url:'http://www.cdctg.com/'},
+                {name:'再上路，在路上', url:'http://blog.sina.com.cn/alloeat'},
+                {name:'未央-杨小华', url:'http://www.yangxiaohua.net/'},
+                {name:'爱燃烧', url:'http://iranshao.com/'},
+            ]
+        }
+    },
+    mounted () {
 
+    },
+    methods: {
+        show(num){
+            $('.nav span').removeClass('active');
+            $('.nav span').eq(num).addClass('active');
+            this.type = num;
         }
     }
 }
@@ -44,19 +89,77 @@ export default {
             font-size: 24px;
             font-weight: 500;
             margin-bottom: 15px;
-        .run-msg,.public-code
-            margin-bottom: 30px;
+        a
+            font-size: 13px;
+            margin-left: 30px;
+            cursor: pointer;
+            &:hover
+                color: #009999;
+                text-decoration: underline;
+        .run-msg,.public-code,.mail-login
+            margin-bottom: 50px;
         .msg-box
             width: 100%;
-            border: 1px solid red;
             .nav
                 width: 100%;
-                height: 30px;
-                line-height: 30px;
+                height: 35px;
+                line-height: 35px;
                 background: #e5e5e5;
                 span
                     display: inline-block;
-                    padding: 10px;
+                    height: 35px;
+                    line-height: 33px;
+                    padding: 0 30px;
+                    border: 2px solid transparent;
+                    border-bottom: none;
+                    border-left: none;
+                    border-right: none;
+                    position: relative;
+                    cursor: pointer;
+                    i
+                        font-size: 14px;
+                    .arrow
+                        display: none;
+                        position: absolute;
+                        left: 50%;
+                        margin-left: -5px;
+                        bottom: -4px;
+                        width: 9px;
+                        height: 9px;
+                        transform: rotate(45deg);
+                        z-index: 1;
+                        background: #444;
+                .active
+                    background: #444;
+                    border: 2px solid #009999;
+                    border-bottom: none;
+                    border-left: none;
+                    border-right: none;
+                    position: relative;
+                    i
+                        color: #fff;
+                    .arrow
+                        display: block;
+            .personal-part
+                border: 1px solid #ddd;
+                border-top: none;
+                padding: 25px;
+                padding-bottom: 0;
+                .msg-list
+                    overflow: hidden;
+                    padding-bottom: 30px;
+                    .fl
+                        width: 40px;
+                        height: 40px;
+                        img
+                            width: 40px;
+                    .fr
+                        width: 160px;
+                    a
+                        font-size: 14px;
+                        display: block;
+                    i
+                        font-size: 12px;
         .mail-msg
             height: 70px;
             padding-left: 10px;
@@ -67,6 +170,17 @@ export default {
                 border-radius: 5px;
                 border: 1px solid #ccc;
                 padding: 0 5px;
+        .mail-btn
+            text-align: center;
+            position: relative;
+            top: -10px;
+            button
+                padding: 8px 15px;
+        .link-box
+            a
+                display: block;
+                margin-bottom: 8px;
+        
                 
 </style>
 
