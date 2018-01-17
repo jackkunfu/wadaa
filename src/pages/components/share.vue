@@ -1,12 +1,12 @@
 <template lang="pug">
   .share
     .bdsharebuttonbox
-      a.bds_more
-      a.bds_qzone
-      a.bds_tsina
-      a.tqq
-      a.bds_renren
-      a.bds_weixin
+      a.bds_more(data-cmd='more')
+      a.bds_qzone(data-cmd='qzone')
+      a.bds_tsina(data-cmd='tsina')
+      a.bds_tqq(data-cmd='tqq')
+      a.bds_renren(data-cmd='renren')
+      a.bds_weixin(data-cmd='weixin')
 </template>
 
 <script>
@@ -42,7 +42,6 @@ export default {
 
 }
 </script>
-
 
 <style lang="sass" scoped>
 
