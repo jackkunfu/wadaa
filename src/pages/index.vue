@@ -12,6 +12,8 @@ div
 
   //- footer-part
 
+  share
+
 </template>
 
 <script>
@@ -20,6 +22,8 @@ div
 // import footerPart from './components/footer'
 import listNews from './components/list-news'
 import rightPart from './components/right'
+
+import Share from './components/share'
 
 export default {
   name: 'index',
@@ -39,7 +43,8 @@ export default {
     // headNav,
     // footerPart,
     listNews,
-    rightPart
+    rightPart,
+    Share
   },
   mounted(){
   },
