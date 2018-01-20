@@ -4,6 +4,7 @@ import Router from 'vue-router';
 const index = (r) => require.ensure([], () => r(require('@/pages/index')), 'index');
 const aboutUs = (r) => require.ensure([], () => r(require('@/pages/aboutUs')), 'aboutUs');
 const sTag = (r) => require.ensure([], () => r(require('@/pages/sTag')), 'sTag');
+const detail = (r) => require.ensure([], () => r(require('@/pages/detail')), 'detail');
 
 Vue.use(Router)
 
@@ -21,6 +22,10 @@ export default new Router({
       path: '/sTag',
       name: 'sTag',
       component: sTag
+    }, {
+      path: '/detail',
+      name: 'detail',
+      component: detail
     }
   ]
 })

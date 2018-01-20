@@ -18,15 +18,14 @@
     .search
       .search-msg
         input(placeholder="输入关键词后回车...") 
-        .search-icon
-          i.iconfont  &#xe63d;
+        .search-icon(@click="")
+          i.iconfont &#xe63d;
       .crumbs
         span Home
         span(v-if="crumb") >>
           span {{crumb}}
         span(v-if="crumb1") >>
-          span {{crumb1}}         
-
+          span {{crumb1}}
 
 </template>
 

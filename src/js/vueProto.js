@@ -37,7 +37,19 @@ export default function vueProto(){
       .then((d)=>{
         if(isSelfHandle) return d;
         if(d.success){
-          ctx[keyStr] = d.data;
+          if(!keyConfig.dataKey){
+            ctx[keyStr] = d.data;
+            return
+          }
+
+          // 如果所需数据对象不是d.data对象， keyConfig中配置dataKey制定值字段，多层次字段用点连接
+          var dataKey = keyConfig.dataKey;
+          var data = d.data;
+          dataKey.split('.').forEach( (v) => {
+            data = data[v];
+          })
+          ctx[keyStr] = data;
+          
         }else{
           alert(d.msg);
         }

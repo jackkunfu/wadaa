@@ -29,13 +29,15 @@ export default {
           rows: 10
         }
       },
-      curPage: 1
+      curPage: 1,
+      keyStr: this.$route.query.str,
+      isTag: this.$route.query.tag || false
     }
   },
   components: {
     listNews,
     rightPart,
-    Share
+    // Share
   },
   mounted(){
   },

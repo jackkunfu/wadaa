@@ -26,7 +26,7 @@
       .key
         //- i.icon.iconfont &#xf02b;
         i.fa.fa-tag(style="color:#ddd;margin-right:5px;")
-        span(@click="") 无缝隙古镇
+        span(@click="sTag('111')") 无缝隙古镇
 
   pager(:pageData="pageData" @pageChange="pageChange")
 
@@ -73,6 +73,16 @@
               cur: cp || 1
             }
           });
+      },
+      sTag(str){
+        alert(1)
+        this.$router.push({
+          path: '/sTag',
+          query: {
+            str: str,
+            isTag: 1
+          }
+        })
       }
     }
   }
