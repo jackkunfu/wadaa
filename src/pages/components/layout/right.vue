@@ -17,13 +17,13 @@
                     .personal-part(v-if="type==0")
                         .msg-list
                             .fl
-                                img(src="../../imgs/logo.png")
+                                img(src="../../../imgs/logo.png")
                             .fr
                                 a 2017青城山国际越野挑战赛竞赛规程
                                 i 2017年1月26日 
                         .msg-list
                             .fl
-                                img(src="../../imgs/logo.png")
+                                img(src="../../../imgs/logo.png")
                             .fr
                                 a 2017青城山国际越野挑战赛竞赛规程
                                 i 2017年1月26日 
@@ -32,7 +32,7 @@
 
         .public-code
             h3 关注周末享跑公众号
-            img(src="../../imgs/2016122008485864.jpg")
+            img(src="../../../imgs/2016122008485864.jpg")
         .mail-login
             h3 邮箱登陆
             .mail-msg

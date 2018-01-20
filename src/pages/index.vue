@@ -21,7 +21,7 @@ div
 // import headNav from './components/header'
 // import footerPart from './components/footer'
 import listNews from './components/list-news'
-import rightPart from './components/right'
+import rightPart from './components/layout/right'
 
 import Share from './components/share'
 

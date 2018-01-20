@@ -53,7 +53,7 @@ export default {
 <style scoped lang="sass">
 
 .ctn
-  background-image: url('../../imgs/slider-bg-dark.jpg');
+  background-image: url('../../../imgs/slider-bg-dark.jpg');
   height: 160px;
   line-height: 160px;
   font-size: 10px;

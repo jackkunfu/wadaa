@@ -20,7 +20,7 @@
 <script>
 
 import listNews from './components/list-news'
-import rightPart from './components/right'
+import rightPart from './components/layout/right'
 
 export default {
   name: 'index',

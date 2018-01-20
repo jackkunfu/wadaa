@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import headNav from './pages/components/header'
+import headNav from './pages/components/layout/header'
 import listNews from './pages/components/list-news'
-import footerPart from './pages/components/footer'
+import footerPart from './pages/components/layout/footer'
 export default {
   name: 'app',
   components: {
