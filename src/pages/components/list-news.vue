@@ -1,6 +1,7 @@
 <template lang="pug">
 
 .list-ctn
+  div(v-if="dataArr.length == 0") 暂无
   .box(v-for="item in dataArr")
     .time
       .day 17
@@ -34,14 +35,13 @@
 <script>
   import { config } from '../../js/vueProto'
   import pager from './pager'
-  console.log(config)
 
   export default {
     name: 'component news list',
     props: ['module'],
     data(){
       return {
-        dataArr: [1],     // 列表数据
+        dataArr: [],     // 列表数据
         pageData: {
           cur: 1,
           total: 10
@@ -63,6 +63,7 @@
         this.list();
       },
       list(){
+        // alert('list-news module:'+this.module)
         if(!this.module){
           console.log('no module');
           return
@@ -79,7 +80,7 @@
           .then((res)=>{
             if(res.code == 1){
               console.log(res.list)
-              this.dataArr = res.list || [1];
+              this.dataArr = res.list || [];
               var cp = res.curPage
               this.curPage = cp
               this.pageData = {
@@ -91,7 +92,7 @@
           });
       },
       sTag(str){
-        alert(1)
+        // alert(1)
         this.$router.push({
           path: '/sTag',
           query: {

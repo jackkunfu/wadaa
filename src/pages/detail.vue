@@ -2,7 +2,7 @@
 
 div
   .ctn1200
-    .fl
+    .fl(style="width:850px;")
       .detail(v-html="detail")
 
     .fr
@@ -13,34 +13,79 @@ div
 </template>
 
 <script>
-import listNews from './components/list-news'
 import rightPart from './components/layout/right'
 
 import Share from './components/share'
 
 export default {
-  name: 'index',
+  name: 'detail',
   data(){
     return {
-      id: this.$route.query.id,
+      module: this.$route.query.module || '',
+      id: this.$route.query.id || '',
       detail: ''
     }
   },
   components: {
-    listNews,
     rightPart,
     Share
   },
   mounted(){
-    this.keyRequest('detail', {
-      url: '',
-      opts: {
-        id: this.id
-      },
-      dataKey: ''
-    }, this)
+    if(!this.id){
+      this.ajax('/articleList', {
+        pageNo: 1,
+        pageSize: 20,
+        module: this.module
+      }).then( (res)=>{
+        var list = res.list
+        if(list && list[0]){
+          this.id = list[0].id;
+          list[0].id && this.getDetail()
+        }else{
+          alert('id请求出错');
+        }
+      } )
+    }else{
+      this.getDetail();
+    }
+    
+    var _this = this;
+    window.onhashchange = function(e){
+      _this.module = location.href.split('module=')[1].split('&')[0];
+      _this.ajax('/articleList', {
+        pageNo: 1,
+        pageSize: 20,
+        module: _this.module
+      }).then( (res)=>{
+        var list = res.list
+        if(list && list[0]){
+          _this.id = list[0].id;
+          list[0].id && _this.getDetail()
+        }else{
+          alert('id请求出错');
+        }
+      } )
+    }
+
   },
-  methods: {}
+  methods: {
+    getDetail(){
+      this.ajax('/article/get', {
+        id: this.id
+      }).then( (res)=>{
+        this.detail = res.objectData.marathonArticleData.content;
+      } )
+    },
+    
+  }
 }
 </script>
+
+<style lang="sass" scoped>
+  .detail
+    p
+      img
+        max-width: 100%!important;
+</style>
+
 

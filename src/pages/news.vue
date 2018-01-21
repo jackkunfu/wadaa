@@ -1,16 +1,12 @@
 <template lang="pug">
 
 div
-  //- head-nav(showNavBottom="true")
-
   .ctn1200
-    .fl
-      list-news(:listInfo="listInfo")
+    .fl(style="width:850px;")
+      list-news(:module="module")
 
     .fr
       right-part
-
-  //- footer-part
 
   share
 
@@ -18,35 +14,28 @@ div
 
 <script>
 
-// import headNav from './components/header'
-// import footerPart from './components/footer'
 import listNews from './components/list-news'
 import rightPart from './components/layout/right'
 
 import Share from './components/share'
 
 export default {
-  name: 'index',
+  name: 'news',
   data(){
     return {
-      listInfo: {   // listNews组件需要信息
-        url: '',
-        opts: {
-          page: this.curPage,  // page 在父组件这里传递貌似意义不大
-          rows: 10
-        }
-      },
-      curPage: 1
+      module: this.$route.query.module || ''
     }
   },
   components: {
-    // headNav,
-    // footerPart,
     listNews,
     rightPart,
     Share
   },
   mounted(){
+    var _this = this;
+    window.onhashchange = function(e){
+      _this.module = location.href.split('module=')[1].split('&')[0];
+    }
   },
   methods: {}
 }

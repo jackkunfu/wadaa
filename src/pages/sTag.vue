@@ -39,8 +39,7 @@ export default {
     rightPart,
     // Share
   },
-  mounted(){
-  },
+  mounted(){},
   methods: {}
 }
 </script>

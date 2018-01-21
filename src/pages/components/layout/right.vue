@@ -36,12 +36,12 @@
             h3 手机登陆
             .mail-msg
                 label 手机号：
-                input(type="text" v-model="emailLogin.email")
+                input(type="text" v-model="phone")
                 //- p @runningweekends.net
             .mail-msg.code
                 label 验证码：
-                input(type="text" v-model="emailLogin.password")
-                button 获取验证码
+                input(type="text" v-model="code")
+                button(@click="getCode") 获取验证码
             .mail-btn
                 button 立即登录
                 //- a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
@@ -54,6 +54,7 @@
 
 </template>
 <script>
+import { config } from '../../../js/vueProto'
 export default {
     name: "right",
     data () {
@@ -68,7 +69,9 @@ export default {
                 {name:'再上路，在路上', url:'http://blog.sina.com.cn/alloeat'},
                 {name:'未央-杨小华', url:'http://www.yangxiaohua.net/'},
                 {name:'爱燃烧', url:'http://iranshao.com/'},
-            ]
+            ],
+            phone: '13333333333',
+            code: ''
         }
     },
     mounted () {
@@ -79,6 +82,17 @@ export default {
             $('.nav span').removeClass('active');
             $('.nav span').eq(num).addClass('active');
             this.type = num;
+        },
+        getCode(){
+            if(this.phone && /^1[3|4|5|8][0-9]\d{8}$/.test(this.phone.trim())){
+                this.ajax('', {
+                    mobile: this.phone.trim()
+                }, 'get', config.filePath+'/basic/user/identify').then( (res) => {
+                    console.log(res);
+                } )
+            }else{
+                alert('手机号格式不正确');
+            }
         }
     }
 }

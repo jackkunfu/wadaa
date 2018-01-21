@@ -5,6 +5,7 @@ const index = (r) => require.ensure([], () => r(require('@/pages/index')), 'inde
 const aboutUs = (r) => require.ensure([], () => r(require('@/pages/aboutUs')), 'aboutUs');
 const sTag = (r) => require.ensure([], () => r(require('@/pages/sTag')), 'sTag');
 const detail = (r) => require.ensure([], () => r(require('@/pages/detail')), 'detail');
+const news = (r) => require.ensure([], () => r(require('@/pages/news')), 'news');
 
 Vue.use(Router)
 
@@ -26,6 +27,10 @@ export default new Router({
       path: '/detail',
       name: 'detail',
       component: detail
+    }, {
+      path: '/news',
+      name: 'news',
+      component: news
     }
   ]
 })

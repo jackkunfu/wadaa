@@ -6,11 +6,11 @@ export const config = {
 } 
 
 export default function vueProto(){
-  Vue.prototype.ajax = function(url, opts, type){
+  Vue.prototype.ajax = function(url, opts, type, otherUrl){
     return new Promise(function(r, j){
       $.ajax({
         type: type || 'get',
-        url: config.baseUrl + url,
+        url: otherUrl ? otherUrl : (config.baseUrl + url),
         data: opts
       }).done(function(d){
         r(d);

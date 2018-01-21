@@ -11,9 +11,9 @@ div
         li.fl(v-for="(item, i) in tabs" @click="goUrl(item)")
           .box {{item.name}}
           ul.level2(:class=" i == tabs.length -1 ? 'last' : '' " v-if="item.childList && item.childList.length>0")
-            li(v-for="nav in item.childList" @click="goUrl(nav)") {{nav.name}}
+            li(v-for="nav in item.childList" @click.stop="goUrl(nav)") {{nav.name}}
               ul.level3(:class=" i == tabs.length -1 ? 'last' : '' " v-if="nav.childList && nav.childList.length>0")
-                li(v-for="nav in nav.childList" @click="goUrl(nav)") {{nav.name}}
+                li(v-for="nav in nav.childList" @click.stop="goUrl(nav)") {{nav.name}}
 
 
   header-bottom(v-if="showNavBottom")
@@ -28,30 +28,30 @@ export default {
   data () {
     return {
       tabs: [
-        {
-          name: '中国哲学小镇山地马拉松',
-          url: '',
-          list: [
-            { 
-              name: '2017赛事新闻',
-              url: '',
-              list: []
-            },
-            { name: '2017赛事规程', url: '' },
-            { name: '2017赛事报名', url: '' },
-            { name: '2017赛事新闻', url: '' }
-          ]
-        },
-        {
-          name: '关于我们',
-          url: '',
-          list: [
-            { name: '团队领军人', url: '/aboutUs', query: {type: 1}, isLocation: true },
-            { name: '团队特点及优势', url: '/aboutUs', query: {type: 2}, isLocation: true },
-            { name: '合作伙伴和机构', url: '/aboutUs', query: {type: 3}, isLocation: true },
-            { name: '赛事和系列活动', url: '' }
-          ]
-        }
+        // {
+        //   name: '中国哲学小镇山地马拉松',
+        //   url: '',
+        //   list: [
+        //     { 
+        //       name: '2017赛事新闻',
+        //       url: '',
+        //       list: []
+        //     },
+        //     { name: '2017赛事规程', url: '' },
+        //     { name: '2017赛事报名', url: '' },
+        //     { name: '2017赛事新闻', url: '' }
+        //   ]
+        // },
+        // {
+        //   name: '关于我们',
+        //   url: '',
+        //   list: [
+        //     { name: '团队领军人', url: '/aboutUs', query: {type: 1}, isLocation: true },
+        //     { name: '团队特点及优势', url: '/aboutUs', query: {type: 2}, isLocation: true },
+        //     { name: '合作伙伴和机构', url: '/aboutUs', query: {type: 3}, isLocation: true },
+        //     { name: '赛事和系列活动', url: '' }
+        //   ]
+        // }
       ]
     }
   },
@@ -68,14 +68,13 @@ export default {
         this.tabs = res.dataList;
 
         if(this.$route.path == '/'){   // 首页默认请求第一个module数据
-          this.$parent.$children.forEach( el => {    //  循环APP.vue组件中的子组件找到index.vue中的indexInit并执行请求首页列表的数据
-            var module = res.dataList[1].childList[1].module;
+          this.$parent.$children.forEach( el => {    // 暂找不到直接的定位到index.vue的方法，就先循环APP.vue组件中的子组件找到index.vue中的indexInit并执行请求首页列表的数据
+            var module = res.dataList[0].childList[0].module;
             if(el.indexInit) el.indexInit(module)
           })
         }
 
       }
-      
     })
   },
   methods: {
@@ -85,14 +84,23 @@ export default {
         if(item.isLocation){
           var search = ''
           if(item.query){
-            if(JSON.stringify(item.query) != '{}'){
-              search += '?'+JSON.stringify(item.query).replace(/({|}|")/g, '').replace(/,/g, '&').replace(/:/g, '=');
+            var queryStr = JSON.stringify(item.query);
+            if(queryStr != '{}'){
+              search += '?'+ queryStr.replace(/({|}|")/g, '').replace(/,/g, '&').replace(/:/g, '=');
             }
           }
           location.href = 'http://' + location.host + '/#' + item.url + search;
         }else{
           this.$router.push({path: item.url, query: item.query});
         }
+      }else{
+        // this.$router.push({path: '/news', query: {module: item.module}});
+        if(item.appView && item.appView == 1){
+          location.href = 'http://' + location.host + '/#/detail?module=' + item.module;
+        }else{
+          location.href = 'http://' + location.host + '/#/news?module=' + item.module;
+        }
+        
       }
     }
   },
