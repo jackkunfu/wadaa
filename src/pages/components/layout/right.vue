@@ -38,12 +38,17 @@
                 label 手机号：
                 input(type="text" v-model="phone")
                 //- p @runningweekends.net
-            .mail-msg.code
+            //- .mail-msg.code
                 label 验证码：
                 input(type="text" v-model="code")
+                input(type="text" v-model="mobileLogin.mobile")
+                //- p @runningweekends.net
+            .mail-msg.code
+                label 验证码：
+                input(type="text" v-model="mobileLogin.password")
                 button(@click="getCode") 获取验证码
             .mail-btn
-                button 立即登录
+                button(@click="login") 立即登录
                 //- a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
 
         .friendly-link
@@ -62,6 +67,10 @@ export default {
             type: 0,
             emailLogin: {
                 email: '',
+                password: ''
+            },
+            mobileLogin: {
+                mobile: '',
                 password: ''
             },
             linkList: [

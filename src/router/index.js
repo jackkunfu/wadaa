@@ -6,6 +6,7 @@ const aboutUs = (r) => require.ensure([], () => r(require('@/pages/aboutUs')), '
 const sTag = (r) => require.ensure([], () => r(require('@/pages/sTag')), 'sTag');
 const detail = (r) => require.ensure([], () => r(require('@/pages/detail')), 'detail');
 const news = (r) => require.ensure([], () => r(require('@/pages/news')), 'news');
+const signUp = (r) => require.ensure([], () => r(require('@/pages/signUp')), 'signUp');
 
 Vue.use(Router)
 
@@ -31,6 +32,10 @@ export default new Router({
       path: '/news',
       name: 'news',
       component: news
+    }, {
+      path: '/signUp',
+      name: 'signUp',
+      component: signUp
     }
   ]
 })
