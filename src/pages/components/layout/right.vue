@@ -27,24 +27,25 @@
                             .fr
                                 a 2017青城山国际越野挑战赛竞赛规程
                                 i 2017年1月26日 
-                
-                    
 
         .public-code
             h3 关注周末享跑公众号
             img(src="../../../imgs/2016122008485864.jpg")
+
         .mail-login
-            h3 邮箱登陆
+            h3 手机登陆
             .mail-msg
-                label 账号：
+                label 手机号：
                 input(type="text" v-model="emailLogin.email")
-                p @runningweekends.net
-            .mail-msg
-                label 密码：
-                input(type="password" v-model="emailLogin.password")
+                //- p @runningweekends.net
+            .mail-msg.code
+                label 验证码：
+                input(type="text" v-model="emailLogin.password")
+                button 获取验证码
             .mail-btn
-                button 登录
-                a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
+                button 立即登录
+                //- a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
+
         .friendly-link
             h3 友情链接
             .link-box
@@ -161,8 +162,13 @@ export default {
                     i
                         font-size: 12px;
         .mail-msg
-            height: 70px;
+            height: 35px;
             padding-left: 10px;
+            &.code
+                input
+                    width: 80px;
+                button
+                    margin-left: 10px;
             label,p
                 font-size: 13px;
             input
@@ -173,7 +179,7 @@ export default {
         .mail-btn
             text-align: center;
             position: relative;
-            top: -10px;
+            // top: -10px;
             button
                 padding: 8px 15px;
         .link-box

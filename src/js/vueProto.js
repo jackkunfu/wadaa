@@ -1,5 +1,5 @@
 const config = {
-  baseUrl: ''
+  baseUrl: 'http://39.106.218.200/app/mls'
 }
 
 export default function vueProto(){
@@ -11,7 +11,7 @@ export default function vueProto(){
         data: opts
       }).done(function(d){
         r(d);
-      }).fail(function(){
+      }).fail(function(e){
         j({
           success: false,
           error: e

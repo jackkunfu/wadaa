@@ -51,6 +51,14 @@ export default {
   components: {
     headerBottom
   },
+  mounted(){
+    this.keyRequest('tabs', {
+      url: '/categoryList',
+      opts: {
+        
+      }
+    }, this)
+  },
   methods: {
     goUrl(item){
       if(item.url){
