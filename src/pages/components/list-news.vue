@@ -62,7 +62,7 @@
       },
       list(){
         if(!this.module){
-          alert('no module');
+          console.log('no module');
           return
         }
         var listConfig = {
@@ -75,13 +75,17 @@
         }
         this.keyRequest('dataArr', listConfig, this, true)
           .then((res)=>{
-            this.dataArr = res.list || [1];
-            var cp = res.curPage
-            this.curPage = cp
-            this.pageData = {
-              total: res.total || 10,
-              cur: cp || 1
+            if(res.code == 1){
+              console.log(res.list)
+              this.dataArr = res.list || [1];
+              var cp = res.curPage
+              this.curPage = cp
+              this.pageData = {
+                total: res.total || 10,
+                cur: cp || 1
+              }
             }
+            
           });
       },
       sTag(str){
@@ -98,7 +102,7 @@
     watch: {
       module(v){
         if(v){
-          alert('module改变啦：'+v)
+          console.log('module改变啦：'+v)
           this.list();
         }
       }

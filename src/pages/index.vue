@@ -45,15 +45,7 @@ export default {
   },
   methods: {
     indexInit(str){
-      alert(str)
       this.module = str;
-      // alert(1)
-      // this.listInfo = {   // listNews组件需要信息
-      //   url: '/articleList',
-      //   opts: {
-      //     module: str
-      //   }
-      // }
     }
   }
 }

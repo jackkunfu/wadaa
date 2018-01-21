@@ -10,8 +10,11 @@ div
       ul
         li.fl(v-for="(item, i) in tabs" @click="goUrl(item)")
           .box {{item.name}}
-          ul(:class=" i == tabs.length -1 ? 'last' : '' ")
-            li(v-for="nav in item.list" @click="goUrl(nav)") {{nav.name}}
+          ul.level2(:class=" i == tabs.length -1 ? 'last' : '' " v-if="item.childList && item.childList.length>0")
+            li(v-for="nav in item.childList" @click="goUrl(nav)") {{nav.name}}
+              ul.level3(:class=" i == tabs.length -1 ? 'last' : '' " v-if="nav.childList && nav.childList.length>0")
+                li(v-for="nav in nav.childList" @click="goUrl(nav)") {{nav.name}}
+
 
   header-bottom(v-if="showNavBottom")
 
@@ -56,23 +59,21 @@ export default {
     headerBottom
   },
   mounted(){
-    console.log(this.$parent)
     this.keyRequest('tabs', {
       url: '/categoryList',
       opts: {}
     }, this, true).then((res) => {
       if(res.code == 1){
-        this.$parent.$children[2].indexInit(res.dataList[0].module);
-        var oriArr = res.dataList;
-        console.log(oriArr);
-        var destArr = []
-        oriArr.forEach( (element, i) => {
-          if(element.parentId == 1){
-            destArr.push(oriArr.splice(i)[0])
-          }
-        });
-        console.log(oriArr);
-        console.log(destArr);
+
+        this.tabs = res.dataList;
+
+        if(this.$route.path == '/'){   // 首页默认请求第一个module数据
+          this.$parent.$children.forEach( el => {    //  循环APP.vue组件中的子组件找到index.vue中的indexInit并执行请求首页列表的数据
+            var module = res.dataList[0].module || res.dataList[0].childList[0].module;
+            if(el.indexInit) el.indexInit(module)
+          })
+        }
+
       }
       
     })
@@ -135,14 +136,15 @@ export default {
         .box
           color: #099;
           background: #ccc;
-        ul
+        ul.level2
           display: block;
 
       .box
         line-height: 100px;
         padding: 0 10px;
+        min-width: 100px;
         
-      ul
+      ul.level2
         display: none;
         width: 200px;
         position: absolute;
@@ -160,7 +162,18 @@ export default {
           line-height: 40px;
           padding-left: 20px;
           border-bottom: 1px solid #e5e5e5;
+          position: relative;
           &:hover
             color: #099;
+            .level3
+              display: block;
+          ul.level3
+            position: absolute;
+            left: 200px;
+            top: 0;
+            display: none;
+            width: 200px;
+            z-index: 10;
+            background: #fff;
 
 </style>
