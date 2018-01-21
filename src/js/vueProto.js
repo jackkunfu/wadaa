@@ -1,6 +1,9 @@
-const config = {
-  baseUrl: 'http://39.106.218.200/app/mls'
-}
+
+
+export const config = {
+  baseUrl: 'http://39.106.218.200/app/mls',
+  filePath: 'http://39.106.218.200'
+} 
 
 export default function vueProto(){
   Vue.prototype.ajax = function(url, opts, type){

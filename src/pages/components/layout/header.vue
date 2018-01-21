@@ -69,7 +69,7 @@ export default {
 
         if(this.$route.path == '/'){   // 首页默认请求第一个module数据
           this.$parent.$children.forEach( el => {    //  循环APP.vue组件中的子组件找到index.vue中的indexInit并执行请求首页列表的数据
-            var module = res.dataList[0].module || res.dataList[0].childList[0].module;
+            var module = res.dataList[1].childList[1].module;
             if(el.indexInit) el.indexInit(module)
           })
         }
