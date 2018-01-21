@@ -29,7 +29,11 @@ export default {
           name: '中国哲学小镇山地马拉松',
           url: '',
           list: [
-            { name: '2017赛事新闻', url: '' },
+            { 
+              name: '2017赛事新闻',
+              url: '',
+              list: []
+            },
             { name: '2017赛事规程', url: '' },
             { name: '2017赛事报名', url: '' },
             { name: '2017赛事新闻', url: '' }
@@ -52,12 +56,26 @@ export default {
     headerBottom
   },
   mounted(){
+    console.log(this.$parent)
     this.keyRequest('tabs', {
       url: '/categoryList',
-      opts: {
-        
+      opts: {}
+    }, this, true).then((res) => {
+      if(res.code == 1){
+        this.$parent.$children[2].indexInit(res.dataList[0].module);
+        var oriArr = res.dataList;
+        console.log(oriArr);
+        var destArr = []
+        oriArr.forEach( (element, i) => {
+          if(element.parentId == 1){
+            destArr.push(oriArr.splice(i)[0])
+          }
+        });
+        console.log(oriArr);
+        console.log(destArr);
       }
-    }, this)
+      
+    })
   },
   methods: {
     goUrl(item){

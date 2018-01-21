@@ -37,7 +37,7 @@
 
   export default {
     name: 'component news list',
-    props: ['listInfo'],
+    props: ['module'],
     data(){
       return {
         dataArr: [1],     // 列表数据
@@ -45,7 +45,7 @@
           cur: 1,
           total: 10
         },
-        curPage: this.listInfo.cur
+        curPage: 1
       }
     },
     components: {
@@ -61,11 +61,21 @@
         this.list();
       },
       list(){
-        var opts = this.listInfo
-        opts.page = this.curPage
-        this.keyRequest('dataArr', opts, this, true)
+        if(!this.module){
+          alert('no module');
+          return
+        }
+        var listConfig = {
+          url: '/articleList',
+          opts: {
+            pageNo: this.curPage,
+            pageSize: 20,
+            module: this.module
+          }
+        }
+        this.keyRequest('dataArr', listConfig, this, true)
           .then((res)=>{
-            this.dataArr = res.data || [1];
+            this.dataArr = res.list || [1];
             var cp = res.curPage
             this.curPage = cp
             this.pageData = {
@@ -83,6 +93,14 @@
             isTag: 1
           }
         })
+      }
+    },
+    watch: {
+      module(v){
+        if(v){
+          alert('module改变啦：'+v)
+          this.list();
+        }
       }
     }
   }
