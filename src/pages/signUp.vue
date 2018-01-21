@@ -110,7 +110,13 @@ export default {
                     if($("input[type='checkbox']").prop('checked')){
                         alert('请阅读免责条款，并勾选~')
                     }else{
-                        
+                        this.keyRequest('detail', {
+                            url: '/app/mls/order/save',
+                            opts: {
+                                id: this.id
+                            },
+                            dataKey: ''
+                        }, this)
                     }
                 }
             }
