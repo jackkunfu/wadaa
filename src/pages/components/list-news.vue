@@ -8,19 +8,18 @@
       
     .main
       .img
-        img(src="")
+        img(:src="config.filePath + (item.image[0] == '|' ? item.image.slice(1) : item.image )")
         .cover
         .btn +
 
-      .name 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
+      .name(@click="goDetail(item.id)") {{item.title}}
       .tip 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
         span By
         | 周末享跑
 
-      .text
-        | 由于在3月5日的比赛中有获奖者为替跑选手，所以名单公示不得不推迟;经过组委会和相关人员的沟通，对获奖选手进行了调整，于3月17日开始公示，近期组委会将联系获奖选手告知奖金放发事宜；同时对于替跑选手的处罚公告也一并开始公示。             &nb…
+      .text(v-html="item.marathonArticleData.content")
       
-      .read-all 阅读全文
+      .read-all(@click="goDetail(item.id)") 阅读全文
         i.fa.fa-arrow-circle-right(style="margin-left:5px;")
 
       .key
@@ -33,11 +32,13 @@
 </template>
 
 <script>
+  import { config } from '../../js/vueProto'
   import pager from './pager'
+  console.log(config)
 
   export default {
     name: 'component news list',
-    props: ['listInfo'],
+    props: ['module'],
     data(){
       return {
         dataArr: [1],     // 列表数据
@@ -45,7 +46,8 @@
           cur: 1,
           total: 10
         },
-        curPage: this.listInfo.cur
+        curPage: 1,
+        config: config
       }
     },
     components: {
@@ -61,17 +63,31 @@
         this.list();
       },
       list(){
-        var opts = this.listInfo
-        opts.page = this.curPage
-        this.keyRequest('dataArr', opts, this, true)
+        if(!this.module){
+          console.log('no module');
+          return
+        }
+        var listConfig = {
+          url: '/articleList',
+          opts: {
+            pageNo: this.curPage,
+            pageSize: 20,
+            module: this.module
+          }
+        }
+        this.keyRequest('dataArr', listConfig, this, true)
           .then((res)=>{
-            this.dataArr = res.data || [1];
-            var cp = res.curPage
-            this.curPage = cp
-            this.pageData = {
-              total: res.total || 10,
-              cur: cp || 1
+            if(res.code == 1){
+              console.log(res.list)
+              this.dataArr = res.list || [1];
+              var cp = res.curPage
+              this.curPage = cp
+              this.pageData = {
+                total: res.total || 10,
+                cur: cp || 1
+              }
             }
+            
           });
       },
       sTag(str){
@@ -83,6 +99,22 @@
             isTag: 1
           }
         })
+      },
+      goDetail(id){
+        this.$router.push({
+          path: '/detail',
+          query: {
+            id: id
+          }
+        })
+      }
+    },
+    watch: {
+      module(v){
+        if(v){
+          console.log('module改变啦：'+v)
+          this.list();
+        }
       }
     }
   }

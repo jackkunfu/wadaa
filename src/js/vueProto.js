@@ -1,6 +1,9 @@
-const config = {
-  baseUrl: 'http://39.106.218.200/app/mls'
-}
+
+
+export const config = {
+  baseUrl: 'http://39.106.218.200/app/mls',
+  filePath: 'http://39.106.218.200'
+} 
 
 export default function vueProto(){
   Vue.prototype.ajax = function(url, opts, type){
@@ -33,7 +36,7 @@ export default function vueProto(){
    isSelfHandle -> // 如果接收数据不能直接使用，第四个参数传入true~具体调用时，继续.then接收数据来处理
    */
   Vue.prototype.keyRequest = function(keyStr, keyConfig, ctx, isSelfHandle){
-    return this.ajax( keyConfig.url, keyConfig.opts, keyConfig.type || 'get')
+    return this.ajax( keyConfig.url, keyConfig.opts || {}, keyConfig.type || 'get')
       .then((d)=>{
         if(isSelfHandle) return d;
         if(d.success){

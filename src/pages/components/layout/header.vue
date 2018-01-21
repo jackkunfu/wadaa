@@ -10,8 +10,11 @@ div
       ul
         li.fl(v-for="(item, i) in tabs" @click="goUrl(item)")
           .box {{item.name}}
-          ul(:class=" i == tabs.length -1 ? 'last' : '' ")
-            li(v-for="nav in item.list" @click="goUrl(nav)") {{nav.name}}
+          ul.level2(:class=" i == tabs.length -1 ? 'last' : '' " v-if="item.childList && item.childList.length>0")
+            li(v-for="nav in item.childList" @click="goUrl(nav)") {{nav.name}}
+              ul.level3(:class=" i == tabs.length -1 ? 'last' : '' " v-if="nav.childList && nav.childList.length>0")
+                li(v-for="nav in nav.childList" @click="goUrl(nav)") {{nav.name}}
+
 
   header-bottom(v-if="showNavBottom")
 
@@ -29,7 +32,11 @@ export default {
           name: '中国哲学小镇山地马拉松',
           url: '',
           list: [
-            { name: '2017赛事新闻', url: '' },
+            { 
+              name: '2017赛事新闻',
+              url: '',
+              list: []
+            },
             { name: '2017赛事规程', url: '' },
             { name: '2017赛事报名', url: '' },
             { name: '2017赛事新闻', url: '' }
@@ -54,10 +61,22 @@ export default {
   mounted(){
     this.keyRequest('tabs', {
       url: '/categoryList',
-      opts: {
-        
+      opts: {}
+    }, this, true).then((res) => {
+      if(res.code == 1){
+
+        this.tabs = res.dataList;
+
+        if(this.$route.path == '/'){   // 首页默认请求第一个module数据
+          this.$parent.$children.forEach( el => {    //  循环APP.vue组件中的子组件找到index.vue中的indexInit并执行请求首页列表的数据
+            var module = res.dataList[1].childList[1].module;
+            if(el.indexInit) el.indexInit(module)
+          })
+        }
+
       }
-    }, this)
+      
+    })
   },
   methods: {
     goUrl(item){
@@ -117,14 +136,15 @@ export default {
         .box
           color: #099;
           background: #ccc;
-        ul
+        ul.level2
           display: block;
 
       .box
         line-height: 100px;
         padding: 0 10px;
+        min-width: 100px;
         
-      ul
+      ul.level2
         display: none;
         width: 200px;
         position: absolute;
@@ -142,7 +162,18 @@ export default {
           line-height: 40px;
           padding-left: 20px;
           border-bottom: 1px solid #e5e5e5;
+          position: relative;
           &:hover
             color: #099;
+            .level3
+              display: block;
+          ul.level3
+            position: absolute;
+            left: 200px;
+            top: 0;
+            display: none;
+            width: 200px;
+            z-index: 10;
+            background: #fff;
 
 </style>
