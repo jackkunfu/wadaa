@@ -1,8 +1,6 @@
 <template lang="pug">
 
 div
-  //- head-nav(showNavBottom="true")
-
   .ctn1200
     .fl
       list-news(:module="module")
@@ -10,16 +8,12 @@ div
     .fr
       right-part
 
-  //- footer-part
-
   share
 
 </template>
 
 <script>
 
-// import headNav from './components/header'
-// import footerPart from './components/footer'
 import listNews from './components/list-news'
 import rightPart from './components/layout/right'
 
@@ -27,6 +21,7 @@ import Share from './components/share'
 
 export default {
   name: 'index',
+  props: ['indexModule'],
   data(){
     return {
       listInfo: {   // listNews组件需要信息
@@ -35,17 +30,19 @@ export default {
     }
   },
   components: {
-    // headNav,
-    // footerPart,
     listNews,
     rightPart,
     Share
   },
-  mounted(){
-  },
+  mounted(){},
   methods: {
-    indexInit(str){
+    indexInit(str){   // 暂时不用回调方法传参来处理，用props接收组件传递数据来处理
       this.module = str;
+    }
+  },
+  watch: {
+    indexModule(v){
+      this.module = v;
     }
   }
 }
