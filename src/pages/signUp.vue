@@ -17,7 +17,7 @@
                     .fill-label.fl 姓名
                         span *
                     .fill-input.fl
-                        input.input1.name(v-model="fillMsg.name")
+                        input.input1.name(v-model="fillMsg.name" value="小小")
                 .fill-msg
                     .fill-label.fl 证件号码
                         span *
@@ -53,7 +53,7 @@
                     .fill-label.mar-5 请输入任意两位数字
                             span *
                     .fill-input
-                        input.input2(v-model="fillMsg.verification")
+                        input.input2(v-model="fillMsg.verification" value="11")
                         span.font-13 Example: 12
                     button(@click="signUp") Submit
 
@@ -76,12 +76,12 @@ export default {
                 '6.   参加活动者若在比赛过程中发生任何伤亡事故以及各项医疗救护费用，均按投保额度向保险公司进行索赔。家属、遗嘱执行人或有关人员均不得状告活动组委会、赞助商以及活动组委会任命的官员、服务人员、代表、代理机构、参与组织以及赞助周末”享”跑（Running Weekends）喜悦（Joy）系列活动五凤站的有关机构、公司及员工，也不得向以上单位，个人提出其他索赔要求。'
             ],
             fillMsg: {
-                name: '',
-                cardId: '',
-                mobileNum: '',
-                emergencyContact: '',
-                emergencyPhone: '',
-                verification: ''
+                name: '小小',
+                cardId: '350428111111111111',
+                mobileNum: '13616181111',
+                emergencyContact: 'xiaoixao',
+                emergencyPhone: '13616181111',
+                verification: '11'
             },
         }
     },
@@ -93,7 +93,6 @@ export default {
     },
     methods: {
         signUp(){
-            alert($("input[type='checkbox']").prop('checked'));
             if(this.fillMsg.name == '' || 
                 this.fillMsg.cardId == '' || 
                 this.fillMsg.mobileNum == '' || 
@@ -107,16 +106,21 @@ export default {
                 if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(mobileNum)) || !(/^1[3|4|5|8][0-9]\d{4,8}$/.test(emergencyPhone))){
                     alert('请填入正确的手机号码~')
                 }else{
-                    if($("input[type='checkbox']").prop('checked')){
-                        alert('请阅读免责条款，并勾选~')
+                    if(!$("input[type='checkbox']").prop('checked')){
+                        alert('请阅读免责条款，并勾选~');
                     }else{
-                        this.keyRequest('detail', {
-                            url: '/app/mls/order/save',
-                            opts: {
-                                id: this.id
-                            },
-                            dataKey: ''
-                        }, this)
+                        var opts = this.fillMsg;
+                        this.ajax('/order/save', {
+                            opts
+                        }).then( (res)=>{
+                            var list = res.list
+                            if(list && list[0]){
+                                this.id = list[0].id;
+                                list[0].id && this.getDetail()
+                            }else{
+                                alert('id请求出错');
+                            }
+                        })
                     }
                 }
             }
