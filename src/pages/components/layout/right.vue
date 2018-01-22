@@ -1,6 +1,6 @@
 <template lang="pug">
     .right
-        .run-msg
+        //- .run-msg
             h3 沐野青城
             .msg-box
                 .nav
@@ -45,7 +45,7 @@
                 //- p @runningweekends.net
             .mail-msg.code
                 label 验证码：
-                input(type="text" v-model="mobileLogin.password")
+                input(type="text" v-model="code")
                 button(@click="getCode") 获取验证码
             .mail-btn
                 button(@click="login") 立即登录
@@ -56,7 +56,6 @@
             .link-box
                 a(v-for="item in linkList") {{item.name}}
             
-
 </template>
 <script>
 import { config } from '../../../js/vueProto'
@@ -83,9 +82,7 @@ export default {
             code: ''
         }
     },
-    mounted () {
-
-    },
+    mounted () {},
     methods: {
         show(num){
             $('.nav span').removeClass('active');
@@ -102,6 +99,24 @@ export default {
             }else{
                 alert('手机号格式不正确');
             }
+        },
+        login(){
+            if(!this.phone || !(/^1[3|4|5|8][0-9]\d{8}$/.test(this.phone.trim())) ){
+                alert('手机号格式不正确');
+                return
+            }
+
+            if(!this.code || this.code.trim().length != 6){
+                alert('验证码不正确');
+                return
+            }
+
+            this.ajax('', {
+                mobile: this.phone.trim(),
+                identify_code: this.code.trim()
+            }, 'get', config.filePath+'/basic/user/reg').then( (res) => {
+                alert(res.msg);
+            } )
         }
     }
 }
