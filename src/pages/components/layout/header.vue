@@ -1,19 +1,40 @@
 <template lang="pug">
 div
-  .ctn1200
-    .logo
-      img(src="http://www.runningweekends.net/wp-content/uploads/2016/12/2016122007560316.jpg")
-      div 周末享跑
-      span Running Weekends
+  .header-top
+    .ctn1200
+      .fl
+        span.phone-icon
+          i.fa.fa-phone
+        span 028-85090253
+      .fr
+        .icon-box
+          .icon-show
+            a.icon-1(href="http://contact@runningweekends.net")
+              i.fa.fa-envelope
+            a.icon-2(href="http://contact@runningweekends.net")
+              i.fa.fa-envelope
+      .fr
+        .icon-box
+          .icon-show
+            a.icon-1(href="http://weibo.com/RunningWeekends")
+              i.fa.fa-weibo
+            a.icon-2(href="http://weibo.com/RunningWeekends")
+              i.fa.fa-weibo
+  .header-nav   
+    .ctn1200
+      .logo
+        img(src="http://www.runningweekends.net/wp-content/uploads/2016/12/2016122007560316.jpg")
+        div 周末享跑
+        span Running Weekends
 
-    .main.fr
-      ul
-        li.fl(v-for="(item, i) in tabs" @click="goUrl(item)")
-          .box {{item.name}}
-          ul.level2(:class=" i == tabs.length -1 ? 'last' : '' " v-if="item.childList && item.childList.length>0")
-            li(v-for="nav in item.childList" @click.stop="goUrl(nav)") {{nav.name}}
-              ul.level3(:class=" i == tabs.length -1 ? 'last' : '' " v-if="nav.childList && nav.childList.length>0")
-                li(v-for="nav in nav.childList" @click.stop="goUrl(nav)") {{nav.name}}
+      .main.fr
+        ul
+          li.fl(v-for="(item, i) in tabs" @click="goUrl(item)")
+            .box {{item.name}}
+            ul.level2(:class=" i == tabs.length -1 ? 'last' : '' " v-if="item.childList && item.childList.length>0")
+              li(v-for="nav in item.childList" @click.stop="goUrl(nav)") {{nav.name}}
+                ul.level3(:class=" i == tabs.length -1 ? 'last' : '' " v-if="nav.childList && nav.childList.length>0")
+                  li(v-for="nav in nav.childList" @click.stop="goUrl(nav)") {{nav.name}}
 
 
   header-bottom(v-if="showNavBottom")
@@ -79,7 +100,21 @@ export default {
         }
 
       }
+    });
+    $(function(){
+      // 获取.header-nav 距离浏览器顶部的距离
+      var navH = $('.header-nav').offset().top;
+      $(window).scroll(function(){
+        // 获取滚动条的滚动距离
+        var scroH = $(this).scrollTop();
+        if(scroH>=navH){
+          $('.header-nav').css({'position':'fixed','top':0})
+        }else{
+          $(".header-nav").css({"position":"static"});
+        }
+      })
     })
+
   },
   methods: {
     goUrl(item){
@@ -119,6 +154,61 @@ export default {
 </script>
 
 <style scoped lang="sass">
+.header-nav
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  z-index: 100;
+  background: #fff;
+.header-top
+  height: 40px;
+  line-height: 40px;
+  background: #3F3F3F;
+  color: #fff;
+  .phone-icon
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 20px;
+    background: #009999;
+    i 
+      position: relative;
+      left: -5px;
+      // color: #009999;
+  .icon-box
+    height: 40px;
+    overflow: hidden;
+    margin-right: 1px;
+    .icon-show
+      width: 40px;
+      height: 80px;
+      overflow: hidden;
+      &:hover
+        .icon-1
+          -webkit-transform: translate(0,-40px);
+          -moz-transform: translate(0,-40px);
+          transform: translate(0,-40px);
+        .icon-2
+          -webkit-transform: translate(0,-40px);
+          -moz-transform: translate(0,-40px);
+          transform: translate(0,-40px);
+      a 
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        background: #333;
+        position: relative;
+        transition: 0.4s transform;
+        -webkit-transition: 0.4s -webkit-transform;
+        i 
+          color: #fff;
+      .icon-2
+        background: #009999;
+      
+
+  span
+    padding-left: 10px;
 .ctn1200
   height: 100px;
 .logo
