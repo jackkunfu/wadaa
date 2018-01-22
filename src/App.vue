@@ -2,9 +2,9 @@
 
 #app
 
-  head-nav(showNavBottom="true")
+  head-nav(showNavBottom="true" @initModule="initIndexModule")
 
-  router-view
+  router-view(:indexModule="indexModule")
 
   footer-part
 
@@ -19,6 +19,16 @@ export default {
   components: {
     headNav,
     footerPart
+  },
+  data(){
+    return {
+      indexModule: ''
+    }
+  },
+  methods: {
+    initIndexModule(v){    // 传递首页所需module请求首页列表
+      this.indexModule = v;
+    }
   }
 }
 </script>
