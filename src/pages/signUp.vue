@@ -2,23 +2,34 @@
     .ctn1200
         .fl
             .sign-title
-                a(href="http://www.runningweekends.net/3392") >>>>>悦在五凤——喜悦（Joy）系列活动五凤站活动说明<<<<<
-                p 
+                a(href="http://www.runningweekends.net/3392") >>>>>{{enrollMsg.name}}活动说明<<<<<
+                //- p 
                     span （ 咨询电话&nbsp;
                     i 173 1312 9309，孙滨
                     span  ）
-            .activity-des
+            //- .activity-des
                 h2 活动说明
                 b
                 .activity-msg
                     p.msg-p(v-for='item in activityMsg') {{item}}
             .fill-box
                 .fill-msg(v-for="item in fillInput")
-                    .fill-label.fl {{item.name}}
-                        span(v-if="item.isRequired") *
-                    .fill-input.fl
-                        input.input1(v-model="fillMsg[item.nameStr]" :class="item.classType")
-                .fill-msg
+                    div(v-if="item.type=='text'")
+                        .fill-label.fl {{item.name}}
+                            //- span(v-if="item.isRequired") *
+                            span *
+                        .fill-input.fl
+                            input.input1(v-model="fillMsg[item.nameStr]" :class="item.classType")
+
+                    div(v-if="item.type=='select'")
+                        .fill-label.fl {{item.name}}
+                            //- span(v-if="item.isRequired") *
+                            span *
+                        span(v-for="cho in item.choose")
+                            input(type="radio" :value="cho" :name="item.nameStr")
+                            span {{cho}}
+
+                //- .fill-msg
                     .fill-label.fl 所在地址
                         span *
                     .fill-input.fl
@@ -31,7 +42,7 @@
                     .fill-label.fl(style="width: 15px;")
                         span *
                     .fill-input.checkbox
-                        input(type="checkbox" id="f1" name="f1")
+                        input(type="checkbox" id="f1" name="f1" checked)
                         label.msg-p(for="f1") 我已阅读并完全同意以上免责条款
             .fill-box
                 .title 验证
@@ -47,7 +58,6 @@
             right-part
 </template>
 <script>
-import listNews from './components/list-news'
 import rightPart from './components/layout/right'
 export default {
     name: 'signUp',
@@ -61,81 +71,151 @@ export default {
                 '5.   参加活动者必须接受活动组委会为参加活动者办理的人身意外险和医疗险。',
                 '6.   参加活动者若在比赛过程中发生任何伤亡事故以及各项医疗救护费用，均按投保额度向保险公司进行索赔。家属、遗嘱执行人或有关人员均不得状告活动组委会、赞助商以及活动组委会任命的官员、服务人员、代表、代理机构、参与组织以及赞助周末”享”跑（Running Weekends）喜悦（Joy）系列活动五凤站的有关机构、公司及员工，也不得向以上单位，个人提出其他索赔要求。'
             ],
-            isRequired: ['name','emergencyPhone'],
+            isRequired: [],
             fillAll: [
                 {nameStr:'name',name:'姓名',type:'text',classType:'input1',vModel:'fillMsg.name',isRequired:false},
-                {nameStr:'sex',name:'性别',type:'text',classType:'input1',vModel:'fillMsg.sex',isRequired:false},
+                {nameStr:'sex',name:'性别',type:'select',classType:'input1',vModel:'fillMsg.sex',isRequired:false,choose:['男', '女']},
                 {nameStr:'email',name:'邮箱',type:'text',classType:'input1',vModel:'fillMsg.email',isRequired:false},
+                {nameStr:'cardType',name:'证件类型',type:'select',classType:'input1',vModel:'fillMsg.cardType',isRequired:true,choose:['身份证']},
                 {nameStr:'cardId',name:'证件号码',type:'text',classType:'input1',vModel:'fillMsg.cardId',isRequired:true},
                 {nameStr:'phone',name:'电话',type:'number',classType:'input1',vModel:'fillMsg.phone',isRequired:true},
                 {nameStr:'mobileNum',name:'手机号码',type:'number',classType:'input1',vModel:'fillMsg.mobileNum',isRequired:true},
                 {nameStr:'emergencyContact',name:'紧急联系人',type:'text',classType:'input2',vModel:'fillMsg.emergencyContact',isRequired:true},
                 {nameStr:'emergencyPhone',name:'紧急联系人电话',type:'number',classType:'input2',vModel:'fillMsg.emergencyPhone',isRequired:true},
+                {nameStr:'clothSize',name:'服装尺寸',type:'text',classType:'input1',vModel:'fillMsg.clothSize',isRequired:true},
+                {nameStr:'baiduche',name:'是否默认',type:'select',classType:'input2',vModel:'fillMsg.clothSize',isRequired:true,choose:['是', '否']},
             ],
             fillInput: [],
-            fillMsg: {
-                name: '小小',
-                cardId: '350428111111111111',
-                mobileNum: '13616181111',
-                emergencyContact: 'xiaoixao',
-                emergencyPhone: '13616181111',
-                verification: '11'
-            },
-            entryId: this.$route.query.entryId
+            fillMsg: {},   //  报名所须参数对象
+            // fillMsg: {
+            //     name: '小小',
+            //     cardId: '350428111111111111',
+            //     mobileNum: '13616181111',
+            //     emergencyContact: 'xiaoixao',
+            //     emergencyPhone: '13616181111',
+            //     verification: '11'
+            // },
+            entryId: this.$route.query.entryId,
+            enrollMsg: {}    // 存储活动信息
         }
     },
     components: {
-        listNews,
         rightPart
     },
     mounted(){
-        // 循环遍历出需要展示的input
-        this.fillInput = this.fillAll.filter( v => this.isRequired.indexOf(v.nameStr) > -1 );
-
         // 获取报名信息
-        this.ajax('/getEntry', {entryId: this.entryId}).then((res)=>{
-          console.log('list res');
-          console.log(res);
-          this.isRequired = res.objectData.additionals.split(',');
-          // 使各个字段响应
-          this.isRequired.forEach( element => {
-              this.$set(this.fillMsg, elememt, '')
-          });
+        this.ajax('/getEntry', {entryId: this.entryId}).then( res => {
+            this.enrollMsg = res.objectData;
+            this.isRequired = res.objectData.additionals.split(',');
+            // 循环遍历出需要展示的input
+            this.fillInput = this.fillAll.filter( v => this.isRequired.indexOf(v.nameStr) > -1 );
+            // 使各个字段响应
+            this.isRequired.forEach( element => {
+                this.$set(this.fillMsg, element, '')
+            });
         })
     },
     methods: {
-        signUp(){
-            if(this.fillMsg.name == '' || 
-                this.fillMsg.cardId == '' || 
-                this.fillMsg.mobileNum == '' || 
-                this.fillMsg.emergencyContact == '' ||
-                this.fillMsg.emergencyPhone == '' ||
-                this.fillMsg.verification == ''){
-                    alert('请将信息填写完整~')
-            }else{
-                var mobileNum = $('.mobileNum').val();
-                var emergencyPhone = $('.emergencyPhone').val();
-                if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(mobileNum)) || !(/^1[3|4|5|8][0-9]\d{4,8}$/.test(emergencyPhone))){
-                    alert('请填入正确的手机号码~')
-                }else{
-                    if(!$("input[type='checkbox']").prop('checked')){
-                        alert('请阅读免责条款，并勾选~');
-                    }else{
-                        var opts = this.fillMsg;
-                        this.ajax('/order/save', {
-                            opts
-                        }).then( (res)=>{
-                            var list = res.list
-                            if(list && list[0]){
-                                this.id = list[0].id;
-                                list[0].id && this.getDetail()
-                            }else{
-                                alert('id请求出错');
-                            }
-                        })
-                    }
+        checkSubmit(){
+            if(!localStorage.rwUserId) {
+                alert('暂未登陆,请右侧先登陆~');
+                return false;
+            }
+
+            // 直接输入的判断
+            this.fillInput.forEach( (v,i) => {
+                if( !(this.fillMsg[v.nameStr].trim()) && this.fillInput[i].type=='text' ){
+                    alert(this.fillInput[i].name + '没填~')
+                    return false;
+                }
+            });
+
+            // 手机格式判断
+            if(this.isRequired.indexOf('phone') > -1){
+                if( !(/^1[3|4|5|8]\d{9}$/.test(this.fillMsg['phone'].trim())) ){
+                    alert('手机号格式不正确');
+                    return false
                 }
             }
+            if(this.isRequired.indexOf('emergencyPhone') > -1){
+                if( !(/^1[3|4|5|8]\d{5,9}$/.test(this.fillMsg['emergencyPhone'].trim())) ){
+                    alert('紧急联系人电话格式不正确');
+                    return false
+                }
+            }
+
+            // 选择的判断
+            if(this.isRequired.indexOf('sex') > -1){
+                if(!$('input[name="sex"]:checked').val()){
+                    alert('性别没选')
+                    return false
+                }
+                this.fillMsg.sex = $('input[name="sex"]:checked').val();
+            }
+            if(this.isRequired.indexOf('cardType') > -1){
+                if(!$('input[name="cardType"]:checked').val()){
+                    alert('证件类型没选')
+                    return false
+                }
+                this.fillMsg.cardType = $('input[name="cardType"]:checked').val();
+            }
+
+            return true;
+        },
+        signUp(){
+
+            if(!this.checkSubmit()) return;
+
+            if(!$("#f1").prop('checked')){
+                alert('请阅读免责条款，并勾选~');
+                return
+            }
+
+            // 复制份参数，trim去掉参数两端的空格
+            var opts = JSON.parse(JSON.stringify(this.fillMsg));   // json方法深拷贝~
+            Object.keys(opts).forEach( v => { opts[v] = ( opts[v] + '').trim() } );
+
+            this.ajax('/order/save', opts, 'post').then( (res)=>{
+                var list = res.list
+                if(list && list[0]){
+                    this.id = list[0].id;
+                    list[0].id && this.getDetail()
+                }else{
+                    alert('id请求出错');
+                }
+            })
+
+            // if(this.fillMsg.name == '' || 
+            //     this.fillMsg.cardId == '' || 
+            //     this.fillMsg.mobileNum == '' || 
+            //     this.fillMsg.emergencyContact == '' ||
+            //     this.fillMsg.emergencyPhone == '' ||
+            //     this.fillMsg.verification == ''){
+            //         alert('请将信息填写完整~')
+            // }else{
+            //     var mobileNum = $('.mobileNum').val();
+            //     var emergencyPhone = $('.emergencyPhone').val();
+            //     if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(mobileNum)) || !(/^1[3|4|5|8][0-9]\d{4,8}$/.test(emergencyPhone))){
+            //         alert('请填入正确的手机号码~')
+            //     }else{
+            //         if(!$("input[type='checkbox']").prop('checked')){
+            //             alert('请阅读免责条款，并勾选~');
+            //         }else{
+            //             var opts = this.fillMsg;
+            //             this.ajax('/order/save', {
+            //                 opts
+            //             }).then( (res)=>{
+            //                 var list = res.list
+            //                 if(list && list[0]){
+            //                     this.id = list[0].id;
+            //                     list[0].id && this.getDetail()
+            //                 }else{
+            //                     alert('id请求出错');
+            //                 }
+            //             })
+            //         }
+            //     }
+            // }
         }
     }
 }

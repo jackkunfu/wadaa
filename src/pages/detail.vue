@@ -27,7 +27,7 @@ export default {
       module: this.$route.query.module || '',
       id: this.$route.query.id || '',
       detail: '',
-      enrollArr: []
+      enrollArr: []    // 可能有多种形式的报名以及报名入口
     }
   },
   components: {
@@ -62,12 +62,12 @@ export default {
 
   },
   methods: {
-    getIdFromMoudle(){
+    getIdFromMoudle(){    // 如果query中没有id ，根据query中的module获取该id
       this.ajax('/articleList', {
         pageNo: 1,
         pageSize: 20,
         module: this.module
-      }).then( (res)=>{
+      }).then(res =>{
         var list = res.list
         if(list && list[0]){
           this.id = list[0].id;
@@ -75,22 +75,19 @@ export default {
         }else{
           alert('id请求出错');
         }
-      } )
+      })
     },
-    getDetail(){
+    getDetail(){    //  根据id获取当前活动详情内容
       this.ajax('/article/get', {
         id: this.id
-      }).then( (res)=>{
+      }).then( res =>{
         this.detail = res.objectData.marathonArticleData.content;
         this.getEnrollList(res.objectData.marathonEvent.id);
-      } )
+      })
     },
     getEnrollList(id){
       this.ajax('/getEventEntryList', {eventId: id}).then((res)=>{
-        console.log('list res');
-        console.log(res);
         this.enrollArr = res.eventList || [];
-        
       })
     },
     goEnroll(entryId){
