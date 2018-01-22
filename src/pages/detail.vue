@@ -81,11 +81,3 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-  .detail
-    p
-      img
-        max-width: 100%!important;
-</style>
-
-
