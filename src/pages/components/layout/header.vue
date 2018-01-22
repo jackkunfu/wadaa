@@ -44,7 +44,7 @@ div
 <script>
 import headerBottom from './headerBottom.vue'
 export default {
-  name: 'header',
+  name: 'top',
   props: ['showNavBottom'],
   data () {
     return {

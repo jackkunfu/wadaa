@@ -46,7 +46,7 @@
             .mail-msg.code
                 label 验证码：
                 input(type="text" v-model="code")
-                button(@click="getCode") 获取验证码
+                button.getCode(@click="getCode") 获取验证码
             .mail-btn
                 button(@click="login") 立即登录
                 //- a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
@@ -78,7 +78,7 @@ export default {
                 {name:'未央-杨小华', url:'http://www.yangxiaohua.net/'},
                 {name:'爱燃烧', url:'http://iranshao.com/'},
             ],
-            phone: '13333333333',
+            phone: '18297389525',
             code: ''
         }
     },
@@ -95,6 +95,20 @@ export default {
                     mobile: this.phone.trim()
                 }, 'get', config.filePath+'/basic/user/identify').then( (res) => {
                     console.log(res);
+                    if(res.code == 1){
+                        alert('验证码短信已发送，请注意查收~')
+                        $('.getCode').attr('disabled', true)
+                        var t = 59;
+                        var a = setInterval(()=>{
+                            $('.getCode').html(t +' s');
+                            t--;
+                            if(t==-1){
+                                clearInterval(a);
+                                $('.getCode').removeAttr('disabled');
+                                $('.getCode').html('获取验证码')
+                            }
+                        }, 1000)
+                    }
                 } )
             }else{
                 alert('手机号格式不正确');
@@ -115,13 +129,20 @@ export default {
                 mobile: this.phone.trim(),
                 identify_code: this.code.trim()
             }, 'get', config.filePath+'/basic/user/reg').then( (res) => {
-                alert(res.msg);
+                if(res.code == 1){
+                    alert('登陆成功');
+                    localStorage.rwUserId = res.objectData.id;
+                }else{
+                    alert(res.msg);
+                }
             } )
         }
     }
 }
 </script>
 <style lang="sass" scoped>
+    .getCode
+        width: 80px;
     .right
         width: 280px;
         h3

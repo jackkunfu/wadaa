@@ -81,6 +81,7 @@ export default {
                 emergencyPhone: '13616181111',
                 verification: '11'
             },
+            entryId: this.$route.query.entryId
         }
     },
     components: {
@@ -90,6 +91,17 @@ export default {
     mounted(){
         // 循环遍历出需要展示的input
         this.fillInput = this.fillAll.filter( v => this.isRequired.indexOf(v.nameStr) > -1 );
+
+        // 获取报名信息
+        this.ajax('/getEntry', {entryId: this.entryId}).then((res)=>{
+          console.log('list res');
+          console.log(res);
+          this.isRequired = res.objectData.additionals.split(',');
+          // 使各个字段响应
+          this.isRequired.forEach( element => {
+              this.$set(this.fillMsg, elememt, '')
+          });
+        })
     },
     methods: {
         signUp(){

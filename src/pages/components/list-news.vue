@@ -36,7 +36,7 @@
   import pager from './pager'
 
   export default {
-    name: 'component news list',
+    name: 'componentNewsList',
     props: ['module'],
     filters: {
       day(v){
