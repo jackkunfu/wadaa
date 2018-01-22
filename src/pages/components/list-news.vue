@@ -4,8 +4,8 @@
   div(v-if="dataArr.length == 0") 暂无
   .box(v-for="item in dataArr")
     .time
-      .day 17
-      span 2017-02
+      .day {{item.createDate | day}}
+      span {{item.createDate | noday}}
       
     .main
       .img
@@ -14,7 +14,7 @@
         .btn +
 
       .name(@click="goDetail(item.id)") {{item.title}}
-      .tip 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
+      //- .tip 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
         span By
         | 周末享跑
 
@@ -23,8 +23,7 @@
       .read-all(@click="goDetail(item.id)") 阅读全文
         i.fa.fa-arrow-circle-right(style="margin-left:5px;")
 
-      .key
-        //- i.icon.iconfont &#xf02b;
+      //- .key
         i.fa.fa-tag(style="color:#ddd;margin-right:5px;")
         span(@click="sTag('111')") 无缝隙古镇
 
@@ -39,6 +38,18 @@
   export default {
     name: 'component news list',
     props: ['module'],
+    filters: {
+      day(v){
+        if(!v) return ''
+        var v0 = v.split(' ')[0]
+        return v0.split('-')[2];
+      },
+      noday(v){
+        if(!v) return ''
+        var v0 = v.split(' ')[0];
+        return v0.split('-')[0] + '-' + v0.split('-')[1];
+      }
+    },
     data(){
       return {
         dataArr: [],     // 列表数据
@@ -129,6 +140,7 @@
     position: relative;
     border-bottom: 1px solid #e5e5e5;
     padding-bottom: 10px;
+    margin-bottom: 10px;
 
 .time
   position: absolute;
@@ -201,7 +213,6 @@
     font-size: 10px;
     color: #333;
     line-height: 25px;
-    margin-bottom: 10px;
     span
       margin: 0 5px;
     
@@ -211,6 +222,7 @@
         color: #333;
 
   .text
+    margin-top: 10px;
     color: #333;
     font-size: 14px;
     line-height: 20px;

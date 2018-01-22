@@ -27,11 +27,11 @@ export default {
         "bdSize":"24"
       },
       "share":{},
-      "image":{
-        "viewList":["qzone","tsina","tqq","renren","weixin"],
-        "viewText":"分享到：",
-        "viewSize":"16"
-      },
+      // "image":{
+      //   "viewList":["qzone","tsina","tqq","renren","weixin"],
+      //   "viewText":"分享到：",
+      //   "viewSize":"16"
+      // },
       "selectShare":{
         "bdContainerClass":null,
         "bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]

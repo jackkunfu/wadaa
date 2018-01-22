@@ -103,7 +103,7 @@ export default {
         
       }
 
-      location.reload();
+      // location.reload();
     }
   },
   watch: {
@@ -185,5 +185,9 @@ export default {
             width: 200px;
             z-index: 10;
             background: #fff;
+            li
+              color: #000;
+              &:hover
+                color: #099;
 
 </style>
