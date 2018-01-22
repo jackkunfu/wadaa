@@ -4,12 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+Vue.config.productionTip = false
+
 import './sass/reset.sass'
 import vueProto from './js/vueProto'
 import vDistpicker from 'v-distpicker'
 Vue.component('v-distpicker', vDistpicker)
-
-Vue.config.productionTip = false
 
 Vue.use(vueProto)
 
