@@ -6,6 +6,8 @@ import router from './router'
 
 import './sass/reset.sass'
 import vueProto from './js/vueProto'
+import vDistpicker from 'v-distpicker'
+Vue.component('v-distpicker', vDistpicker)
 
 Vue.config.productionTip = false
 

@@ -13,31 +13,17 @@
                 .activity-msg
                     p.msg-p(v-for='item in activityMsg') {{item}}
             .fill-box
+                .fill-msg(v-for="item in fillInput")
+                    .fill-label.fl {{item.name}}
+                        span(v-if="item.isRequired") *
+                    .fill-input.fl
+                        input.input1(v-model="fillMsg[item.nameStr]" :class="item.classType")
                 .fill-msg
-                    .fill-label.fl 姓名
+                    .fill-label.fl 所在地址
                         span *
                     .fill-input.fl
-                        input.input1.name(v-model="fillMsg.name" value="小小")
-                .fill-msg
-                    .fill-label.fl 证件号码
-                        span *
-                    .fill-input.fl
-                        input.input1.cardId(v-model="fillMsg.cardId")
-                .fill-msg
-                    .fill-label.fl 手机号码
-                        span *
-                    .fill-input.fl
-                        input.input1.mobileNum(v-model="fillMsg.mobileNum")
-                .fill-msg
-                    .fill-label.fl 紧急联系人
-                        span *
-                    .fill-input.fl
-                        input.input2.emergencyContact(v-model="fillMsg.emergencyContact")
-                .fill-msg
-                    .fill-label.fl 紧急联系人电话
-                        span *
-                    .fill-input.fl
-                        input.input2.emergencyPhone(v-model="fillMsg.emergencyPhone")
+                        v-distpicker.area-box( @province="province" @city="city")
+
                 .fill-msg
                     .fill-label(style="margin-bottom: 8px;") 免责条款
                     p.msg-p  我自愿参加本次赛事及一切赛事相关活动，我确认本人具有参加比赛相应的民事行为能力和民事责任能力，并且已获得监护人的同意。我确认了解比赛可能发生的一切风险（包括但不限于因本次运动所可能产生的人身伤亡风险）的提示，我在此明确同意将自行承担参加比赛所可能存在的风险和责任。并确认自身身体和精神健康状况符合参加比赛的各项要求。我愿意承担自身的意外风险责任，并确认不会就活动中发生或引发的自身意外、死亡或任何形式的损失向组委会提出赔偿或追究责任。我承诺本人所提供的报名信息真实无误，并同意报名费用支付后不退回。
@@ -75,6 +61,18 @@ export default {
                 '5.   参加活动者必须接受活动组委会为参加活动者办理的人身意外险和医疗险。',
                 '6.   参加活动者若在比赛过程中发生任何伤亡事故以及各项医疗救护费用，均按投保额度向保险公司进行索赔。家属、遗嘱执行人或有关人员均不得状告活动组委会、赞助商以及活动组委会任命的官员、服务人员、代表、代理机构、参与组织以及赞助周末”享”跑（Running Weekends）喜悦（Joy）系列活动五凤站的有关机构、公司及员工，也不得向以上单位，个人提出其他索赔要求。'
             ],
+            isRequired: ['name','emergencyPhone'],
+            fillAll: [
+                {nameStr:'name',name:'姓名',type:'text',classType:'input1',vModel:'fillMsg.name',isRequired:false},
+                {nameStr:'sex',name:'性别',type:'text',classType:'input1',vModel:'fillMsg.sex',isRequired:false},
+                {nameStr:'email',name:'邮箱',type:'text',classType:'input1',vModel:'fillMsg.email',isRequired:false},
+                {nameStr:'cardId',name:'证件号码',type:'text',classType:'input1',vModel:'fillMsg.cardId',isRequired:true},
+                {nameStr:'phone',name:'电话',type:'number',classType:'input1',vModel:'fillMsg.phone',isRequired:true},
+                {nameStr:'mobileNum',name:'手机号码',type:'number',classType:'input1',vModel:'fillMsg.mobileNum',isRequired:true},
+                {nameStr:'emergencyContact',name:'紧急联系人',type:'text',classType:'input2',vModel:'fillMsg.emergencyContact',isRequired:true},
+                {nameStr:'emergencyPhone',name:'紧急联系人电话',type:'number',classType:'input2',vModel:'fillMsg.emergencyPhone',isRequired:true},
+            ],
+            fillInput: [],
             fillMsg: {
                 name: '小小',
                 cardId: '350428111111111111',
@@ -90,6 +88,8 @@ export default {
         rightPart
     },
     mounted(){
+        // 循环遍历出需要展示的input
+        this.fillInput = this.fillAll.filter( v => this.isRequired.indexOf(v.nameStr) > -1 );
     },
     methods: {
         signUp(){
@@ -179,6 +179,7 @@ export default {
                 border: 1px solid #ddd;
                 height: 25px;
                 border-radius: 3px;
+                padding-left: 5px;
             .title
                 font-size: 16px;
                 padding-bottom: 8px;
@@ -201,6 +202,7 @@ export default {
                         width: 250px;
                     .input2
                         width: 450px;
+                    
                 .checkbox
                     position: relative;
                     top: -4px;
