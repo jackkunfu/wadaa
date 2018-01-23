@@ -27,7 +27,7 @@ div
         div 周末享跑
         span Running Weekends
 
-      .main.fr
+      .main
         ul
           li.fl(v-for="(item, i) in tabs" @click="goUrl(item)")
             .box {{item.name}}
@@ -218,6 +218,7 @@ export default {
   font-size: 24px;
   line-height: 1;
   width: 170px;
+  margin-right: 30px;
   img
     max-height: 40px;
     float: left;
@@ -239,15 +240,18 @@ export default {
         cursor: pointer;
         .box
           color: #099;
-          background: #ccc;
+          background: #f2f2f2;
+          border-left: 1px solid #e5e5e5;
+          border-right: 1px solid #e5e5e5;
         ul.level2
           display: block;
 
       .box
         line-height: 100px;
-        padding: 0 10px;
+        padding: 0 30px;
         min-width: 100px;
-        
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
       ul.level2
         display: none;
         width: 200px;

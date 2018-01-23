@@ -19,7 +19,7 @@
                             //- span(v-if="item.isRequired") *
                             span *
                         .fill-input.fl
-                            input.input1(v-model="fillMsg[item.nameStr]" :class="item.classType")
+                            input.input1(type="text" v-model="fillMsg[item.nameStr]" :class="item.classType")
 
                     div(v-if="item.type=='select'")
                         .fill-label.fl {{item.name}}
