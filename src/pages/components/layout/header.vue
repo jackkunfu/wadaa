@@ -199,8 +199,8 @@ export default {
         text-align: center;
         background: #333;
         position: relative;
-        transition: 0.4s transform;
-        -webkit-transition: 0.4s -webkit-transform;
+        transition: 0.3s transform;
+        -webkit-transition: 0.3s -webkit-transform;
         i 
           color: #fff;
       .icon-2

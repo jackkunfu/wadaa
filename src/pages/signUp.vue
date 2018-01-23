@@ -130,10 +130,16 @@ export default {
                     return false;
                 }
             });
-
-            // 手机格式判断
+            // 电话格式判断
             if(this.isRequired.indexOf('phone') > -1){
                 if( !(/^1[3|4|5|8]\d{9}$/.test(this.fillMsg['phone'].trim())) ){
+                    alert('手机号格式不正确');
+                    return false
+                }
+            }
+            // 手机格式判断
+            if(this.isRequired.indexOf('mobileNum') > -1){
+                if( !(/^1[3|4|5|8]\d{9}$/.test(this.fillMsg['mobileNum'].trim())) ){
                     alert('手机号格式不正确');
                     return false
                 }
