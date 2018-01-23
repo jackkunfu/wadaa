@@ -1,5 +1,6 @@
 <template lang="pug">
   .share
+    div 我要分享：
     .bdsharebuttonbox
       a.bds_more(data-cmd='more')
       a.bds_qzone(data-cmd='qzone')
