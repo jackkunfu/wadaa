@@ -25,8 +25,8 @@
                         .fill-label.fl {{item.name}}
                             //- span(v-if="item.isRequired") *
                             span *
-                        span(v-for="cho in item.choose")
-                            input(type="radio" :value="cho" :name="item.nameStr")
+                        span(v-for="cho in item.choose" class="radio-input")
+                            input(type="radio" :value="cho" :name="item.nameStr" v-model="fillMsg[item.nameStr]")
                             span {{cho}}
 
                 //- .fill-msg
@@ -113,6 +113,11 @@ export default {
             this.isRequired.forEach( element => {
                 this.$set(this.fillMsg, element, '')
             });
+        });
+        $(function(){
+            var detailId = localstorage.detailId;
+            var href = 'http://www.runningweekends.net/' + detailId;
+            $('.sign-title a').prop('href',href);
         })
     },
     methods: {
@@ -140,6 +145,14 @@ export default {
             if(this.isRequired.indexOf('emergencyPhone') > -1){
                 if( !(/^1[3|4|5|8]\d{5,9}$/.test(this.fillMsg['emergencyPhone'].trim())) ){
                     alert('紧急联系人电话格式不正确');
+                    return false
+                }
+            }
+
+            // 邮箱格式判断
+            if(this.isRequired.indexOf('email') > -1){
+                if( !(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ .test(this.fillMsg['email'].trim())) ){
+                    alert('邮箱格式不正确');
                     return false
                 }
             }
@@ -175,14 +188,8 @@ export default {
             var opts = JSON.parse(JSON.stringify(this.fillMsg));   // json方法深拷贝~
             Object.keys(opts).forEach( v => { opts[v] = ( opts[v] + '').trim() } );
 
-            this.ajax('/order/save', opts, 'post').then( (res)=>{
-                var list = res.list
-                if(list && list[0]){
-                    this.id = list[0].id;
-                    list[0].id && this.getDetail()
-                }else{
-                    alert('id请求出错');
-                }
+            this.ajax('/order/save', opts, 'post').then( res => {
+                
             })
 
             // if(this.fillMsg.name == '' || 
@@ -294,6 +301,12 @@ export default {
                         width: 250px;
                     .input2
                         width: 450px;
+                .radio-input
+                    margin-right: 20px;
+                    span
+                        position: relative;
+                        top: -7px;
+                        left: 5px;
                     
                 .checkbox
                     position: relative;
