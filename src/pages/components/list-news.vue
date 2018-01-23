@@ -13,7 +13,9 @@
         .cover
         .btn +
 
-      .name(@click="goDetail(item.id)") {{item.title}}
+      .name(@click="goDetail(item.id)")
+        i.fa.fa-pencil(style="")
+        span {{item.title}}
       //- .tip 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
         span By
         | 周末享跑
@@ -209,6 +211,17 @@
     cursor: pointer;
     &:hover
       color: #099;
+
+    i
+      background: #099;
+      color: #fff;
+      font-size: 15px;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+
+
   .tip
     font-size: 10px;
     color: #333;

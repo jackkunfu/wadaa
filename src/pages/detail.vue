@@ -3,10 +3,13 @@
 div
   .ctn1200
     .fl(style="width:850px;")
-      div(v-for="item in enrollArr")
-        .enroll(@click="goEnroll(item.entryId)") &gt;&gt;&gt;&gt;&gt;&gt;点击报名&lt;&lt;&lt;&lt;&lt;&lt;
-      .detail(v-html="detail")
 
+      .box(v-for="item in enrollArr")
+        .name {{item.name}}
+        .fee {{item.fee}}
+        .time {{item.matchStartDate}} - {{item.matchEndDate}}
+        span.enroll(@click="goEnroll(item.entryId)") &gt;&gt;&gt;&gt;&gt;&gt;点击报名&lt;&lt;&lt;&lt;&lt;&lt;
+      .detail(v-html="detail")
 
     .fr
       right-part
@@ -91,20 +94,23 @@ export default {
       })
     },
     goEnroll(entryId){
-      this.$router.push({path: '/signUp', query: {entryId: entryId}})
+      this.$router.push({path: '/signUp', query: {entryId: entryId, detailId: this.id}})
     }
   }
 }
 </script>
 
 <style lang="sass" scoped>
+.box
+  text-align: center;
+  margin-bottom: 20px;
 .enroll
   font-family: comic sans ms,cursive;
   font-size: 24px;
   color: #0f0;
   cursor: pointer;
   &:hover
-    border-bottom: 1px solid #099;
+    border-bottom: 2px solid #099;
 </style>
 
 
