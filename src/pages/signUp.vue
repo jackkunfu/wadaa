@@ -2,7 +2,7 @@
     .ctn1200
         .fl
             .sign-title
-                a(href="http://www.runningweekends.net/3392") >>>>>{{enrollMsg.name}}活动说明<<<<<
+                a(:href="'/#/detail?id='+detailId") >>>>>{{enrollMsg.name}}活动说明<<<<<
                 //- p 
                     span （ 咨询电话&nbsp;
                     i 173 1312 9309，孙滨
@@ -63,6 +63,7 @@ export default {
     name: 'signUp',
     data () {
         return {
+            detailId: this.$route.query.detailId,
             activityMsg: [
                 '1.   本次活动是出于自愿原则的AA活动，本组委会只是起到活动的联系作用。',
                 '2.   参加活动者要求在18岁以上70岁以下',
@@ -114,11 +115,6 @@ export default {
                 this.$set(this.fillMsg, element, '')
             });
         });
-        $(function(){
-            var detailId = localstorage.detailId;
-            var href = 'http://www.runningweekends.net/' + detailId;
-            $('.sign-title a').prop('href',href);
-        })
     },
     methods: {
         checkSubmit(){
