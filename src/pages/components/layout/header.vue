@@ -48,32 +48,7 @@ export default {
   props: ['showNavBottom'],
   data () {
     return {
-      tabs: [
-        // {
-        //   name: '中国哲学小镇山地马拉松',
-        //   url: '',
-        //   list: [
-        //     { 
-        //       name: '2017赛事新闻',
-        //       url: '',
-        //       list: []
-        //     },
-        //     { name: '2017赛事规程', url: '' },
-        //     { name: '2017赛事报名', url: '' },
-        //     { name: '2017赛事新闻', url: '' }
-        //   ]
-        // },
-        // {
-        //   name: '关于我们',
-        //   url: '',
-        //   list: [
-        //     { name: '团队领军人', url: '/aboutUs', query: {type: 1}, isLocation: true },
-        //     { name: '团队特点及优势', url: '/aboutUs', query: {type: 2}, isLocation: true },
-        //     { name: '合作伙伴和机构', url: '/aboutUs', query: {type: 3}, isLocation: true },
-        //     { name: '赛事和系列活动', url: '' }
-        //   ]
-        // }
-      ]
+      tabs: []
     }
   },
   components: {

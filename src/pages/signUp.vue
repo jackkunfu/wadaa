@@ -25,8 +25,8 @@
                         .fill-label.fl {{item.name}}
                             //- span(v-if="item.isRequired") *
                             span *
-                        span(v-for="cho in item.choose" class="radio-input")
-                            input(type="radio" :value="cho" :name="item.nameStr" v-model="fillMsg[item.nameStr]")
+                        span(v-for="(cho, i) in item.choose" class="radio-input")
+                            input(type="radio" :value="i" :name="item.nameStr" v-model="fillMsg[item.nameStr]")
                             span {{cho}}
 
                 //- .fill-msg
@@ -45,11 +45,11 @@
                         input(type="checkbox" id="f1" name="f1" checked)
                         label.msg-p(for="f1") 我已阅读并完全同意以上免责条款
             .fill-box
-                .title 验证
+                //- .title 验证
                 .fill-msg(style="margin-bottom:0")
-                    .fill-label.mar-5 请输入任意两位数字
+                    //- .fill-label.mar-5 请输入任意两位数字
                             span *
-                    .fill-input
+                    //- .fill-input
                         input.input2(v-model="fillMsg.verification" value="11")
                         span.font-13 Example: 12
                     button(@click="signUp") Submit
@@ -76,26 +76,19 @@ export default {
             fillAll: [
                 {nameStr:'name',name:'姓名',type:'text',classType:'input1',vModel:'fillMsg.name',isRequired:false},
                 {nameStr:'sex',name:'性别',type:'select',classType:'input1',vModel:'fillMsg.sex',isRequired:false,choose:['男', '女']},
-                {nameStr:'email',name:'邮箱',type:'text',classType:'input1',vModel:'fillMsg.email',isRequired:false},
-                {nameStr:'cardType',name:'证件类型',type:'select',classType:'input1',vModel:'fillMsg.cardType',isRequired:true,choose:['身份证']},
-                {nameStr:'cardId',name:'证件号码',type:'text',classType:'input1',vModel:'fillMsg.cardId',isRequired:true},
                 {nameStr:'phone',name:'电话',type:'number',classType:'input1',vModel:'fillMsg.phone',isRequired:true},
-                {nameStr:'mobileNum',name:'手机号码',type:'number',classType:'input1',vModel:'fillMsg.mobileNum',isRequired:true},
+                {nameStr:'mobileNum',name:'手机号码',type:'text',classType:'input1',vModel:'fillMsg.mobileNum',isRequired:true},
+                {nameStr:'email',name:'邮箱',type:'text',classType:'input1',vModel:'fillMsg.email',isRequired:false},
                 {nameStr:'emergencyContact',name:'紧急联系人',type:'text',classType:'input2',vModel:'fillMsg.emergencyContact',isRequired:true},
                 {nameStr:'emergencyPhone',name:'紧急联系人电话',type:'number',classType:'input2',vModel:'fillMsg.emergencyPhone',isRequired:true},
-                {nameStr:'clothSize',name:'服装尺寸',type:'text',classType:'input1',vModel:'fillMsg.clothSize',isRequired:true},
+                {nameStr:'clothSize',name:'服装尺寸',type:'select',classType:'input1',vModel:'fillMsg.clothSize',isRequired:true,choose:['S', 'M', 'L', '2XL', '3XL']},
                 {nameStr:'baiduche',name:'是否默认',type:'select',classType:'input2',vModel:'fillMsg.clothSize',isRequired:true,choose:['是', '否']},
+                {nameStr:'cardType',name:'证件类型',type:'select',classType:'input1',vModel:'fillMsg.cardType',isRequired:true,choose:['身份证', '护照','港澳通行证','台胞证']},
+                {nameStr:'cardId',name:'证件号码',type:'text',classType:'input1',vModel:'fillMsg.cardId',isRequired:true},
+                {nameStr:'blood',name:'血型',type:'select',classType:'input1',vModel:'fillMsg.blood',isRequired:true,choose:['AB', 'A','B','O']},
             ],
             fillInput: [],
             fillMsg: {},   //  报名所须参数对象
-            // fillMsg: {
-            //     name: '小小',
-            //     cardId: '350428111111111111',
-            //     mobileNum: '13616181111',
-            //     emergencyContact: 'xiaoixao',
-            //     emergencyPhone: '13616181111',
-            //     verification: '11'
-            // },
             entryId: this.$route.query.entryId,
             enrollMsg: {}    // 存储活动信息
         }
@@ -125,7 +118,7 @@ export default {
 
             // 直接输入的判断
             this.fillInput.forEach( (v,i) => {
-                if( !(this.fillMsg[v.nameStr].trim()) && this.fillInput[i].type=='text' ){
+                if( this.fillInput[i].type=='text' && !(this.fillMsg[v.nameStr].trim()) ){
                     alert(this.fillInput[i].name + '没填~')
                     return false;
                 }
@@ -143,6 +136,7 @@ export default {
                     alert('手机号格式不正确');
                     return false
                 }
+                this.fillMsg.mobile = this.fillMsg.mobileNum;
             }
             if(this.isRequired.indexOf('emergencyPhone') > -1){
                 if( !(/^1[3|4|5|8]\d{5,9}$/.test(this.fillMsg['emergencyPhone'].trim())) ){
@@ -165,14 +159,12 @@ export default {
                     alert('性别没选')
                     return false
                 }
-                this.fillMsg.sex = $('input[name="sex"]:checked').val();
             }
             if(this.isRequired.indexOf('cardType') > -1){
                 if(!$('input[name="cardType"]:checked').val()){
                     alert('证件类型没选')
                     return false
                 }
-                this.fillMsg.cardType = $('input[name="cardType"]:checked').val();
             }
 
             return true;
@@ -190,8 +182,17 @@ export default {
             var opts = JSON.parse(JSON.stringify(this.fillMsg));   // json方法深拷贝~
             Object.keys(opts).forEach( v => { opts[v] = ( opts[v] + '').trim() } );
 
+            opts.entryId = this.entryId
+            opts.accountId = localStorage.rwUserId
+            opts.sex = opts.sex - 0 + 1;   // sex 循环中是从0 开始的 不过sex是传1 和 2 这里加上1
+
             this.ajax('/order/save', opts, 'post').then( res => {
-                
+                if(res.code != 1){
+                    alert(res.msg);
+                    return
+                }
+
+
             })
 
             // if(this.fillMsg.name == '' || 

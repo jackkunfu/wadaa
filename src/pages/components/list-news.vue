@@ -10,8 +10,8 @@
     .main
       .img
         img(:src="config.filePath + (item.image[0] == '|' ? item.image.slice(1) : item.image )")
-        .cover
-        .btn +
+        //- .cover
+        //- .btn +
 
       .name(@click="goDetail(item.id)")
         i.fa.fa-pencil(style="")
@@ -92,12 +92,11 @@
         this.keyRequest('dataArr', listConfig, this, true)
           .then((res)=>{
             if(res.code == 1){
-              console.log(res.list)
-              this.dataArr = res.list || [];
-              var cp = res.curPage
+              this.dataArr = res.objectData.list || [];
+              var cp = res.objectData.pageNo
               this.curPage = cp
               this.pageData = {
-                total: res.total || 10,
+                total: res.objectData.count || 0,
                 cur: cp || 1
               }
             }
@@ -217,8 +216,9 @@
       color: #fff;
       font-size: 15px;
       width: 25px;
-      height: 25px;
-      line-height: 25px;
+      height: 27px;
+      line-height: 32px;
+      margin-right: 5px;
       text-align: center;
 
 

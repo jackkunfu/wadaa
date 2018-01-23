@@ -8,16 +8,12 @@ div
     .fr
       right-part
 
-  share
-
 </template>
 
 <script>
 
 import listNews from './components/list-news'
 import rightPart from './components/layout/right'
-
-import Share from './components/share'
 
 export default {
   name: 'news',
@@ -28,8 +24,7 @@ export default {
   },
   components: {
     listNews,
-    rightPart,
-    Share
+    rightPart
   },
   mounted(){
     var _this = this;
