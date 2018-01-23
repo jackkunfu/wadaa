@@ -143,6 +143,8 @@ export default {
 <style lang="sass" scoped>
     .getCode
         width: 80px;
+        padding: 2px 0;
+        font-size: 13px;
     .right
         width: 280px;
         h3
@@ -225,7 +227,7 @@ export default {
             padding-left: 10px;
             &.code
                 input
-                    width: 80px;
+                    width: 90px;
                 button
                     margin-left: 10px;
             label,p
