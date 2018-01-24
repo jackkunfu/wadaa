@@ -4,7 +4,7 @@ div
   .ctn1200
     .fl(style="width:850px;")
       div(style="position:relative;margin-bottom:80px;")
-        .time
+        .time(v-if="item.createDate")
           .day {{item.createDate | day}}
           span {{item.createDate | noday}}
 
@@ -30,7 +30,7 @@ div
           .time ⭕️ 报名时间： {{item.matchStartDate}} - {{item.matchEndDate}}
           span.enroll(@click="goEnroll(item.entryId)") &gt;&gt;&gt;&gt;&gt;&gt;点击报名&lt;&lt;&lt;&lt;&lt;&lt;
 
-      div(v-if="this.enrollArr.length==0" style="line-height: 80px;color: #999;font-size: 14px;") 报名时间未到或者已经结束
+      //- div(v-if="this.enrollArr.length==0" style="line-height: 80px;color: #999;font-size: 14px;") 报名时间未到或者已经结束
 
       .detail(v-html="detail")
 

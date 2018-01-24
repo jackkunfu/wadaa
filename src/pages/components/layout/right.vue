@@ -48,7 +48,9 @@
                 input(type="text" v-model="code")
                 button.getCode(@click="getCode") 获取验证码
             .mail-btn
-                button(@click="login") 立即登录
+                button(@click="login" v-if="!rwUserId") 立即登录
+                button(@click="login" v-if="rwUserId") 重新登录
+                button(@click="goSelf" v-if="rwUserId") 个人中心
                 //- a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
 
         .friendly-link
@@ -79,7 +81,8 @@ export default {
                 {name:'爱燃烧', url:'http://iranshao.com/'},
             ],
             phone: '18297389525',
-            code: ''
+            code: '',
+            rwUserId: localStorage.rwUserId
         }
     },
     mounted () {},
@@ -131,11 +134,14 @@ export default {
             }, 'get', config.filePath+'/basic/user/reg').then( (res) => {
                 if(res.code == 1){
                     alert('登陆成功');
-                    localStorage.rwUserId = res.objectData.id;
+                    this.rwUserId = localStorage.rwUserId = res.objectData.id || '';
                 }else{
                     alert(res.msg);
                 }
             } )
+        },
+        goSelf(){
+            this.$router.push({path:'/my'});
         }
     }
 }
