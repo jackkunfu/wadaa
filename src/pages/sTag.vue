@@ -36,8 +36,7 @@ export default {
   },
   components: {
     listNews,
-    rightPart,
-    // Share
+    rightPart
   },
   mounted(){},
   methods: {}
