@@ -1,20 +1,10 @@
 <template lang="pug">
 
 .ctn
-  //- .ctn1200
-  //-   .fl(v-if="str")
-  //-     span 关键词：{{str}}
-  //-   .fr
-  //-     input()
-  //-     .crumbs
-  //-       span Home
-  //-       span(v-if="crumb")
-  //-         | >
-  //-         span {{crumb}}
-  //-       span(v-if="crumb1")
-  //-         | >
-  //-         span {{crumb1}}
   .ctn1200
+    .fl(v-if="crumb")
+      span 关键词：{{crumb}}
+
     .search
       .search-msg
         input(placeholder="输入关键词后回车..." v-model="str") 
@@ -22,8 +12,8 @@
           i.iconfont &#xe63d;
       .crumbs
         span Home
-        span(v-if="crumb") >>
-          span {{crumb}}
+        span(v-if="crumb" style="margin:0 10px;") >>
+          span(style="margin:0 10px;") {{crumb}}
         span(v-if="crumb1") >>
           span {{crumb1}}
 
@@ -43,6 +33,7 @@ export default {
     search(){
       var trimStr = this.str.trim();
       if(!trimStr) return
+      this.crumb = trimStr;
       this.$router.push({path: '/sTag', query: {str: trimStr}})
     }
   }
@@ -55,11 +46,16 @@ export default {
   background-image: url('../../../imgs/slider-bg-dark.jpg');
   height: 160px;
   line-height: 160px;
-  font-size: 10px;
+  font-size: 25px;
   margin-bottom: 50px;
   .ctn1200
     position: relative;
+    .fl
+      color: #fff;
+      padding-top: 30px;
+      line-height: 50px;
     .search
+      font-size: 10px;
       position: absolute;
       right: 0;
       .search-msg
