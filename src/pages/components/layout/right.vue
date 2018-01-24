@@ -141,7 +141,7 @@ export default {
             } )
         },
         goSelf(){
-            this.$router.push({path:'/my'});
+            this.$router.push({path:'/myMsg'});
         }
     }
 }
@@ -244,11 +244,11 @@ export default {
                 border: 1px solid #ccc;
                 padding: 0 5px;
         .mail-btn
-            text-align: center;
             position: relative;
-            // top: -10px;
+            right: -39px;
             button
                 padding: 8px 15px;
+                margin: 0 10px;
         .link-box
             a
                 display: block;
