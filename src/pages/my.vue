@@ -4,14 +4,14 @@
             h2 个人中心
             .user-msg 
                 h3 账号信息
-                .msg-show ⭕ 登录手机：{{ myMsg.mobile | mobile}}
+                .msg-show ⭕ 登录手机：{{ mobile | mobile}}
             .sign-msg 
                 h3 报名信息
                 .sign-list(v-for="(item,index) in signMsg") 
                     .sign-activity {{index+1}}、{{ item.name}}
                     .msg-show ⭕ 报名时间：{{ item.time }}
-                    .msg-show ⭕ 支付情况：
-                    .msg-show ⭕ 参赛情况：{{ item.state | state}}
+                    .msg-show ⭕ 支付情况：{{item.pay==0?'未支付':'已支付'}}
+                    .msg-show ⭕ 参赛情况：{{ item.state==0?'已圆满结束~':'正在火热进行中~'}}
             
         .fr
             right-part
@@ -27,21 +27,10 @@ export default {
             var v = '' + v;
             return v.substring(0,3) + '****' + v.substring(v.length-3, v.length)
         },
-        state(v){
-            var state = v;
-            var s = state == 0 ? '活动已经圆满结束~' : '活动正在火热进行中~';
-            return s;
-        }
     },
     data () {
         return {
-            myMsg: {
-                mobile: 13616181047,
-                activityName: '哲学小镇山地马拉松',
-                signTime: '2017-12-11 14:12',
-                activityState: '活动还未开始'
-
-            },
+            mobile: 13616181047,
             signMsg: [
                 {name: '哲学小镇山地马拉松',time:'2017-12-11 14:12',pay:0,state:0},
                 {name: '青城山国际越级挑战赛',time:'2017-12-11 14:12',pay:0,state:1},
