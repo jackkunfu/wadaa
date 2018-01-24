@@ -10,8 +10,8 @@
     .main
       .img
         img(:src="config.filePath + (item.image[0] == '|' ? item.image.slice(1) : item.image )")
-        //- .cover
-        //- .btn +
+        .cover
+        .btn(@click="imgBig(item.image)") +
 
       .name(@click="goDetail(item.id)")
         i.fa.fa-pencil(style="")
@@ -30,6 +30,9 @@
         span(@click="sTag('111')") 无缝隙古镇
 
   pager(:pageData="pageData" @pageChange="pageChange")
+
+  .img-show(v-if="showImg" @click="showImg=!showImg")
+    img(:src="curShowImg")
 
 </template>
 
@@ -60,7 +63,9 @@
           total: 10
         },
         curPage: 1,
-        config: config
+        config: config,
+        curShowImg: '',
+        showImg: false
       }
     },
     components: {
@@ -74,6 +79,10 @@
       pageChange(v){  // 页码变化事件
         this.curPage = v;
         this.list();
+      },
+      imgBig(img){
+        this.showImg = true;
+        this.curShowImg = config.filePath + ( img[0] == '|' ? img.slice(1) : img );
       },
       list(){
         // alert('list-news module:'+this.module)
@@ -134,14 +143,30 @@
 </script>
 
 <style lang="sass" scoped>
+.img-show
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  img
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: all 0.5s;
 
 .list-ctn
   width: 850px;
   .box
     position: relative;
     border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
 
 .time
   position: absolute;
@@ -176,7 +201,11 @@
         margin-top: -30px;
 
     img
-      width: 100%;
+      // width: 100%;
+      max-width: 100%;
+      position: absolute;
+      top: 50%;
+      transform: translate(0,-50%);
     .cover
       display: none;
       position: absolute;
@@ -203,6 +232,8 @@
       text-align: center;
       line-height: 60px;
       font-weight: bolder;
+      cursor: pointer;
+
   .name
     font-size: 24px;
     color: #333;

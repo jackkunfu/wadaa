@@ -15,12 +15,7 @@ export default {
   data(){
     return {}
   },
-  beforeCreate(){
-    alert(2)
-    $('head').append('<script src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion="' + ~(-new Date()/36e5) + '>')
-  },
   mounted(){
-    alert(1)
     window._bd_share_config = {
       "common":{
         "bdSnsKey":{},
@@ -31,7 +26,7 @@ export default {
         "bdStyle":"0",
         "bdSize":"24"
       },
-      "share":{},
+      "share":{}
       // "image":{
       //   "viewList":["qzone","tsina","tqq","renren","weixin"],
       //   "viewText":"分享到：",
@@ -42,7 +37,8 @@ export default {
       //   "bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]
       // }
     };
-    // with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    document.body.appendChild( document.createElement('script') ).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date()/36e5);
+    // with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date()/36e5)];
   }
 
 }
