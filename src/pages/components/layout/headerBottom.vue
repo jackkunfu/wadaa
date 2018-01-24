@@ -17,8 +17,8 @@
   .ctn1200
     .search
       .search-msg
-        input(placeholder="输入关键词后回车...") 
-        .search-icon(@click="")
+        input(placeholder="输入关键词后回车..." v-model="str") 
+        .search-icon(@click="search")
           i.iconfont &#xe63d;
       .crumbs
         span Home
@@ -41,9 +41,9 @@ export default {
   },
   methods: {
     search(){
-      var trimStr = str.trim();
+      var trimStr = this.str.trim();
       if(!trimStr) return
-      // this.$router.push({path: '/s', query: {str: trimStr}})
+      this.$router.push({path: '/sTag', query: {str: trimStr}})
     }
   }
 }

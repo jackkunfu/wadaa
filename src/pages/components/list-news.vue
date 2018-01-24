@@ -31,8 +31,8 @@
 
   pager(:pageData="pageData" @pageChange="pageChange")
 
-  .img-show(v-if="showImg" @click="showImg=!showImg")
-    img(:src="curShowImg")
+  .img-show(v-show="showImg" @click="showImg=false")
+    img(:src="curShowImg" :class=" showImg ? 'show' : '' ")
 
 </template>
 
@@ -99,7 +99,7 @@
           }
         }
         this.keyRequest('dataArr', listConfig, this, true)
-          .then((res)=>{
+          .then( res =>{
             if(res.code == 1){
               this.dataArr = res.objectData.list || [];
               var cp = res.objectData.pageNo
@@ -107,6 +107,12 @@
               this.pageData = {
                 total: res.objectData.count || 0,
                 cur: cp || 1
+              }
+            }else{
+              this.dataArr =  [];
+              this.pageData = {
+                total: 1,
+                cur: 1
               }
             }
             
@@ -158,7 +164,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    transition: all 0.5s;
+    transition: all 2s;
+    width: 0;
+    height: 0;
+    &.show
+      width: auto;
+      height: auto;
 
 .list-ctn
   width: 850px;

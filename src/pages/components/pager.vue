@@ -20,7 +20,7 @@
     props: ['pageData'],
     data(){
       return {
-        cur: this.pageData.cur
+        cur: this.pageData.cur || 1
       }
     },
     mounted(){
