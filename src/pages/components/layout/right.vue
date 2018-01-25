@@ -50,7 +50,7 @@
             .mail-btn
                 button(@click="login" v-if="!rwUserId") 立即登录
                 button(@click="login" v-if="rwUserId") 重新登录
-                button(@click="goSelf" v-if="rwUserId") 个人中心
+                button(@click="goSelf") 个人中心
                 //- a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
 
         .friendly-link
@@ -141,7 +141,11 @@ export default {
             } )
         },
         goSelf(){
-            this.$router.push({path:'/myMsg'});
+            if(localStorage.rwUserId){
+                this.$router.push({path:'/myMsg'});
+            }else{
+                alert('请先登录~');
+            }
         }
     }
 }
