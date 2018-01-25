@@ -60,7 +60,7 @@
         dataArr: [],     // 列表数据
         pageData: {
           cur: 1,
-          total: 10
+          total: 0
         },
         curPage: 1,
         config: config,
@@ -94,7 +94,7 @@
           url: '/articleList',
           opts: {
             pageNo: this.curPage,
-            pageSize: 20,
+            pageSize: 10,
             module: this.module
           }
         }

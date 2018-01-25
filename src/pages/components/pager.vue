@@ -5,12 +5,12 @@
   .fl(v-if="cur > 2" @click="cur--;") ‹上一页
 
   span(v-for="(item, i) in [2,1,0,-1,-2]")
-    .fl(v-if="cur-item > 0 && cur-item <= pageData.total"
+    .fl(v-if="cur-item > 0 && cur-item <= totalPage"
       @click="cur=cur-item"
       :class="cur == cur-item ? 'cur' : ''") {{cur-item}}
 
-  .fl(v-if="pageData.total > cur" @click="cur++;") 下一页›
-  .fl(v-if="pageData.total > cur" @click="cur=pageData.total;") 最后一页»
+  .fl(v-if="totalPage > cur" @click="cur++;") 下一页›
+  .fl(v-if="totalPage > cur" @click="cur=totalPage;") 最后一页»
 
 </template>
 
@@ -20,13 +20,13 @@
     props: ['pageData'],
     data(){
       return {
-        cur: this.pageData.cur || 1
+        cur: this.pageData.cur || 1,
+        totalPage: parseInt(this.pageData.total/10)+1
       }
     },
     mounted(){
     },
-    methods: {
-    },
+    methods: {},
     watch: {
       cur(v){
         this.$emit('pageChange', v);
