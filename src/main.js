@@ -6,6 +6,8 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+import 'babel-polyfill';
+
 import './sass/reset.sass'
 import vueProto from './js/vueProto'
 import vDistpicker from 'v-distpicker'
