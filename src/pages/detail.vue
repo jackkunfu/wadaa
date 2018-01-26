@@ -104,12 +104,14 @@ export default {
         pageSize: 20,
         module: this.module
       }).then(res =>{
-        var list = res.objectData.list
+        var list = res.objectData.list || [];
         if(list && list[0]){
-          this.id = list[0].id;
-          list[0].id && this.getDetail()
-        }else{
-          alert('id请求出错');
+          if(list[0].id){
+            this.id = list[0].id;
+            this.getDetail()
+          }else{
+            console.log('该module未返回详情id信息');
+          }
         }
       })
     },
