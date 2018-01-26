@@ -192,6 +192,20 @@ export default {
                     return
                 }
 
+                startPay(item){
+                    this.ajax('/order/pay', {
+                        outTradeNo: item.outTradeNo,
+                        title: item.marathonEvent.name,
+                        body: item.marathonEvent.name,
+                        total_fee: item.total_fee
+                    }).then( res =>{
+                        if(res.code==1){
+                            var form = res.objectData;
+                            $('body').append($(form));
+                            // $(form).submit()
+                        }
+                    })
+                }
 
             })
 
