@@ -48,8 +48,7 @@
                 input(type="text" v-model="code")
                 button.getCode(@click="getCode") 获取验证码
             .mail-btn
-                button(@click="login" v-if="!rwUserId") 立即登录
-                button(@click="login" v-if="rwUserId") 重新登录
+                button(@click="login") 登录
                 button(@click="goSelf") 个人中心
                 //- a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
 
