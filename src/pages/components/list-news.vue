@@ -29,7 +29,7 @@
         i.fa.fa-tag(style="color:#ddd;margin-right:5px;")
         span(@click="sTag('111')") 无缝隙古镇
 
-  pager(:pageData="pageData" @pageChange="pageChange")
+  pager(:pageData="pageData" @pageChange="pageChange" v-if="dataArr.length>0")
 
   .img-show(v-show="showImg" @click="showImg=false")
     img(:src="curShowImg" :class=" showImg ? 'show' : '' ")
@@ -60,7 +60,7 @@
         dataArr: [],     // 列表数据
         pageData: {
           cur: 1,
-          total: 10
+          total: 0
         },
         curPage: 1,
         config: config,
@@ -94,7 +94,7 @@
           url: '/articleList',
           opts: {
             pageNo: this.curPage,
-            pageSize: 20,
+            pageSize: 10,
             module: this.module
           }
         }

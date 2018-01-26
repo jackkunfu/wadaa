@@ -8,7 +8,7 @@ export default function vueProto(Vue){
     return new Promise(function(r, j){
       $.ajax({
         type: type || 'get',
-        url: otherUrl ? otherUrl : (config.baseUrl + url),
+        url: otherUrl ? (config.filePath + otherUrl) : (config.baseUrl + url),
         data: opts
       }).done(function(d){
         r(d);

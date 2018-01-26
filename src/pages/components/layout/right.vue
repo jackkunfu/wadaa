@@ -80,7 +80,7 @@ export default {
                 {name:'未央-杨小华', url:'http://www.yangxiaohua.net/'},
                 {name:'爱燃烧', url:'http://iranshao.com/'},
             ],
-            phone: '18297389525',
+            phone: localStorage.rwMobile || '',
             code: '',
             rwUserId: localStorage.rwUserId
         }
@@ -118,23 +118,27 @@ export default {
             }
         },
         login(){
-            if(!this.phone || !(/^1[3|4|5|8][0-9]\d{8}$/.test(this.phone.trim())) ){
+            var trimPhone = this.phone.trim();
+            if(!this.phone || !(/^1[3|4|5|8][0-9]\d{8}$/.test(trimPhone)) ){
                 alert('手机号格式不正确');
                 return
             }
 
-            if(!this.code || this.code.trim().length != 6){
+            var trimCode = this.code.trim();
+            if(!this.code || trimCode.length != 6){
                 alert('验证码不正确');
                 return
             }
 
             this.ajax('', {
-                mobile: this.phone.trim(),
-                identify_code: this.code.trim()
-            }, 'get', config.filePath+'/basic/user/reg').then( (res) => {
+                mobile: trimPhone,
+                identify_code: trimCode
+            }, 'get', '/basic/user/reg').then( res => {
                 if(res.code == 1){
                     alert('登陆成功');
                     this.rwUserId = localStorage.rwUserId = res.objectData.id || '';
+                    this.phone = localStorage.rwMobile = trimPhone;
+                    this.code = '';
                 }else{
                     alert(res.msg);
                 }
@@ -251,8 +255,8 @@ export default {
             position: relative;
             right: -39px;
             button
-                padding: 8px 15px;
-                margin: 0 10px;
+                padding: 4px 15px;
+                margin: 0 5px;
         .link-box
             a
                 display: block;
