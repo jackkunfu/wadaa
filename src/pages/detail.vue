@@ -8,20 +8,20 @@ div
           .day {{item.createDate | day}}
           span {{item.createDate | noday}}
 
-        .main(v-if="item")
-          .img
-            img(:src="config.filePath + (item.marathonEvent.image[0] == '|' ? item.marathonEvent.image.slice(1) : item.marathonEvent.image )")
+        .main
+          .img(v-if="item.image")
+            img(:src="config.filePath + (item.image[0] == '|' ? item.image.slice(1) : item.image )")
             //- .cover
             //- .btn +
 
-          .name(@click="goDetail(item.id)")
+          .name(@click="goDetail(item.id)" v-if="item.title")
             i.fa.fa-pencil(style="")
             span {{item.title}}
           //- .tip 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
             span By
             | 周末享跑
 
-      div(v-if="this.enrollArr.length>0")
+      div(v-if="enrollArr.length>0")
         .sign-enter
           h3 报名信息
         .box(v-for="item in enrollArr")
@@ -30,7 +30,7 @@ div
           .time ⭕️ 报名时间： {{item.matchStartDate}} - {{item.matchEndDate}}
           span.enroll(@click="goEnroll(item.entryId)") &gt;&gt;&gt;&gt;&gt;&gt;点击报名&lt;&lt;&lt;&lt;&lt;&lt;
 
-      div(v-if="this.enrollArr.length==0" style="line-height: 80px;color: #999;font-size: 14px;") 报名时间未到或者已经结束
+      div(v-if="this.enrollArr.length==0 && enrollTip" style="line-height: 80px;color: #999;font-size: 14px;") 报名时间未到或者已经结束
 
       .detail(v-html="detail")
 
@@ -75,7 +75,8 @@ export default {
       module: this.$route.query.module || '',
       id: this.$route.query.id || '',
       detail: '',
-      enrollArr: []    // 可能有多种形式的报名以及报名入口
+      enrollArr: [],    // 可能有多种形式的报名以及报名入口
+      enrollTip: false
     }
   },
   components: {
@@ -115,13 +116,17 @@ export default {
     getDetail(){    //  根据id获取当前活动详情内容
       this.ajax('/article/get', {
         id: this.id
-      }).then( res =>{
-        this.item = res.objectData;
-        this.detail = res.objectData.marathonArticleData.content;
-        this.getEnrollList(res.objectData.marathonEvent.id);
+      }).then( res => {
+        var data = res.objectData
+        this.item = data;
+        this.detail = data.marathonArticleData.content;
+
+        // 如果存在赛事id 去请求报名列表
+        if(data.marathonEvent && data.marathonEvent.id) this.getEnrollList(data.marathonEvent.id);
       })
     },
     getEnrollList(id){
+      this.enrollTip = true;
       this.ajax('/getEventEntryList', {eventId: id}).then((res)=>{
         this.enrollArr = res.eventList || [];
       })
