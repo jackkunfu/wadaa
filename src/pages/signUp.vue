@@ -192,54 +192,23 @@ export default {
                     return
                 }
 
-                startPay(item){
-                    this.ajax('/order/pay', {
-                        outTradeNo: item.outTradeNo,
-                        title: item.marathonEvent.name,
-                        body: item.marathonEvent.name,
-                        total_fee: item.total_fee
-                    }).then( res =>{
-                        if(res.code==1){
-                            var form = res.objectData;
-                            $('body').append($(form));
-                            // $(form).submit()
-                        }
-                    })
-                }
+                // 支付
+                var item = res.objectData;
+                this.ajax('/order/pay', {
+                    outTradeNo: item.outTradeNo,
+                    title: this.enrollMsg.name,
+                    body: this.enrollMsg.name,
+                    total_fee: item.total_fee
+                }).then( res =>{
+                    $('body').append($(res));
+                    if(res.code==1){
+                        $('body').append($(res));
+                    }else{
+                        // alert(res.msg);
+                    }
+                })
 
             })
-
-            // if(this.fillMsg.name == '' || 
-            //     this.fillMsg.cardId == '' || 
-            //     this.fillMsg.mobileNum == '' || 
-            //     this.fillMsg.emergencyContact == '' ||
-            //     this.fillMsg.emergencyPhone == '' ||
-            //     this.fillMsg.verification == ''){
-            //         alert('请将信息填写完整~')
-            // }else{
-            //     var mobileNum = $('.mobileNum').val();
-            //     var emergencyPhone = $('.emergencyPhone').val();
-            //     if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(mobileNum)) || !(/^1[3|4|5|8][0-9]\d{4,8}$/.test(emergencyPhone))){
-            //         alert('请填入正确的手机号码~')
-            //     }else{
-            //         if(!$("input[type='checkbox']").prop('checked')){
-            //             alert('请阅读免责条款，并勾选~');
-            //         }else{
-            //             var opts = this.fillMsg;
-            //             this.ajax('/order/save', {
-            //                 opts
-            //             }).then( (res)=>{
-            //                 var list = res.list
-            //                 if(list && list[0]){
-            //                     this.id = list[0].id;
-            //                     list[0].id && this.getDetail()
-            //                 }else{
-            //                     alert('id请求出错');
-            //                 }
-            //             })
-            //         }
-            //     }
-            // }
         }
     }
 }

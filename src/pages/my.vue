@@ -13,10 +13,9 @@
                     .sign-activity(@click="goDetail(item.id)") 活动名称：{{ item.marathonEvent.name}}
                     .msg-show ⭕ 报名时间：{{ item.createDate }}
                     .msg-show ⭕ 支付情况：{{item.pay && item.pay==1?'已支付':'未支付'}}
-                    .msg-show ⭕ 活动状态：{{ item.status | status }}
+                    .msg-show ⭕ 活动状态：{{ item.marathonEvent.status | status }}
                     .msg-show ⭕ 参赛费用：{{ item.total_fee/100}}元
-                    .msg-show(@click="startPay(item)" v-if="item.marathonEvent.status==1 && item.pay==0") 支付
-
+                    button(@click="startPay(item)" v-if="item.marathonEvent.status==1 && item.pay==0") 支付
 
                 pager(:pageData="pageData" @pageChange="pageChange" v-if="orders.length>0")
             
@@ -38,36 +37,12 @@ export default {
             return v.substring(0,3) + '****' + v.substring(v.length-3, v.length)
         },
         status(v){
-            
-            console.log(typeof v)
             if(v==0) return '报名未开始'
             if(v==1) return '报名进行中'
             if(v==2) return '即将开赛'
             if(v==3) return '赛事进行中'
             if(v==4) return '赛事已结束'
             return '状态未知';
-            
-            // var str;
-            // switch(v){
-            //     case '0':
-            //         str = '报名未开始';
-            //         break;
-            //     case '1':
-            //         str = '报名进行中';
-            //         break;
-            //     case '2':
-            //         str = '即将开赛';
-            //         break;
-            //     case '3':
-            //         str = '赛事进行中';
-            //         break;
-            //     case '4':
-            //         str = '赛事已结束';
-            //         break;
-            //     default: 
-            //         str = '';
-            // }
-            // return str;
         }
     },
     data () {
@@ -119,11 +94,7 @@ export default {
                 body: item.marathonEvent.name,
                 total_fee: item.total_fee
             }).then( res =>{
-                if(res.code==1){
-                    var form = res.objectData;
-                    $('body').append($(form));
-                    // $(form).submit()
-                }
+                $('body').append($(res));
             })
         },
         goDetail(id){

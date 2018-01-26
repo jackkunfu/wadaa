@@ -30,7 +30,7 @@ div
           .time ⭕️ 报名时间： {{item.matchStartDate}} - {{item.matchEndDate}}
           span.enroll(@click="goEnroll(item.entryId)") &gt;&gt;&gt;&gt;&gt;&gt;点击报名&lt;&lt;&lt;&lt;&lt;&lt;
 
-      //- div(v-if="this.enrollArr.length==0" style="line-height: 80px;color: #999;font-size: 14px;") 报名时间未到或者已经结束
+      div(v-if="this.enrollArr.length==0" style="line-height: 80px;color: #999;font-size: 14px;") 报名时间未到或者已经结束
 
       .detail(v-html="detail")
 
@@ -123,7 +123,7 @@ export default {
     },
     getEnrollList(id){
       this.ajax('/getEventEntryList', {eventId: id}).then((res)=>{
-        // this.enrollArr = res.eventList || [];
+        this.enrollArr = res.eventList || [];
       })
     },
     goEnroll(entryId){
