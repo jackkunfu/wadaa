@@ -59,7 +59,6 @@
             
 </template>
 <script>
-import { config } from '../../../js/vueProto'
 export default {
     name: "right",
     data () {
@@ -95,8 +94,8 @@ export default {
             if(this.phone && /^1[3|4|5|8][0-9]\d{8}$/.test(this.phone.trim())){
                 this.ajax('', {
                     mobile: this.phone.trim()
-                }, 'get', config.filePath+'/basic/user/identify').then( (res) => {
-                    console.log(res);
+                }, 'get', '/basic/user/identify').then( (res) => {
+                    // console.log(res);
                     if(res.code == 1){
                         alert('验证码短信已发送，请注意查收~')
                         $('.getCode').attr('disabled', true)
@@ -111,7 +110,7 @@ export default {
                             }
                         }, 1000)
                     }
-                } )
+                })
             }else{
                 alert('手机号格式不正确');
             }

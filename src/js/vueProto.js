@@ -5,18 +5,27 @@ export const config = {
 
 export default function vueProto(Vue){
   Vue.prototype.ajax = function(url, opts, type, otherUrl){
+    var url = otherUrl ? (config.filePath + otherUrl) : (config.baseUrl + url)
     return new Promise(function(r, j){
       $.ajax({
         type: type || 'get',
-        url: otherUrl ? (config.filePath + otherUrl) : (config.baseUrl + url),
+        url: url,
         data: opts
       }).done(function(d){
-        r(d);
+        return d;
       }).fail(function(e){
-        j({
-          success: false,
-          error: e
-        })
+        return e
+        // j({
+        //   success: false,
+        //   error: e
+        // })
+      }).then(function(d){
+        r(d);
+      }, function(e){
+        console.log('请求出错，请检查传参：')
+        console.log('url:'+url);
+        console.log(opts);
+        j(e);
       })
     })
   }
