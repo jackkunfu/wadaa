@@ -4,7 +4,8 @@
             h2 个人中心
             .user-msg 
                 h3 账号信息
-                .msg-show ⭕ 登录手机：{{ mobile | mobile}}
+                .msg-show(v-if="!mobile") 还未登录！！！
+                .msg-show(v-else) ⭕ 登录手机：{{ mobile | mobile}}
             .sign-msg
                 h3 报名订单列表信息
                 div(v-if="orders.length==0") 暂无
@@ -47,7 +48,7 @@ export default {
     },
     data () {
         return {
-            mobile: localStorage.rwMobile,
+            mobile: localStorage.rwMobile ? localStorage.rwMobile : false,
             orders: [],
             curPage: 1,
             pageData: {
