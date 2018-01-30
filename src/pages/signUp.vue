@@ -166,6 +166,27 @@ export default {
                     return false
                 }
             }
+            if(this.isRequired.indexOf('cardId') > -1){
+                var trimCardId = (this.fillMsg.cardId+'').trim();
+                if( this.fillMsg.cardType == 0 && !(/(^\d{15}$)|(^\d{17}(\d|X|x)$)/.test(trimCardId)) ){
+                    alert('身份证格式输入有误');
+                    return false
+                }else if( this.fillMsg.cardType == 1 && !( /^[a-zA-Z0-9]{3,21}$/.test(trimCardId) || /^(P\d{7})|(G\d{8})$/.test(trimCardId) ) ){
+                    alert('护照格式输入有误');
+                    return false
+                }else if( this.fillMsg.cardType == 2 && !(/^[a-zA-Z0-9]{5,21}$/.test(trimCardId)) ){
+                    alert('港澳通行证格式输入有误');
+                    return false
+                }else if( this.fillMsg.cardType == 3 && !(/^[a-zA-Z0-9]{5,21}$/.test(trimCardId)) ){
+                    alert('台胞证格式输入有误');
+                    return false
+                }else{
+                    if(!trimCardId){
+                        alert('证件号没填');
+                        return false;
+                    }
+                }
+            }
 
             return true;
         },
