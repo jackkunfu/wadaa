@@ -11,7 +11,8 @@
                 div(v-if="orders.length==0") 暂无
                 .sign-list(v-for="(item,index) in orders") 
                     //- .sign-activity {{index+1}}、{{ item.marathonEvent.name}}
-                    .sign-activity(@click="goDetail(item.id)") 活动名称：{{ item.marathonEvent.name}}
+                    //- .sign-activity(@click="goDetail(item.id)") 活动名称：{{ item.marathonEvent.name}}
+                    .sign-activity 活动名称：{{ item.marathonEvent.name}}
                     .msg-show ⭕ 报名时间：{{ item.createDate }}
                     .msg-show ⭕ 支付情况：{{item.pay && item.pay==1?'已支付':'未支付'}}
                     .msg-show ⭕ 活动状态：{{ item.marathonEvent.status | status }}
@@ -123,6 +124,9 @@ export default {
             margin-bottom: 10px;
         .sign-list
             margin: 25px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            width: 800px;
             .sign-activity
                 cursor: pointer;
 </style>

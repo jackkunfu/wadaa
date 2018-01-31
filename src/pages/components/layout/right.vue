@@ -32,7 +32,7 @@
             h3 关注周末享跑公众号
             img(src="../../../imgs/2016122008485864.jpg")
 
-        .mail-login
+        .mail-login(v-if="!isLogin")
             h3 手机登陆
             .mail-msg
                 label 手机号：
@@ -49,7 +49,12 @@
                 button.getCode(@click="getCode") 获取验证码
             .mail-btn
                 button(@click="login") 登录
+
+        .mail-login(v-if="isLogin")
+            h3 手机登陆
+            .mail-btn
                 button(@click="goSelf") 个人中心
+                button(@click="logout") 退出
                 //- a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
 
         .friendly-link
@@ -80,7 +85,9 @@ export default {
             ],
             phone: localStorage.rwMobile || '',
             code: '',
-            rwUserId: localStorage.rwUserId
+            rwUserId: localStorage.rwUserId,
+            isLogin: localStorage.rwMobile || '',
+            setTime: ''
         }
     },
     mounted () {},
@@ -89,6 +96,14 @@ export default {
             $('.nav span').removeClass('active');
             $('.nav span').eq(num).addClass('active');
             this.type = num;
+        },
+        logout(){
+            this.isLogin = this.phone = localStorage.rwMobile = localStorage.rwUserId = '';
+            clearInterval(this.setTime);
+            alert('退出成功~');
+            if(this.$route.path == '/myMsg'){
+                this.$router.push('/')
+            }
         },
         getCode(){
             if(this.phone && /^1[3|4|5|8][0-9]\d{8}$/.test(this.phone.trim())){
@@ -100,11 +115,11 @@ export default {
                         alert('验证码短信已发送，请注意查收~')
                         $('.getCode').attr('disabled', true)
                         var t = 59;
-                        var a = setInterval(()=>{
+                        this.setTime = setInterval( () =>{
                             $('.getCode').html(t +' s');
                             t--;
                             if(t==-1){
-                                clearInterval(a);
+                                clearInterval(this.setTime);
                                 $('.getCode').removeAttr('disabled');
                                 $('.getCode').html('获取验证码')
                             }
@@ -135,8 +150,9 @@ export default {
                 if(res.code == 1){
                     alert('登陆成功');
                     this.rwUserId = localStorage.rwUserId = res.objectData.id || '';
-                    this.phone = localStorage.rwMobile = trimPhone;
+                    this.isLogin = this.phone = localStorage.rwMobile = trimPhone;
                     this.code = '';
+                    clearInterval(this.setTime);
                 }else{
                     alert(res.msg);
                 }
