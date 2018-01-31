@@ -26,8 +26,8 @@ div
           h3 报名信息
         .box(v-for="item in enrollArr")
           .name ⭕️ 享跑路程： {{item.name}}
-          .fee ⭕️ 报名费用： {{item.fee}}
-          .time ⭕️ 报名时间： {{item.matchStartDate}} - {{item.matchEndDate}}
+          .fee ⭕️ 报名费用： {{item.fee/100}}元
+          div ⭕️ 报名时间： {{item.matchStartDate}} - {{item.matchEndDate}}
           span.enroll(@click="goEnroll(item.entryId)") &gt;&gt;&gt;&gt;&gt;&gt;点击报名&lt;&lt;&lt;&lt;&lt;&lt;
 
       div(v-if="this.enrollArr.length==0 && enrollTip" style="line-height: 80px;color: #999;font-size: 14px;") 报名时间未到或者已经结束
