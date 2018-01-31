@@ -16,7 +16,7 @@
                     .msg-show ⭕ 报名时间：{{ item.createDate }}
                     .msg-show ⭕ 支付情况：{{item.pay && item.pay==1?'已支付':'未支付'}}
                     .msg-show ⭕ 活动状态：{{ item.marathonEvent.status | status }}
-                    .msg-show ⭕ 参赛费用：{{ item.total_fee/100}}元
+                    .msg-show ⭕ 参赛费用：{{ item.totalFee/100}}元
                     button(@click="startPay(item)" v-if="item.marathonEvent.status==1 && item.pay==0") 支付
 
                 pager(:pageData="pageData" @pageChange="pageChange" v-if="orders.length>0")
@@ -94,7 +94,7 @@ export default {
                 outTradeNo: item.outTradeNo,
                 title: item.marathonEvent.name,
                 body: item.marathonEvent.name,
-                total_fee: item.total_fee
+                totalFee: item.totalFee
             }).then( res =>{
                 $('body').append($(res));
             })

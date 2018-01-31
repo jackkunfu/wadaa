@@ -219,7 +219,7 @@ export default {
                     outTradeNo: item.outTradeNo,
                     title: this.enrollMsg.name,
                     body: this.enrollMsg.name,
-                    total_fee: item.total_fee
+                    totalFee: item.totalFee
                 }).then( res =>{
                     $('body').append($(res));
                     if(res.code==1){
