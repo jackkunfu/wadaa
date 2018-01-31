@@ -20,14 +20,14 @@
         span By
         | 周末享跑
 
-      .text(v-html="item.marathonArticleData.content")
+      .text(v-html="item.description")
       
       .read-all(@click="goDetail(item.id)") 阅读全文
         i.fa.fa-arrow-circle-right(style="margin-left:5px;")
 
-      //- .key
+      .key(v-if="item.keywords && item.keywords.split(' ').length>0")
         i.fa.fa-tag(style="color:#ddd;margin-right:5px;")
-        span(@click="sTag('111')") 无缝隙古镇
+        span(v-for="it in item.keywords.split(' ')" @click="sTag(it)") {{it}}
 
   pager(:pageData="pageData" @pageChange="pageChange" v-if="dataArr.length>0")
 
@@ -102,6 +102,12 @@
           .then( res =>{
             if(res.code == 1){
               this.dataArr = res.objectData.list || [];
+              // var list = res.objectData.list || [];
+              // this.dataArr = list.map( v => {
+              //   console.log(v.keywords)
+              //   v.keywords = v.keywords.split(' ');
+              //   return v
+              // })
               var cp = res.objectData.pageNo
               this.curPage = cp
               this.pageData = {

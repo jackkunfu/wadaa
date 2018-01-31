@@ -1,6 +1,8 @@
 export const config = {
-  baseUrl: 'http://39.106.218.200:8080/app/mls',
-  filePath: 'http://39.106.218.200:8080'
+  // baseUrl: 'http://39.106.218.200:8080/app/mls',
+  // filePath: 'http://39.106.218.200:8080',
+  baseUrl: 'http://web.cd100k.com/app/mls',
+  filePath: 'http://web.cd100k.com'
 }
 
 export default function vueProto(Vue){
