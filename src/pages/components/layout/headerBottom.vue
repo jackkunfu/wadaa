@@ -36,7 +36,8 @@ export default {
       this.crumb = trimStr;
       this.$router.push({path: '/sTag', query: {str: trimStr}})
     }
-  }
+  },
+  mounted(){}
 }
 </script>
 
@@ -80,7 +81,7 @@ export default {
           line-height: 36px;
           text-align: center;
           background: #d7d7d7;
-          top: 63px;
+          top: 61px;
           border-top-right-radius: 5px;
           border-bottom-right-radius: 5px;
           cursor: pointer;

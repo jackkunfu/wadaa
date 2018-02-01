@@ -27,7 +27,8 @@
 
       .key(v-if="item.keywords && item.keywords.split(' ').length>0")
         i.fa.fa-tag(style="color:#ddd;margin-right:5px;")
-        span(v-for="it in item.keywords.split(' ')" @click="sTag(it)") {{it}}
+        //- span(v-for="it in item.keywords.split(' ')" @click="sTag(it)") {{it}}
+        span(v-for="it in item.keywords.split(' ')") {{it}}
 
   pager(:pageData="pageData" @pageChange="pageChange" v-if="dataArr.length>0")
 
