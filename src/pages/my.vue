@@ -9,7 +9,7 @@
             .sign-msg
                 h3 报名订单列表信息
                 div(v-if="orders.length==0") 暂无
-                .sign-list(v-for="(item,index) in orders") 
+                //- .sign-list(v-for="(item,index) in orders") 
                     //- .sign-activity {{index+1}}、{{ item.marathonEvent.name}}
                     //- .sign-activity(@click="goDetail(item.id)") 活动名称：{{ item.marathonEvent.name}}
                     .sign-activity 活动名称：{{ item.marathonEvent.name}}
@@ -18,6 +18,23 @@
                     .msg-show ⭕ 活动状态：{{ item.marathonEvent.status | status }}
                     .msg-show ⭕ 参赛费用：{{ item.totalFee/100}}元
                     button(@click="startPay(item)" v-if="item.marathonEvent.status==1 && item.pay==0") 支付
+
+                table(width="800" cellspacing="0")
+                    tr
+                        th 活动名称
+                        th 报名时间
+                        th 活动状态
+                        th 参赛费用
+                        th 支付状态
+                    tr(v-for="item in orders")
+                        td {{item.marathonEvent.name}}
+                        td {{item.createDate}}
+                        td {{item.marathonEvent.status | status}}
+                        td {{item.totalFee/100}}
+                        td 
+                            span(v-if="item.pay && item.pay==1") 已支付
+                            span(v-else="") 未支付
+                            button(@click="startPay(item)" v-if="item.marathonEvent.status==1 && item.pay==0") 支付
 
                 pager(:pageData="pageData" @pageChange="pageChange" v-if="orders.length>0")
             
@@ -129,4 +146,16 @@ export default {
             width: 800px;
             .sign-activity
                 cursor: pointer;
+
+    table
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+
+        td,th
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            border-right: 1px solid #ccc;
 </style>
