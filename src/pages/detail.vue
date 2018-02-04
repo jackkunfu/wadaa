@@ -92,8 +92,13 @@ export default {
     
     var _this = this;
     window.onhashchange = function(e){
-      _this.module = location.href.split('module=')[1].split('&')[0];
-      _this.getIdFromMoudle();
+      if(location.href.split('module=')[1]){
+        _this.module = location.href.split('module=')[1].split('&')[0];
+        _this.getIdFromMoudle();
+      }else if(location.href.split('id=')[1]){
+        _this.id = location.href.split('id=')[1].split('&')[0];
+        _this.getDetail();
+      }
     }
 
   },

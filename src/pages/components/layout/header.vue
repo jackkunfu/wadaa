@@ -223,7 +223,7 @@ export default {
 
       .box
         line-height: 100px;
-        padding: 0 30px;
+        padding: 0 25px;
         min-width: 100px;
         border-left: 1px solid transparent;
         border-right: 1px solid transparent;
