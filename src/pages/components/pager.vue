@@ -30,6 +30,7 @@
     watch: {
       cur(v){
         this.$emit('pageChange', v);
+        scrollTo(0,0);
       }
     }
   }
