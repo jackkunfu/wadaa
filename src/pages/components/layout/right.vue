@@ -101,9 +101,10 @@ export default {
             this.isLogin = this.phone = localStorage.rwMobile = localStorage.rwUserId = '';
             clearInterval(this.setTime);
             alert('退出成功~');
-            if(this.$route.path == '/myMsg'){
-                this.$router.push('/')
-            }
+            this.$router.push('/');
+            setTimeout(() => {
+                window.history.go(0);
+            }, 20);
         },
         getCode(){
             if(this.phone && /^1[3|4|5|8][0-9]\d{8}$/.test(this.phone.trim())){
