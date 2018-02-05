@@ -66,9 +66,9 @@ export default {
         if(this.$route.path == '/'){   // 首页默认请求第一个module数据
           var module = res.dataList[0].childList[0].module;
 
-          // this.$parent.$children.forEach( el => {    // 暂找不到直接的定位到index.vue的方法，就先循环APP.vue组件中的子组件找到index.vue中的indexInit并执行请求首页列表的数据
-          //   if(el.indexInit) el.indexInit(module)
-          // })
+          this.$parent.$children.forEach( el => {    // 暂找不到直接的定位到index.vue的方法，就先循环APP.vue组件中的子组件找到index.vue中的indexInit并执行请求首页列表的数据
+            if(el.indexInit) el.indexInit(module)
+          })
           
           // 上面的循环匹配不太好  改成$emit往父组件传递数据，在出发子组件的module更新吧
           this.$emit('initModule', module);
@@ -117,12 +117,13 @@ export default {
         
       }
 
-      // location.reload();
     },
     goIndex(){
+      if(this.$route.path == '/') return
       this.$router.push({path:'/'})
-      // location.reload()
-      // location.href = location.host + '/#/';
+      setTimeout(() => {
+        window.history.go(0);
+      }, 20);
     }
   },
   watch: {

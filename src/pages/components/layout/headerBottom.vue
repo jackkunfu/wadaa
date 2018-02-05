@@ -11,7 +11,7 @@
         .search-icon(@click="search")
           i.iconfont &#xe63d;
       .crumbs
-        span Home
+        span(style="cursor:pointer;" @click="goIndex") Home
         span(v-if="crumb" style="margin:0 10px;") >>
           span(style="margin:0 10px;") {{crumb}}
         span(v-if="crumb1") >>
@@ -35,9 +35,25 @@ export default {
       if(!trimStr) return
       this.crumb = trimStr;
       this.$router.push({path: '/sTag', query: {str: trimStr}})
+      if(this.$route.path == '/sTag'){
+        setTimeout(() => {
+          window.history.go(0);
+        }, 20);
+      }
+    },
+    goIndex(){
+      if(this.$route.path == '/') return
+      this.$router.push({path:'/'})
+      setTimeout(() => {
+        window.history.go(0);
+      }, 20);
     }
   },
-  mounted(){}
+  mounted(){
+    var str = null
+    str = location.href.split('str=')[1] ? location.href.split('str=')[1].split('#')[0] : '';
+    this.str = this.crumb = str || '';
+  }
 }
 </script>
 

@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     initIndexModule(v){    // 传递首页所需module请求首页列表
+      console.log('get emit: '+v)
       this.indexModule = v;
     }
   }

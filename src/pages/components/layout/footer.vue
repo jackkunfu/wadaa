@@ -4,7 +4,7 @@
     .line
     div
         .fl
-            a(target="_blank" href="http://idinfo.zjaic.gov.cn/bscx.do" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;")
+            a(href="javascript:;" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;position:relative;top:5px;margin-right: 5px;")
                 img(style="width: 20px;" src="//gw.alicdn.com/tfs/TB1GxwdSXXXXXa.aXXXXXXXXXXX-65-70.gif")
         
             strong 蜀ICP备18002700号-1

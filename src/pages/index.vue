@@ -37,6 +37,7 @@ export default {
   },
   watch: {
     indexModule(v){
+      console.log('get emit: '+v)
       this.module = v;
     }
   }

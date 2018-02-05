@@ -84,6 +84,8 @@ export default {
     share
   },
   mounted(){
+    // window.history.go(0);
+
     if(!this.id){
       this.getIdFromMoudle();
     }else{

@@ -3,7 +3,7 @@
 .list-ctn
   div(v-if="dataArr.length == 0") 暂无
   .box(v-for="item in dataArr")
-    .time
+    .time(v-if="item.createDate")
       .day {{item.createDate | day}}
       span {{item.createDate | noday}}
       
@@ -15,7 +15,7 @@
 
       .name(@click="goDetail(item.id)")
         i.fa.fa-pencil(style="")
-        span {{item.title}}
+        span {{item.title || item.name}}
       //- .tip 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
         span By
         | 周末享跑
@@ -43,7 +43,7 @@
 
   export default {
     name: 'componentNewsList',
-    props: ['module'],
+    props: ['module', 'data'],
     filters: {
       day(v){
         if(!v) return ''
@@ -149,6 +149,11 @@
         if(v){
           console.log('module改变啦：'+v)
           this.list();
+        }
+      },
+      data(v){
+        if(v){
+          this.dataArr = v;
         }
       }
     }
