@@ -215,11 +215,13 @@ export default {
 
                 // 支付
                 var item = res.objectData;
+                var money = item.totalFee - 0;
+                if(opts.baiduche == 1) money = money + 5000   // 如果选择摆渡车  另加50元  5000分
                 this.ajax('/order/pay', {
                     outTradeNo: item.outTradeNo,
                     title: this.enrollMsg.name,
                     body: this.enrollMsg.name,
-                    totalFee: item.totalFee
+                    totalFee: money
                 }).then( res =>{
                     $('body').append($(res));
                     if(res.code==1){
@@ -307,7 +309,7 @@ export default {
                     .input1
                         width: 250px;
                     .input2
-                        width: 450px;
+                        width: 250px;
                 .radio-input
                     margin-right: 20px;
                     span

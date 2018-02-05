@@ -30,7 +30,21 @@ export default {
     listNews,
     rightPart
   },
-  mounted(){},
+  mounted(){
+    this.ajax('/articleNews', {
+      title: this.module
+    }).then(res =>{
+      var list = res.objectData.list || [];
+      if(list && list[0]){
+        if(list[0].id){
+          this.id = list[0].id;
+          this.getDetail()
+        }else{
+          console.log('该module未返回详情id信息');
+        }
+      }
+    })
+  },
   methods: {}
 }
 </script>

@@ -57,7 +57,7 @@
                 button(@click="logout") 退出
                 //- a(href="https://exmail.qq.com/cgi-bin/readtemplate?check=false&t=bizmail_orz") 忘记密码？
 
-        .friendly-link
+        //- .friendly-link
             h3 友情链接
             .link-box
                 a(v-for="item in linkList") {{item.name}}
