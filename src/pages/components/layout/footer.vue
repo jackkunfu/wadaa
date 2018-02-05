@@ -4,7 +4,7 @@
     .line
     div
         .fl
-            strong ©Copyright 2015 by Running Weekends。 All Rights Reserved. 
+            strong 蜀ICP备18002700号-1 享跑科技
         .fr
             img(src="../../../imgs/RWKS_footer.jpg")
 

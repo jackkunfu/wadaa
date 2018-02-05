@@ -22,7 +22,7 @@ div
               i.fa.fa-weibo
   .header-nav   
     .ctn1200
-      .logo
+      .logo(@click="goIndex")
         img(src="http://www.runningweekends.net/wp-content/uploads/2016/12/2016122007560316.jpg")
         div 周末享跑
         span Running Weekends
@@ -118,6 +118,11 @@ export default {
       }
 
       // location.reload();
+    },
+    goIndex(){
+      this.$router.push({path:'/'})
+      // location.reload()
+      // location.href = location.host + '/#/';
     }
   },
   watch: {
@@ -194,6 +199,7 @@ export default {
   line-height: 1;
   width: 170px;
   margin-right: 30px;
+  cursor: pointer;
   img
     max-height: 40px;
     float: left;

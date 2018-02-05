@@ -21,11 +21,11 @@ div
             span By
             | 周末享跑
 
-      div(v-if="enrollArr.length>0" style="text-align:center;margin-bottom:50px;")
+      div(v-if="enrollArr.length>0" style="margin-bottom:50px;")
         .sign-enter
           h3 报名信息
         .box(v-for="item in enrollArr")
-          .name ⭕️ 享跑路程： {{item.name}}
+          .name ⭕️ 赛事组别： {{item.name}}
           .fee ⭕️ 报名费用： {{item.fee/100}}元
           div ⭕️ 报名时间： {{item.matchStartDate}} - {{item.matchEndDate}}
           span.enroll(@click="goEnroll(item.entryId)") &gt;&gt;&gt;&gt;&gt;&gt;点击报名&lt;&lt;&lt;&lt;&lt;&lt;
