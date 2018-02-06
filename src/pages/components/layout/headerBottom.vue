@@ -2,9 +2,9 @@
 
 .ctn
   .ctn1200
-    .fl(v-if="crumb")
-      span(v-if="isTag === 1") 关键词：{{crumb}}
-      span(v-if="isTag === 0") Tag：{{crumb}}
+    .fl(v-if="crumb && isStag")
+      span(v-if="isTag === 1") Tag：{{crumb}}
+      span(v-if="isTag === 0") 关键词：{{crumb}}
 
     .search
       .search-msg
@@ -30,7 +30,8 @@ export default {
       str: '',
       crumb: '',   // 面包屑
       crumb1: '' ,  // 面包屑1
-      isTag: hashIsTag[1] ? hashIsTag[1].split('&')[0] : 0
+      isTag: hashIsTag[1] ? hashIsTag[1].split('&')[0] : 0,
+      isStag: false
     }
   },
   methods: {
@@ -58,6 +59,10 @@ export default {
     str = location.href.split('str=')[1] ? location.href.split('str=')[1].split('&')[0] : '';
     if(this.isTag === 0){
       this.str = this.crumb = str || '';
+    }
+
+    window.onload = () =>{    //  组件中不放在 window.onload 中不能正确的获取this.$route.path
+      this.isStag = this.$route.path == '/sTag'
     }
   }
 }

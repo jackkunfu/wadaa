@@ -20,7 +20,7 @@ div
               i.fa.fa-weibo
             a.icon-2(href="http://weibo.com/RunningWeekends")
               i.fa.fa-weibo
-              
+
   div(style="height:100px;")
     .header-nav   
       .ctn1200
@@ -37,7 +37,6 @@ div
                 li(v-for="nav in item.childList" @click.stop="goUrl(nav)") {{nav.name}}
                   ul.level3(:class=" i == tabs.length -1 ? 'last' : '' " v-if="nav.childList && nav.childList.length>0")
                     li(v-for="nav in nav.childList" @click.stop="goUrl(nav)") {{nav.name}}
-
 
   header-bottom(v-if="showNavBottom")
 
