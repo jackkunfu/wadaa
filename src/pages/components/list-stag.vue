@@ -273,7 +273,9 @@
     margin-top: 30px;
     span
       margin-right: 10px;
-
+      cursor: pointer;
+      &:hover
+        color: #099;
 
 </style>
 
