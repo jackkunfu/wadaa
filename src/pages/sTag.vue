@@ -2,40 +2,10 @@
 
 <template lang="pug">
 //-  关键字 tag  搜索页面
-
 div
   .ctn1200
     .fl
-      list-news(:module="module" :data="dataArr")
-
-      //- div(v-if="dataArr.length == 0") 暂无
-      //- .box(v-for="item in dataArr")
-      //-   .time
-      //-     .day {{item.createDate | day}}
-      //-     span {{item.createDate | noday}}
-          
-      //-   .main
-      //-     .img
-      //-       img(:src="config.filePath + (item.image[0] == '|' ? item.image.slice(1) : item.image )")
-      //-       .cover
-      //-       .btn(@click="imgBig(item.image)") +
-
-      //-     .name(@click="goDetail(item.id)")
-      //-       i.fa.fa-pencil(style="")
-      //-       span {{item.title}}
-      //-     //- .tip 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
-      //-       span By
-      //-       | 周末享跑
-
-      //-     .text(v-html="item.description")
-          
-      //-     .read-all(@click="goDetail(item.id)") 阅读全文
-      //-       i.fa.fa-arrow-circle-right(style="margin-left:5px;")
-
-      //-     .key(v-if="item.keywords && item.keywords.split(' ').length>0")
-      //-       i.fa.fa-tag(style="color:#ddd;margin-right:5px;")
-      //-       //- span(v-for="it in item.keywords.split(' ')" @click="sTag(it)") {{it}}
-      //-       span(v-for="it in item.keywords.split(' ')") {{it}}
+      list-stag(:data="dataArr" :page="page" @pageChange="pageChange")
 
     .fr
       right-part
@@ -44,30 +14,51 @@ div
 
 <script>
 
-import listNews from './components/list-news'
+import listStag from './components/list-stag'
 import rightPart from './components/layout/right'
 
 export default {
   name: 'sTag',
   data(){
     return {
-      module: this.$route.query.str,
+      str: this.$route.query.str,
       isTag: this.$route.query.tag || false,
-      dataArr: []
+      dataArr: [],
+      page: {
+        curPage: 1,
+        total: 0
+      }
     }
   },
   components: {
-    listNews,
+    listStag,
     rightPart
   },
   mounted(){
-    this.ajax('/articleNews', {
-      title: this.module
-    }).then(res =>{
-      this.dataArr = res && res.dataList ? res.dataList : [];
-    })
+    this.list();
   },
-  methods: {}
+  methods: {
+    list(){
+      var url = this.isTag ? '/articleNews' : ''
+      var opts = {
+        pageNo: this.page.curPage,
+        pageSize: 10,
+      }
+      opts[this.isTag ? 'title' : 'keyWords'] = this.str;    // tag 传keyWords    搜索 传title
+      this.ajax('/articleNews', opts).then(res =>{
+        var data = res.objectData || {};
+        this.dataArr = data.list ? data.list : [];
+        this.page = {
+          curPage: data.pageNo || 1,
+          total: data.count || 0
+        }
+      })
+    },
+    pageChange(v){
+      this.page.curPage = v;
+      this.list();
+    }
+  }
 }
 </script>
 

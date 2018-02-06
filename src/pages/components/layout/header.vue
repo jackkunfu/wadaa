@@ -20,21 +20,23 @@ div
               i.fa.fa-weibo
             a.icon-2(href="http://weibo.com/RunningWeekends")
               i.fa.fa-weibo
-  .header-nav   
-    .ctn1200
-      .logo(@click="goIndex")
-        img(src="http://www.runningweekends.net/wp-content/uploads/2016/12/2016122007560316.jpg")
-        div 周末享跑
-        span Running Weekends
+              
+  div(style="height:100px;")
+    .header-nav   
+      .ctn1200
+        .logo(@click="goIndex")
+          img(src="http://www.runningweekends.net/wp-content/uploads/2016/12/2016122007560316.jpg")
+          div 周末享跑
+          span Running Weekends
 
-      .main
-        ul
-          li.fl(v-for="(item, i) in tabs" @click="goUrl(item)")
-            .box {{item.name}}
-            ul.level2(:class=" i == tabs.length -1 ? 'last' : '' " v-if="item.childList && item.childList.length>0")
-              li(v-for="nav in item.childList" @click.stop="goUrl(nav)") {{nav.name}}
-                ul.level3(:class=" i == tabs.length -1 ? 'last' : '' " v-if="nav.childList && nav.childList.length>0")
-                  li(v-for="nav in nav.childList" @click.stop="goUrl(nav)") {{nav.name}}
+        .main
+          ul
+            li.fl(v-for="(item, i) in tabs" @click="goUrl(item)")
+              .box {{item.name}}
+              ul.level2(:class=" i == tabs.length -1 ? 'last' : '' " v-if="item.childList && item.childList.length>0")
+                li(v-for="nav in item.childList" @click.stop="goUrl(nav)") {{nav.name}}
+                  ul.level3(:class=" i == tabs.length -1 ? 'last' : '' " v-if="nav.childList && nav.childList.length>0")
+                    li(v-for="nav in nav.childList" @click.stop="goUrl(nav)") {{nav.name}}
 
 
   header-bottom(v-if="showNavBottom")

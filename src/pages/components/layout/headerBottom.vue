@@ -3,13 +3,15 @@
 .ctn
   .ctn1200
     .fl(v-if="crumb")
-      span 关键词：{{crumb}}
+      span(v-if="isTag === 1") 关键词：{{crumb}}
+      span(v-if="isTag === 0") Tag：{{crumb}}
 
     .search
       .search-msg
         input(placeholder="输入关键词后回车..." v-model="str") 
         .search-icon(@click="search")
           i.iconfont &#xe63d;
+
       .crumbs
         span(style="cursor:pointer;" @click="goIndex") Home
         span(v-if="crumb" style="margin:0 10px;") >>
@@ -23,10 +25,12 @@
 export default {
   name: 'topDown',
   data () {
+    var hashIsTag = location.href.split('isTag=');
     return {
       str: '',
       crumb: '',   // 面包屑
-      crumb1: ''   // 面包屑1
+      crumb1: '' ,  // 面包屑1
+      isTag: hashIsTag[1] ? hashIsTag[1].split('&')[0] : 0
     }
   },
   methods: {
@@ -51,8 +55,10 @@ export default {
   },
   mounted(){
     var str = null
-    str = location.href.split('str=')[1] ? location.href.split('str=')[1].split('#')[0] : '';
-    this.str = this.crumb = str || '';
+    str = location.href.split('str=')[1] ? location.href.split('str=')[1].split('&')[0] : '';
+    if(this.isTag === 0){
+      this.str = this.crumb = str || '';
+    }
   }
 }
 </script>

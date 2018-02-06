@@ -27,7 +27,7 @@
 
       .key(v-if="item.keywords && item.keywords.split(' ').length>0")
         i.fa.fa-tag(style="color:#ddd;margin-right:5px;")
-        span(v-for="it in item.keywords.split(' ')" @click="sTag(it, 'tag')") {{it}}
+        span(v-for="it in item.keywords.split(' ')" @click="sTag(it)") {{it}}
         //- span(v-for="it in item.keywords.split(' ')") {{it}}
 
   pager(:pageData="pageData" @pageChange="pageChange" v-if="dataArr.length>0")
@@ -43,7 +43,7 @@
 
   export default {
     name: 'componentNewsList',
-    props: ['module', 'data'],
+    props: ['page', 'data'],
     filters: {
       day(v){
         if(!v) return ''
@@ -58,11 +58,8 @@
     },
     data(){
       return {
-        dataArr: [],     // 列表数据
-        pageData: {
-          cur: 1,
-          total: 0
-        },
+        dataArr: this.data,     // 列表数据
+        pageData: this.page,
         curPage: 1,
         config: config,
         curShowImg: '',
@@ -74,55 +71,15 @@
     },
     mounted(){
       // 请求列表数据
-      this.list();
+      // this.list();
     },
     methods: {
       pageChange(v){  // 页码变化事件
         this.curPage = v;
-        this.list();
       },
       imgBig(img){
         this.showImg = true;
         this.curShowImg = config.filePath + ( img[0] == '|' ? img.slice(1) : img );
-      },
-      list(){
-        // alert('list-news module:'+this.module)
-        if(!this.module){
-          console.log('no module');
-          return
-        }
-        var listConfig = {
-          url: '/articleList',
-          opts: {
-            pageNo: this.curPage,
-            pageSize: 10,
-            module: this.module
-          }
-        }
-        this.keyRequest('dataArr', listConfig, this, true)
-          .then( res =>{
-            if(res.code == 1){
-              this.dataArr = res.objectData.list || [];
-              // var list = res.objectData.list || [];
-              // this.dataArr = list.map( v => {
-              //   console.log(v.keywords)
-              //   v.keywords = v.keywords.split(' ');
-              //   return v
-              // })
-              var cp = res.objectData.pageNo
-              this.curPage = cp
-              this.pageData = {
-                total: res.objectData.count || 0,
-                cur: cp || 1
-              }
-            }else{
-              this.dataArr =  [];
-              this.pageData = {
-                total: 1,
-                cur: 1
-              }
-            }
-          });
       },
       sTag(str){
         this.$router.push({
@@ -146,16 +103,11 @@
       }
     },
     watch: {
-      module(v){
-        if(v){
-          console.log('module改变啦：'+v)
-          this.list();
-        }
-      },
       data(v){
-        if(v){
-          this.dataArr = v;
-        }
+        this.dataArr = v;
+      },
+      page(v){
+        this.pageData = v
       }
     }
   }
