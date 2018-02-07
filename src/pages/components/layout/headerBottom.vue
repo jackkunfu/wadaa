@@ -2,9 +2,9 @@
 
 .ctn
   .ctn1200
-    .fl(v-if="crumb && isStag")
-      span(v-if="isTag === 1") Tag：{{crumb}}
-      span(v-if="isTag === 0") 关键词：{{crumb}}
+    .fl(v-if="isStag")
+      span(v-if="isTag == 1") Tag：{{crumb}}
+      span(v-if="isTag == 0") 关键词：{{crumb}}
 
     .search
       .search-msg
@@ -25,12 +25,12 @@
 export default {
   name: 'topDown',
   data () {
-    var hashIsTag = location.href.split('isTag=');
+    
     return {
       str: '',
       crumb: '',   // 面包屑
       crumb1: '' ,  // 面包屑1
-      isTag: hashIsTag[1] ? hashIsTag[1].split('&')[0] : 0,
+      isTag: '',
       isStag: false
     }
   },
@@ -40,11 +40,9 @@ export default {
       if(!trimStr) return
       this.crumb = trimStr;
       this.$router.push({path: '/sTag', query: {str: trimStr}})
-      if(this.$route.path == '/sTag'){
-        setTimeout(() => {
-          window.history.go(0);
-        }, 20);
-      }
+      setTimeout(() => {
+        window.history.go(0);
+      }, 20);
     },
     goIndex(){
       if(this.$route.path == '/') return
@@ -55,14 +53,25 @@ export default {
     }
   },
   mounted(){
-    var str = null
-    str = location.href.split('str=')[1] ? location.href.split('str=')[1].split('&')[0] : '';
-    if(this.isTag === 0){
-      this.str = this.crumb = str || '';
-    }
-
     window.onload = () =>{    //  组件中不放在 window.onload 中不能正确的获取this.$route.path
-      this.isStag = this.$route.path == '/sTag'
+      if(this.$route.path == '/sTag'){
+        this.isStag = true;
+        var hashIsTag = location.href.split('isTag=');
+        if(hashIsTag[1]){
+          if(hashIsTag[1].split('&')[0] == 1) this.isTag = 1;
+          else this.isTag = 0
+        }
+
+        var str = null
+        str = location.href.split('str=')[1] ? decodeURI(location.href.split('str=')[1].split('&')[0]) : '';
+        this.str = this.crumb = str || '';
+        // if(this.isTag == 0){
+        //   this.str = this.crumb = str || '';
+        // }
+      }else{
+        this.str = this.crumb = '';
+        this.isStag = false;
+      }
     }
   }
 }

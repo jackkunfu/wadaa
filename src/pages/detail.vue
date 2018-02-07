@@ -21,7 +21,7 @@ div
             span By
             | 周末享跑
 
-      div(v-if="enrollArr.length>0" style="margin-bottom:50px;")
+      div(v-if="enrollArr.length>0" style="margin-bottom:50px;margin-left:75px;")
         .sign-enter
           h3 报名信息
         .box(v-for="item in enrollArr")
