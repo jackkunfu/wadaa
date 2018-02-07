@@ -34,7 +34,7 @@ div
 
       .detail(v-html="detail")
 
-      div(style="margin-top:30px;")
+      //- div(style="margin-top:30px;")
         share
 
     .fr
@@ -148,6 +148,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.detail
+  margin-left: 75px;
 .sign-enter 
   margin-bottom: 10px;
 .box

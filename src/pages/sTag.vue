@@ -39,12 +39,12 @@ export default {
   },
   methods: {
     list(){
-      var url = this.isTag ? '/articleNews' : ''
       var opts = {
         pageNo: this.page.curPage,
         pageSize: 10,
       }
-      opts[this.isTag ? 'title' : 'keyWords'] = this.str;    // tag 传keyWords    搜索 传title
+      // opts[this.isTag ? 'title' : 'keyWords'] = this.str;    // tag 传keyWords    搜索 传title
+      opts.keyWords = this.str;    // 改成都传keyWords
       this.ajax('/articleNews', opts).then(res =>{
         var data = res.objectData || {};
         this.dataArr = data.list ? data.list : [];
