@@ -117,6 +117,8 @@
       pageChange(v){  // 页码变化事件
         this.curPage = v;
         this.list();
+        this.otherData = []
+        if(v==1) this.topList();
       },
       imgBig(img){
         this.showImg = true;

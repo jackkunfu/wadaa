@@ -70,6 +70,8 @@ export default {
     pageChange(v){
       this.page.curPage = v;
       this.list();
+      this.otherData = []
+      if(v==1) this.topList();
     }
   }
 }
