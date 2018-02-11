@@ -144,7 +144,6 @@ export default {
                     return false
                 }
             }
-
             // 邮箱格式判断
             if(this.isRequired.indexOf('email') > -1){
                 if( !(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ .test(this.fillMsg['email'].trim())) ){
@@ -152,11 +151,10 @@ export default {
                     return false
                 }
             }
-
             // 选择的判断
             if(this.isRequired.indexOf('sex') > -1){
-                if(!$('input[name="sex"]:checked').val()){
-                    alert('性别没选')
+                if($('input[name="sex"]:checked').val() == undefined){
+                    alert('性别没选');
                     return false
                 }
             }
@@ -223,6 +221,10 @@ export default {
                     body: this.enrollMsg.name,
                     totalFee: money
                 }).then( res =>{
+
+                    // var newwindow = window.open("","aaaaaa");
+                    // newwindow.document.write(res);
+                    
                     $('body').append($(res));
                     if(res.code==1){
                         $('body').append($(res));
