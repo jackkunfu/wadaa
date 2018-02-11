@@ -8,7 +8,7 @@
                 .msg-show(v-else) ⭕ 登录手机：{{ mobile | mobile}}
             .sign-msg
                 h3 报名订单列表信息
-                div(v-if="orders.length==0") 暂无
+                
                 //- .sign-list(v-for="(item,index) in orders") 
                     //- .sign-activity {{index+1}}、{{ item.marathonEvent.name}}
                     //- .sign-activity(@click="goDetail(item.id)") 活动名称：{{ item.marathonEvent.name}}
@@ -35,6 +35,8 @@
                             span(v-if="item.pay && item.pay==1") 已支付
                             span(v-else="") 未支付
                             button(@click="startPay(item)" v-if="item.marathonEvent.status==1 && item.pay==0") 支付
+                            
+                div(v-if="orders.length==0") 暂无
 
                 pager(:pageData="pageData" @pageChange="pageChange" v-if="orders.length>0")
             

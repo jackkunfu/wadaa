@@ -1,7 +1,35 @@
 <template lang="pug">
 
 .list-ctn
-  div(v-if="dataArr.length == 0") 暂无
+  //- div(v-if="dataArr.length == 0") 暂无
+  .box(v-for="item in otherData")
+    .time(v-if="item.createDate")
+      .day {{item.createDate | day}}
+      span {{item.createDate | noday}}
+      
+    .main
+      .img
+        img(:src="config.filePath + (item.image[0] == '|' ? item.image.slice(1) : item.image )")
+        .cover
+        .btn(@click="imgBig(item.image)") +
+
+      .name(@click="goDetail(item.id)")
+        i.fa.fa-pencil(style="")
+        span {{item.title || item.name}}
+      //- .tip 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
+        span By
+        | 周末享跑
+
+      .text(v-html="item.description")
+      
+      .read-all(@click="goDetail(item.id)") 阅读全文
+        i.fa.fa-arrow-circle-right(style="margin-left:5px;")
+
+      .key(v-if="item.keywords && item.keywords.split(' ').length>0")
+        i.fa.fa-tag(style="color:#ddd;margin-right:5px;")
+        span(v-for="it in item.keywords.split(' ')" @click="sTag(it, 'tag')") {{it}}
+
+
   .box(v-for="item in dataArr")
     .time(v-if="item.createDate")
       .day {{item.createDate | day}}
@@ -59,6 +87,7 @@
     data(){
       return {
         dataArr: [],     // 列表数据
+        otherData: [],
         pageData: {
           cur: 1,
           total: 0
@@ -74,9 +103,17 @@
     },
     mounted(){
       // 请求列表数据
+      this.topList();
       this.list();
     },
     methods: {
+      topList(){
+        this.ajax('/top', {}).then(data =>{
+          if(data.code==1){
+            this.otherData = data.objectData || [];
+          }
+        })
+      },
       pageChange(v){  // 页码变化事件
         this.curPage = v;
         this.list();

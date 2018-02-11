@@ -115,16 +115,19 @@ export default {
         }else{
           location.href = 'http://' + location.host + '/#/news?module=' + item.module;
         }
+
+        setTimeout(() => {
+          window.history.go(0)
+        }, 100);
         
       }
 
     },
     goIndex(){
-      if(this.$route.path == '/') return
       this.$router.push({path:'/'})
       setTimeout(() => {
         window.history.go(0);
-      }, 20);
+      }, 100);
     }
   },
   watch: {

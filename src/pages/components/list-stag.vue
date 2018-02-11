@@ -1,7 +1,35 @@
 <template lang="pug">
 
 .list-ctn
-  div(v-if="dataArr.length == 0") 暂无
+  //- div(v-if="dataArr.length == 0") 暂无
+
+  .box(v-for="item in otherArr")
+    .time(v-if="item.createDate")
+      .day {{item.createDate | day}}
+      span {{item.createDate | noday}}
+      
+    .main
+      .img
+        img(:src="config.filePath + (item.image[0] == '|' ? item.image.slice(1) : item.image )")
+        .cover
+        .btn(@click="imgBig(item.image)") +
+
+      .name(@click="goDetail(item.id)")
+        i.fa.fa-pencil(style="")
+        span {{item.title || item.name}}
+      //- .tip 2017中国哲学小镇山地半程马拉松获奖选手名单及处罚公告
+        span By
+        | 周末享跑
+
+      .text(v-html="item.description")
+      
+      .read-all(@click="goDetail(item.id)") 阅读全文
+        i.fa.fa-arrow-circle-right(style="margin-left:5px;")
+
+      .key(v-if="item.keywords && item.keywords.split(' ').length>0")
+        i.fa.fa-tag(style="color:#ddd;margin-right:5px;")
+        span(v-for="it in item.keywords.split(' ')" @click="sTag(it)") {{it}}
+
   .box(v-for="item in dataArr")
     .time(v-if="item.createDate")
       .day {{item.createDate | day}}
@@ -43,7 +71,7 @@
 
   export default {
     name: 'componentNewsList',
-    props: ['page', 'data'],
+    props: ['page', 'data', 'otherData'],
     filters: {
       day(v){
         if(!v) return ''
@@ -59,6 +87,7 @@
     data(){
       return {
         dataArr: this.data,     // 列表数据
+        otherArr: this.otherData,
         pageData: this.page,
         curPage: 1,
         config: config,
@@ -91,7 +120,7 @@
         })
         setTimeout(() => {
           window.history.go(0)
-        }, 20);
+        }, 100);
       },
       goDetail(id){
         this.$router.push({
@@ -105,6 +134,9 @@
     watch: {
       data(v){
         this.dataArr = v;
+      },
+      otherData(v){
+        this.otherArr = v;
       },
       page(v){
         this.pageData = v

@@ -5,7 +5,7 @@
 div
   .ctn1200
     .fl
-      list-stag(:data="dataArr" :page="page" @pageChange="pageChange")
+      list-stag(:data="dataArr" :otherData="otherData" :page="page" @pageChange="pageChange")
 
     .fr
       right-part
@@ -24,6 +24,7 @@ export default {
       str: this.$route.query.str,
       isTag: this.$route.query.tag || false,
       dataArr: [],
+      otherData: [],
       page: {
         curPage: 1,
         total: 0
@@ -35,9 +36,17 @@ export default {
     rightPart
   },
   mounted(){
+    this.topList();
     this.list();
   },
   methods: {
+    topList(){
+      this.ajax('/top', {}).then(data =>{
+        if(data.code==1){
+          this.otherData = data.objectData || [];
+        }
+      })
+    },
     list(){
       var opts = {
         pageNo: this.page.curPage,
@@ -47,6 +56,10 @@ export default {
       opts.keyWords = this.str;    // 改成都传keyWords
       this.ajax('/articleNews', opts).then(res =>{
         var data = res.objectData || {};
+
+        
+
+        http://web.cd100k.com/app/mls/top
         this.dataArr = data.list ? data.list : [];
         this.page = {
           curPage: data.pageNo || 1,

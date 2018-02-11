@@ -25,7 +25,6 @@
 export default {
   name: 'topDown',
   data () {
-    
     return {
       str: '',
       crumb: '',   // 面包屑
@@ -42,14 +41,14 @@ export default {
       this.$router.push({path: '/sTag', query: {str: trimStr}})
       setTimeout(() => {
         window.history.go(0);
-      }, 20);
+      }, 100);
     },
     goIndex(){
       if(this.$route.path == '/') return
       this.$router.push({path:'/'})
       setTimeout(() => {
         window.history.go(0);
-      }, 20);
+      }, 100);
     }
   },
   mounted(){

@@ -81,7 +81,7 @@ export default {
                 {nameStr:'email',name:'邮箱',type:'text',classType:'input1',vModel:'fillMsg.email',isRequired:false},
                 {nameStr:'emergencyContact',name:'紧急联系人',type:'text',classType:'input2',vModel:'fillMsg.emergencyContact',isRequired:true},
                 {nameStr:'emergencyPhone',name:'紧急联系人电话',type:'text',classType:'input2',vModel:'fillMsg.emergencyPhone',isRequired:true},
-                {nameStr:'clothSize',name:'服装尺寸',type:'select',classType:'input1',vModel:'fillMsg.clothSize',isRequired:true,choose:['S', 'M', 'L', '2XL', '3XL']},
+                {nameStr:'clothSize',name:'服装尺寸',type:'select',classType:'input1',vModel:'fillMsg.clothSize',isRequired:true,choose:['S', 'M', 'L', 'XL', '2XL', '3XL']},
                 {nameStr:'baiduche',name:'是否摆渡车',type:'select',classType:'input2',vModel:'fillMsg.clothSize',isRequired:true,choose:['否', '是']},
                 {nameStr:'cardType',name:'证件类型',type:'select',classType:'input1',vModel:'fillMsg.cardType',isRequired:true,choose:['身份证', '护照','港澳通行证','台胞证']},
                 {nameStr:'cardId',name:'证件号码',type:'text',classType:'input1',vModel:'fillMsg.cardId',isRequired:true},

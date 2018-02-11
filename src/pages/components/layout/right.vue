@@ -30,7 +30,7 @@
 
         .public-code
             h3 关注周末享跑公众号
-            img(src="../../../imgs/2016122008485864.jpg")
+            img(src="../../../imgs/gzh.jpg")
 
         .mail-login(v-if="!isLogin")
             h3 手机登陆
@@ -104,7 +104,7 @@ export default {
             this.$router.push('/');
             setTimeout(() => {
                 window.history.go(0);
-            }, 20);
+            }, 100);
         },
         getCode(){
             if(this.phone && /^1[3|4|5|8][0-9]\d{8}$/.test(this.phone.trim())){
