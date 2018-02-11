@@ -139,6 +139,14 @@ export default {
 
         // 如果存在赛事id 去请求报名列表
         if(data.marathonEvent && data.marathonEvent.id) this.getEnrollList(data.marathonEvent.id);
+
+        setTimeout(() => {
+          $('.detail img').each(function(i, v){
+            var src = $(v).attr('src');
+            $(v).attr('src', config.filePath+src);
+          })
+        }, 100);
+
       })
     },
     getEnrollList(id){
