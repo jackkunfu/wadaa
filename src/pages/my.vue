@@ -26,6 +26,7 @@
                         th 活动状态
                         th 参赛费用
                         th 支付状态
+                        //- 序号 赛事名称 组别 姓名 身份证号 手机号 衣服尺码 血型 是否摆渡车 费用 支付状态 支付时间
                     tr(v-for="item in orders")
                         td {{item.marathonEvent.name}}
                         td {{item.createDate}}
@@ -35,7 +36,7 @@
                             span(v-if="item.pay && item.pay==1") 已支付
                             span(v-else="") 未支付
                             button(@click="startPay(item)" v-if="item.marathonEvent.status==1 && item.pay==0") 支付
-                            
+
                 div(v-if="orders.length==0") 暂无
 
                 pager(:pageData="pageData" @pageChange="pageChange" v-if="orders.length>0")

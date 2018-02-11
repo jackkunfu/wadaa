@@ -16,6 +16,7 @@ div
 
 import listStag from './components/list-stag'
 import rightPart from './components/layout/right'
+import config from '../js/vueProto'
 
 export default {
   name: 'sTag',
@@ -70,8 +71,9 @@ export default {
     pageChange(v){
       this.page.curPage = v;
       this.list();
-      this.otherData = []
-      if(v==1) this.topList();
+      this.topList();
+      // this.otherData = []
+      // if(v==1) this.topList();
     }
   }
 }

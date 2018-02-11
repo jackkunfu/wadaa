@@ -103,6 +103,13 @@ export default {
       }
     }
 
+    window.onload = function(){
+      $('.detail img').each(function(i, v){
+        var src = $(v).attr('src');
+        $(v).attr('src', config.filePath+src);
+      })
+    }
+
   },
   methods: {
     getIdFromMoudle(){    // 如果query中没有id ，根据query中的module获取该id
