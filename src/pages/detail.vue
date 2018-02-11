@@ -27,7 +27,7 @@ div
         .box(v-for="item in enrollArr")
           .name ⭕️ 赛事组别： {{item.name}}
           .fee ⭕️ 报名费用： {{item.fee/100}}元
-          div ⭕️ 报名时间： {{item.matchStartDate}} - {{item.matchEndDate}}
+          div ⭕️ 报名时间： {{item.startDate}} - {{item.endDate}}
           span.enroll(@click="goEnroll(item.entryId)") &gt;&gt;&gt;&gt;&gt;&gt;点击报名&lt;&lt;&lt;&lt;&lt;&lt;
 
       div(v-if="this.enrollArr.length==0 && enrollTip" style="line-height: 80px;color: #999;font-size: 14px;") 报名时间未到或者已经结束
