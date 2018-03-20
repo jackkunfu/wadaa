@@ -35,13 +35,14 @@
                         //- td {{item.totalFee/100}}
                         td(style="text-align:left;width:270px;")
                             div 赛事名称：{{item.entryName || '--'}}
+                            div 参赛号：{{item.entryType || '--'}}
                             div 姓名：{{item.name || '--'}}
                             div 证件号：{{item.cardId || '--'}}
                             div 手机号：{{item.mobile || '--'}}
-                            div 衣服尺码：{{item.clothSize | clothSize}}
+                            //- div 衣服尺码：{{item.clothSize | clothSize}}
                             div 血型：{{item.blood | blood}}
                             div 摆渡车：{{item.baiduche == 1 ? '是' : '否'}}
-                            div 费用：{{item.totalFee ? item.totalFee/100 : '--'}}
+                            //- div 费用：{{item.totalFee ? item.totalFee/100 : '--'}}
                         td 
                             span(v-if="item.pay && item.pay==1") 已支付
                             span(v-else="") 未支付
