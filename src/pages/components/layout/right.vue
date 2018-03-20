@@ -133,7 +133,7 @@ export default {
         },
         login(){
             var trimPhone = this.phone.trim();
-            if(!this.phone || !(/^1[3|4|5|8][0-9]\d{8}$/.test(trimPhone)) ){
+            if(!this.phone || !(/^1[3|4|5|7|8][0-9]\d{8}$/.test(trimPhone)) ){
                 alert('手机号格式不正确');
                 return
             }
