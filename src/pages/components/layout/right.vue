@@ -107,7 +107,7 @@ export default {
             }, 100);
         },
         getCode(){
-            if(this.phone && /^1[3|4|5|8][0-9]\d{8}$/.test(this.phone.trim())){
+            if(this.phone && /^1[3|4|5|7|8][0-9]\d{8}$/.test(this.phone.trim())){
                 this.ajax('', {
                     mobile: this.phone.trim()
                 }, 'get', '/basic/user/identify').then( (res) => {
